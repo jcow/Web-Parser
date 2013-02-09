@@ -8,16 +8,16 @@ package web_parser_project;
  *
  * @author Jason
  */
-public class Html_validator {
+public class Html_helper {
     
-    private static Html_validator instance;
+    private static Html_helper instance;
     
-    private Html_validator(){}
+    private Html_helper(){}
     
     
-    public static Html_validator get_instance(){
+    public static Html_helper get_instance(){
         if(instance == null){
-            instance = new Html_validator();
+            instance = new Html_helper();
         }
         
         return instance;
@@ -38,6 +38,18 @@ public class Html_validator {
         }
         else{
             return false;
+        }
+    }
+    
+    public static String strip_page_anchor(String url){
+        
+        int pound_index = url.indexOf('#');
+        
+        if(pound_index == -1){
+            return url;
+        }
+        else{
+            return url.substring(0, pound_index);
         }
     }
     

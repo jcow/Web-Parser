@@ -27,7 +27,7 @@ public class Web_parser_project {
         */
         
         // args won't be ok because I'm in dev mode, so here is something to kick this off
-        String starting_url = "http://life.umt.edu/sait";
+        String starting_url = "http://localhost/test_for_ind_study/index.html";
         Site_parser site_parser = new Site_parser(starting_url);
             
         site_parser.run(starting_url);

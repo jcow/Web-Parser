@@ -20,7 +20,7 @@ public class Incoming_args {
             throw new IllegalArgumentException("Arg counts must match");
         }
         
-        if(Html_validator.is_http_address(args[0])){
+        if(Html_helper.is_http_address(args[0])){
             throw new IllegalArgumentException("Incoming address must be http protocol");
         }
         

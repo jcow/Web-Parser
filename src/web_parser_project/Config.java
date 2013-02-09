@@ -16,6 +16,10 @@ public class Config {
         setupDefaults();
     }
     
+    public String get_config_location(){
+        return location;
+    }
+    
     private void setupDefaults(){
         location = "config.txt";
     }
