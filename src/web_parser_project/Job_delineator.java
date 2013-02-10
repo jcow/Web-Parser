@@ -4,13 +4,11 @@
  */
 package web_parser_project;
 
-import web_parser_project.documents.Document_parser;
-import web_parser_project.site_getter.Parsing_url;
-import web_parser_project.site_getter.Site_getter;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import org.jsoup.nodes.Document;
+import web_parser_project.documents.Document_parser;
+import web_parser_project.site_getter.Site_getter;
+import web_parser_project.web_assets.Web_asset;
 
 /**
  *
@@ -29,7 +27,7 @@ public class Job_delineator {
     public void run(String starting_url){
         
         Document_parser doc_parser = new Document_parser();
-        Document current_site;
+        Web_asset current_site;
         
         int limit = 10;
         
