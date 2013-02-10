@@ -18,6 +18,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import web_parser_project.libraries.Html_helper;
+import web_parser_project.web_assets.Error_asset;
+import web_parser_project.web_assets.Html_asset;
+import web_parser_project.web_assets.Unknown_asset;
 import web_parser_project.web_assets.Web_asset;
 
 /**
@@ -40,12 +43,13 @@ public class Site_getter {
         add_unexplored_url(starting_url, null);
     }
     
-    public Document get_next(){
+    public Web_asset get_next(){
         Parsing_url current_url = non_traveled_urls.remove();
         
         System.out.println("Parsing: "+current_url.get_url());
         
         try{
+            
             URL the_url = new URL(current_url.get_url());
             
             HttpURLConnection.setFollowRedirects(true);
@@ -55,51 +59,58 @@ public class Site_getter {
             
             InputStream in = connection.getInputStream();
             
+            
             int http_status = connection.getResponseCode();
+            String content_type = connection.getContentType();
             
-            add_to_explored_ok(current_url, http_status, connection.getContentType());
-            
+            // 200 ok
             if(Html_helper.is_200(http_status)){
-            
-                // only parse web pages
-                if(Html_helper.is_content_type_html(connection.getContentType())){
+                
+                if(Html_helper.is_content_type_html(content_type)){
                     Document html_page = Jsoup.parse(in, null, current_url.get_url());
+                
                     store_links(html_page, current_url.get_url());
-                    return html_page;
+                    
+                    return add_to_explored(current_url, html_page, http_status, content_type);
                 }
                 else{
-                    System.out.println("Error, not a good content type");
-                    System.out.println(connection.getContentType());
+                    return add_to_explored_non_html_asset(current_url, in, http_status);
                 }
-                
+            }
+            // not 200 ok
+            else{
+                add_to_explored_non_200_status_code(current_url, http_status);
             }
             
         }
         
-        // TODO, log these exceptions
+        // Bad url
         catch(MalformedURLException e){
             
-            //add_to_explored_error(current_url);
-            
-            
-            // TODO, log this exception
             System.out.println("----------");
             System.out.println("Malformed URL");
             System.out.println(e);
             System.out.println(current_url.get_url());
             System.out.println("----------");
+            
+            add_to_explored_malformed_url(current_url);
+            
         }
+        // 404 not found
         catch(FileNotFoundException e){
             System.out.println("File not found");
             System.out.println(current_url.get_url());
             
-            add_to_explored_four_o_four(current_url);
+            add_to_explored_non_200_status_code(current_url, 404);
+            
         }
+        
+        // something bad happend :(
         catch(IOException e){
             System.out.println("IO Exception");
             System.out.println(e);
             
-            //add_to_explored_error(current_url);
+            add_to_explored_io_exception(current_url);
         }
         
         return null;
@@ -154,32 +165,58 @@ public class Site_getter {
         non_traveled_urls.add(p_url);
     }
     
-    private void add_to_explored_ok(Parsing_url p_url, int status_code, String content_type){
+    private Web_asset add_to_explored(Parsing_url p_url, Document the_document, int status_code, String content_type){
         
+        Html_asset html_asset = new Html_asset(p_url.get_url());
         
+        html_asset.add_to_reference(p_url.get_parent_url());
+        html_asset.set_content_type(content_type);
+        html_asset.set_http_code(status_code);
+        html_asset.set_contents(the_document);
         
-        /*
-        p_url.set_http_code(status_code);
-        p_url.set_content_type(content_type);
+        traveled_assets.put(p_url.get_url(), html_asset);
         
-        traveled_urls.put(p_url.get_url(), p_url);
-        * */
+        return html_asset;
     }
     
-    private void add_to_explored_four_o_four(Parsing_url p_url){
-        /*
-        p_url.set_http_code(404);
+    private Web_asset add_to_explored_non_200_status_code(Parsing_url p_url, int status_code){
         
-        traveled_urls.put(p_url.get_url(), p_url);
+        Web_asset web_asset = new Web_asset(p_url.get_url());
+        web_asset.add_to_reference(p_url.get_parent_url());
+        web_asset.set_http_code(status_code);
+        
+        traveled_assets.put(p_url.get_url(), web_asset);
+        
+        return web_asset;
     }
     
-    private void add_to_explored_error(Parsing_url p_url){
-        p_url.set_http_code(404);
+    private Web_asset add_to_explored_non_html_asset(Parsing_url p_url, InputStream contents, int status_code){
         
-        traveled_urls.put(p_url.get_url(), p_url);
-        * */
+        Unknown_asset unknown_asset = new Unknown_asset(p_url.get_url());
+        unknown_asset.add_to_reference(p_url.get_parent_url());
+        unknown_asset.set_http_code(status_code);
+        unknown_asset.set_content(contents);
+        
+        traveled_assets.put(p_url.get_url(), unknown_asset);
+        
+        return unknown_asset;
     }
     
+    private Web_asset add_to_explored_malformed_url(Parsing_url p_url){
+        Error_asset error_asset = new Error_asset(p_url.get_url());
+        error_asset.add_to_reference(p_url.get_parent_url());
+        error_asset.set_malformed_url(true);
+        
+        return error_asset;
+    }
+    
+    private Web_asset add_to_explored_io_exception(Parsing_url p_url){
+        Error_asset error_asset = new Error_asset(p_url.get_url());
+        error_asset.add_to_reference(p_url.get_parent_url());
+        error_asset.set_io_error(true);
+        
+        return error_asset;
+    }
     
     private void set_request_method(HttpURLConnection connection, String the_url){
         // TODO, set head request if the url is an image, css file, jscript file, etc.
