@@ -4,6 +4,7 @@
  */
 package web_parser_project;
 
+import java.net.URLConnection;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -122,5 +123,44 @@ public class Html_helperTest {
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
+    }
+    
+    /**
+     * Tests whether or not a url is a valid url
+     */
+    @Test
+    public void testGet_extension(){
+        
+        String com = "http://mysite.com";
+        assertEquals("com", Html_helper.get_extension(com));
+        
+        String com2 = "http://mysite.com/noextension";
+        assertEquals("com", Html_helper.get_extension(com2));
+        
+        String image = "http://mysite.com/some_picture.png";
+        assertEquals("png", Html_helper.get_extension(image));
+        
+        String nada = "asdfasdfadsfdas";
+        assertEquals(null, Html_helper.get_extension(nada));
+        
+    }
+    
+    
+    
+    /**
+     * Tests whether or not a url is a valid url
+     */
+    @Test
+    public void testIs_non_html_url(){
+        
+        String normal = "http://mysite.com";
+        assertEquals(false, Html_helper.is_non_html_url(normal));
+        
+        String image = "http://mysite.com/some_picture.png";
+        assertEquals(true, Html_helper.is_non_html_url(image));
+        
+        String video = "http://mysite.com/some_video.mp3";
+        assertEquals(true, Html_helper.is_non_html_url(video));
+        
     }
 }
