@@ -2,9 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package web_parser_project;
-
-import java.net.URLConnection;
+package web_parser_project.libraries;
 
 /**
  *
@@ -17,9 +15,6 @@ public class Html_helper {
     // TODO, this list needs to be larger and include videos, etc
     private static String image_extensions = "png,jpg,gif";
     private static String video_extensions = "mp3";
-    
-    
-    
     
     
     private Html_helper(){
@@ -121,6 +116,16 @@ public class Html_helper {
             else{
                 return false;
             }
+        }
+        else{
+            return false;
+        }
+    }
+    
+    
+    public static boolean is_content_type_html(String content_type){
+        if(content_type.contains("text/html")){
+            return true;
         }
         else{
             return false;
