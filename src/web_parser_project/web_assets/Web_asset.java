@@ -12,16 +12,15 @@ import web_parser_project.libraries.Html_helper;
  * @author Jason
  */
 public class Web_asset {
-    private String the_url;
-    private LinkedList<String> urls_which_reference_asset;
-    private int http_code;
-    private boolean error;
-    private String content_type;
+    
+    protected String the_url;
+    protected LinkedList<String> urls_which_reference_asset;
+    protected int http_code;
+    protected String content_type;
     
     public Web_asset(String url){
-        urls_which_reference_asset = new LinkedList();
         the_url = url;
-        error = false;
+        urls_which_reference_asset = new LinkedList();
     }
     
     public void set_url(String inc_url){the_url = inc_url;}
@@ -35,9 +34,6 @@ public class Web_asset {
     
     public LinkedList<String> get_references(){return urls_which_reference_asset;}   
     public void add_to_reference(String url){ urls_which_reference_asset.add(url);}    
-    
-    public boolean get_error(){ return error;}
-    public void set_error(boolean value){error = value;}
     
     public boolean is_404(){
         return Html_helper.is_404(http_code);
