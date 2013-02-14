@@ -21,8 +21,8 @@ public class Job_delineator {
     private int parsed_pages = 0;
     private int read_urls = 0;
     
-    public Job_delineator(String starting_url){
-        site_reader = new Site_getter(starting_url);
+    public Job_delineator(String starting_url, String domain){
+        site_reader = new Site_getter(starting_url, domain);
     }
     
     public void run(String starting_url){
@@ -60,6 +60,13 @@ public class Job_delineator {
             }
             else if(current_it.is_200_ok()){
                 System.out.println("OK: "+current_it.get_url());
+            }
+            
+            Iterator referred_to = current_it.get_references().iterator();
+            
+            System.out.println("\tReferred By:");
+            while(referred_to.hasNext()){
+                System.out.println("\t\t"+referred_to.next());
             }
             
             System.out.println("\t"+current_it.getClass().getName());

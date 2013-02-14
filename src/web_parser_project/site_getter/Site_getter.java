@@ -30,12 +30,15 @@ import web_parser_project.web_assets.Web_asset;
 public class Site_getter {
     
     private String starting_url;
+    private String domain;
     
     private HashMap<String, Web_asset> traveled_assets;
     private LinkedList<Parsing_url> non_traveled_urls;
     
-    public Site_getter(String s_url){
+    
+    public Site_getter(String s_url, String s_domain){
         starting_url = s_url;
+        domain = s_domain;
         
         non_traveled_urls = new LinkedList();
         traveled_assets = new HashMap();
@@ -141,8 +144,14 @@ public class Site_getter {
     
     private void store_links(Document the_document, String current_url){
         
+        System.out.println("\tChecking Domain");
+        System.out.println("\t\t"+starting_url);
+        System.out.println("\t\t"+current_url);
+        
         // the link page must be in the same domain if it is to be parsed also check if it hasn't been checked already
-        if(Html_helper.is_same_domain(starting_url, current_url)){
+        if(Html_helper.is_same_domain(domain, current_url)){
+            System.out.println("\t\tPassed");
+            System.out.println("\tLinks");
             
             String link_url;
             Elements links = the_document.select("a[href]");
@@ -150,14 +159,35 @@ public class Site_getter {
                 
                 link_url = link.attr("abs:href");
                 
+                System.out.print("\t\t"+link_url);
+                
                 // strips out the # anchors
                 link_url = Html_helper.strip_page_anchor(link_url);
                 
-                // page has not been seen, and the page is not linking to itself
-                if(url_has_already_been_seen(link_url) == false && link_url.compareTo(current_url) != 0){
-                    add_unexplored_url(link_url, current_url);
+                // if the page is not linking to itself, continue on
+                if(link_url.compareTo(current_url) != 0){
+                    
+                    // if the page has not been seen already, store a reference
+                    if(url_has_already_been_seen(link_url) == false){
+                        
+                        System.out.println(" - added to unexplored");
+                        
+                        add_unexplored_url(link_url, current_url);
+                    }
+                    // if a page has been seen, store a reference to it
+                    else{
+                        System.out.println(" - added to reference");
+                        traveled_assets.get(link_url).add_to_reference(current_url);
+                    }
                 }
+                else{
+                    System.out.println(" - not added to anything");
+                }
+                
             }
+        }
+        else{
+            System.out.println("\t\tFailed");
         }
     }
     

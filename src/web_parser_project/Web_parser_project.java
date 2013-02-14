@@ -30,7 +30,8 @@ public class Web_parser_project {
         
         // args won't be ok because I'm in dev mode, so here is something to kick this off
         String starting_url = "http://localhost/html_files_for_testing/index.html";
-        Job_delineator site_parser = new Job_delineator(starting_url);
+        String domain = "http://localhost/html_files_for_testing";
+        Job_delineator site_parser = new Job_delineator(starting_url, domain);
             
         site_parser.run(starting_url);
     }
