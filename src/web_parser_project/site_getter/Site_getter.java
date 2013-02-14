@@ -129,7 +129,8 @@ public class Site_getter {
         return traveled_assets;
     }
     
-    private boolean has_already_been_seen(String the_url){
+    private boolean url_has_already_been_seen(String the_url){
+        
         if(traveled_assets.containsKey(the_url)){
             return true;
         }
@@ -152,7 +153,8 @@ public class Site_getter {
                 // strips out the # anchors
                 link_url = Html_helper.strip_page_anchor(link_url);
                 
-                if(has_already_been_seen(link_url) == false){
+                // page has not been seen, and the page is not linking to itself
+                if(url_has_already_been_seen(link_url) == false && link_url.compareTo(current_url) != 0){
                     add_unexplored_url(link_url, current_url);
                 }
             }
