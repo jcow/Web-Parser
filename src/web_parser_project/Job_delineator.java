@@ -4,6 +4,7 @@
  */
 package web_parser_project;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import web_parser_project.documents.Document_parser;
@@ -46,13 +47,13 @@ public class Job_delineator {
             counter++;
         }
         
-        /*
-        HashMap<String, Parsing_url> traveled_sites = site_reader.get_traveled_urls();
+        
+        HashMap<String, Web_asset> traveled_sites = site_reader.get_traveled_urls();
         Iterator it  = traveled_sites.keySet().iterator();
-        Parsing_url current_it;
+        Web_asset current_it;
         while(it.hasNext()){
             String key = (String)it.next();
-            current_it = (Parsing_url)traveled_sites.get(key);
+            current_it = (Web_asset)traveled_sites.get(key);
             
             if(current_it.is_404()){
                 print_fof(current_it.get_url(), current_it.get_references());
@@ -61,8 +62,10 @@ public class Job_delineator {
                 System.out.println("OK: "+current_it.get_url());
             }
             
+            System.out.println("\t"+current_it.getClass().getName());
+            
         }
-        * */
+        
         
         System.out.println("done");
     }

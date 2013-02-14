@@ -10,11 +10,11 @@ import java.io.InputStream;
  *
  * @author Jason
  */
-public class Unknown_asset extends Web_asset{
+public class Other_asset extends Web_asset{
     
     protected InputStream content;
     
-    public Unknown_asset(String url){
+    public Other_asset(String url){
         super(url);
     }
     

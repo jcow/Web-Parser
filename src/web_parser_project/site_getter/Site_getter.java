@@ -20,7 +20,7 @@ import org.jsoup.select.Elements;
 import web_parser_project.libraries.Html_helper;
 import web_parser_project.web_assets.Error_asset;
 import web_parser_project.web_assets.Html_asset;
-import web_parser_project.web_assets.Unknown_asset;
+import web_parser_project.web_assets.Other_asset;
 import web_parser_project.web_assets.Web_asset;
 
 /**
@@ -194,7 +194,7 @@ public class Site_getter {
     
     private Web_asset add_to_explored_non_html_asset(Parsing_url p_url, InputStream contents, int status_code){
         
-        Unknown_asset unknown_asset = new Unknown_asset(p_url.get_url());
+        Other_asset unknown_asset = new Other_asset(p_url.get_url());
         unknown_asset.add_to_reference(p_url.get_parent_url());
         unknown_asset.set_http_code(status_code);
         unknown_asset.set_content(contents);
