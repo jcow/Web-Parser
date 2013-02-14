@@ -27,6 +27,7 @@ public class Web_url {
         direct_parent = d_parent;
         
         urls_which_reference_asset = new LinkedList();
+        add_to_reference(d_parent);
         
         io_error = false;
         malformed_url = false;
@@ -42,7 +43,7 @@ public class Web_url {
     public String get_content_type(){return content_type;}
     
     public LinkedList<String> get_references(){return urls_which_reference_asset;}   
-    public void add_to_reference(String url){ 
+    public final void add_to_reference(String url){ 
         if(url != null){
             urls_which_reference_asset.add(url);
         }

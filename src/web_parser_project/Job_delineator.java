@@ -48,13 +48,15 @@ public class Job_delineator {
             counter++;
         }
         
-        /*
+        
+        System.out.println("\n\n-----------------Parsed Pages----------------\n");
+        
         HashMap<String, Web_url> traveled_sites = site_reader.get_traveled_urls();
         Iterator it  = traveled_sites.keySet().iterator();
-        Web_asset current_it;
+        Web_url current_it;
         while(it.hasNext()){
             String key = (String)it.next();
-            current_it = (Web_asset)traveled_sites.get(key);
+            current_it = (Web_url)traveled_sites.get(key);
             
             if(current_it.is_404()){
                 print_fof(current_it.get_url(), current_it.get_references());
@@ -73,7 +75,7 @@ public class Job_delineator {
             System.out.println("\t"+current_it.getClass().getName());
             
         }
-        */
+        
         
         System.out.println("done");
     }
