@@ -18,10 +18,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import web_parser_project.libraries.Html_helper;
-import web_parser_project.web_assets.Error_asset;
 import web_parser_project.web_assets.Html_asset;
 import web_parser_project.web_assets.Other_asset;
-import web_parser_project.web_assets.Web_asset;
+import web_parser_project.web_assets.Web_url;
 
 /**
  *
@@ -32,8 +31,8 @@ public class Site_getter {
     private String starting_url;
     private String domain;
     
-    private HashMap<String, Web_asset> traveled_assets;
-    private LinkedList<Parsing_url> non_traveled_urls;
+    private HashMap<String, Web_url> traveled_assets;
+    private LinkedList<Web_url> non_traveled_urls;
     
     
     public Site_getter(String s_url, String s_domain){
@@ -46,8 +45,8 @@ public class Site_getter {
         add_unexplored_url(starting_url, null);
     }
     
-    public Web_asset get_next(){
-        Parsing_url current_url = non_traveled_urls.remove();
+    public Web_url get_next(){
+        Web_url current_url = non_traveled_urls.remove();
         
         System.out.println("Parsing: "+current_url.get_url());
         
@@ -77,7 +76,7 @@ public class Site_getter {
                     return add_to_explored(current_url, html_page, http_status, content_type);
                 }
                 else{
-                    return add_to_explored_non_html_asset(current_url, in, http_status);
+                    return add_to_explored_non_html_asset(current_url, in, http_status, content_type);
                 }
             }
             // not 200 ok
@@ -128,17 +127,24 @@ public class Site_getter {
         }
     }
     
-    public HashMap<String, Web_asset> get_traveled_urls(){
+    public HashMap<String, Web_url> get_traveled_urls(){
         return traveled_assets;
     }
     
-    private boolean url_has_already_been_seen(String the_url){
+    private Web_url url_has_already_been_seen(String the_url){
         
+        // does it exist in the hash map traveled
         if(traveled_assets.containsKey(the_url)){
-            return true;
+            return traveled_assets.get(the_url);
         }
         else{
-            return false;
+            // loop through and check if it's in the non traveled
+            for(Web_url w_url : non_traveled_urls){
+                if(the_url.equals(w_url.get_url())){
+                    return w_url;
+                }
+            }
+            return null;
         }
     }
     
@@ -167,8 +173,9 @@ public class Site_getter {
                 // if the page is not linking to itself, continue on
                 if(link_url.compareTo(current_url) != 0){
                     
-                    // if the page has not been seen already, store a reference
-                    if(url_has_already_been_seen(link_url) == false){
+                    // if the page has not been seen already, and it is not in the queue, then store a reference
+                    Web_url seen_url = url_has_already_been_seen(link_url);
+                    if(seen_url == null){
                         
                         System.out.println(" - added to unexplored");
                         
@@ -177,7 +184,7 @@ public class Site_getter {
                     // if a page has been seen, store a reference to it
                     else{
                         System.out.println(" - added to reference");
-                        traveled_assets.get(link_url).add_to_reference(current_url);
+                        seen_url.add_to_reference(current_url);
                     }
                 }
                 else{
@@ -192,63 +199,50 @@ public class Site_getter {
     }
     
     private void add_unexplored_url(String the_url, String parent_url){
-        Parsing_url p_url = new Parsing_url(the_url);
-        p_url.set_parent_url(parent_url);
-        non_traveled_urls.add(p_url);
+        Web_url url_to_add = new Web_url(the_url, parent_url);
+        non_traveled_urls.add(url_to_add);
     }
     
-    private Web_asset add_to_explored(Parsing_url p_url, Document the_document, int status_code, String content_type){
+    private Web_url add_to_explored(Web_url w_url, Document the_document, int status_code, String content_type){
         
-        Html_asset html_asset = new Html_asset(p_url.get_url());
+        w_url.set_web_asset(new Html_asset(the_document));
+        w_url.set_content_type(content_type);
+        w_url.set_http_code(status_code);
         
-        html_asset.add_to_reference(p_url.get_parent_url());
-        html_asset.set_content_type(content_type);
-        html_asset.set_http_code(status_code);
-        html_asset.set_contents(the_document);
+        traveled_assets.put(w_url.get_url(), w_url);
         
-        traveled_assets.put(p_url.get_url(), html_asset);
-        
-        return html_asset;
+        return w_url;
     }
     
-    private Web_asset add_to_explored_non_200_status_code(Parsing_url p_url, int status_code){
+    private Web_url add_to_explored_non_200_status_code(Web_url w_url, int status_code){
         
-        Web_asset web_asset = new Web_asset(p_url.get_url());
-        web_asset.add_to_reference(p_url.get_parent_url());
-        web_asset.set_http_code(status_code);
+        w_url.set_http_code(status_code);
+        traveled_assets.put(w_url.get_url(), w_url);
         
-        traveled_assets.put(p_url.get_url(), web_asset);
-        
-        return web_asset;
+        return w_url;
     }
     
-    private Web_asset add_to_explored_non_html_asset(Parsing_url p_url, InputStream contents, int status_code){
+    private Web_url add_to_explored_non_html_asset(Web_url w_url, InputStream contents, int status_code, String content_type){
         
-        Other_asset unknown_asset = new Other_asset(p_url.get_url());
-        unknown_asset.add_to_reference(p_url.get_parent_url());
-        unknown_asset.set_http_code(status_code);
-        unknown_asset.set_content(contents);
+        w_url.set_web_asset(new Other_asset(contents));
+        w_url.set_content_type(content_type);
+        w_url.set_http_code(status_code);
         
-        traveled_assets.put(p_url.get_url(), unknown_asset);
+        traveled_assets.put(w_url.get_url(), w_url);
         
-        return unknown_asset;
+        return w_url;
     }
     
-    private Web_asset add_to_explored_malformed_url(Parsing_url p_url){
-        Error_asset error_asset = new Error_asset(p_url.get_url());
-        error_asset.add_to_reference(p_url.get_parent_url());
-        error_asset.set_malformed_url(true);
-        
-        return error_asset;
+    private Web_url add_to_explored_malformed_url(Web_url w_url){
+        w_url.set_malformed_url(true);
+        return w_url;
     }
     
-    private Web_asset add_to_explored_io_exception(Parsing_url p_url){
-        Error_asset error_asset = new Error_asset(p_url.get_url());
-        error_asset.add_to_reference(p_url.get_parent_url());
-        error_asset.set_io_error(true);
-        
-        return error_asset;
+    private Web_url add_to_explored_io_exception(Web_url w_url){
+        w_url.set_io_error(true);
+        return w_url;
     }
+    
     
     private void set_request_method(HttpURLConnection connection, String the_url){
         // TODO, set head request if the url is an image, css file, jscript file, etc.

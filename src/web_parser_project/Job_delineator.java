@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import web_parser_project.documents.Document_parser;
 import web_parser_project.site_getter.Site_getter;
 import web_parser_project.web_assets.Web_asset;
+import web_parser_project.web_assets.Web_url;
 
 /**
  *
@@ -28,7 +29,7 @@ public class Job_delineator {
     public void run(String starting_url){
         
         Document_parser doc_parser = new Document_parser();
-        Web_asset current_site;
+        Web_url current_site;
         
         int limit = 10;
         
@@ -47,8 +48,8 @@ public class Job_delineator {
             counter++;
         }
         
-        
-        HashMap<String, Web_asset> traveled_sites = site_reader.get_traveled_urls();
+        /*
+        HashMap<String, Web_url> traveled_sites = site_reader.get_traveled_urls();
         Iterator it  = traveled_sites.keySet().iterator();
         Web_asset current_it;
         while(it.hasNext()){
@@ -72,7 +73,7 @@ public class Job_delineator {
             System.out.println("\t"+current_it.getClass().getName());
             
         }
-        
+        */
         
         System.out.println("done");
     }

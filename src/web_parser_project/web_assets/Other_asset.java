@@ -14,11 +14,7 @@ public class Other_asset extends Web_asset{
     
     protected InputStream content;
     
-    public Other_asset(String url){
-        super(url);
-    }
-    
-    public void set_content(InputStream inc_content){
+    public Other_asset(InputStream inc_content){
         content = inc_content;
     }
     

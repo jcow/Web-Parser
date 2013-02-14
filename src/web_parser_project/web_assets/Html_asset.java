@@ -14,11 +14,7 @@ public class Html_asset extends Web_asset{
     
     protected Document contents;
     
-    public Html_asset(String url){
-        super(url);
-    }
-    
-    public void set_contents(Document inc_contents){
+    public Html_asset(Document inc_contents){
         contents = inc_contents;
     }
     
