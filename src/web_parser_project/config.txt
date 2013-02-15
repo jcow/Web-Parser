@@ -1,0 +1,2 @@
+#location of the dictionary
+dictionary_location:: C:\Users\Jason\Documents\NetBeansProjects\web_parser_project\src\web_parser_project\dictionary.txt

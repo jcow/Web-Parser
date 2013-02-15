@@ -4,6 +4,9 @@
  */
 package web_parser_project;
 
+import data.Config;
+import data.Dictionary;
+import java.io.IOException;
 import web_parser_project.libraries.Incoming_args;
 
 /**
@@ -27,6 +30,28 @@ public class Web_parser_project {
             site_parser.run(inc_args.get_starting_url());
         }
         */
+        
+        
+        // setup the config
+        Config the_config = new Config();
+        try{
+            the_config.read();
+        }
+        catch(IOException e){
+            System.out.println("Reading the config file failed");
+            System.exit(0);
+        }
+        
+        // setup the dictionary
+        Dictionary the_dictionary = new Dictionary();
+        try{
+            the_dictionary.read();
+        }
+        catch(IOException e){
+            System.out.println("Reading the dictionary failed");
+            System.exit(0);
+        }
+        
         
         // args won't be ok because I'm in dev mode, so here is something to kick this off
         String starting_url = "http://localhost/html_files_for_testing/index.html";
