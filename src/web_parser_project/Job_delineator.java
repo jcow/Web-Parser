@@ -80,14 +80,4 @@ public class Job_delineator {
         System.out.println("done");
     }
     
-    public void print_fof(String fof_url, LinkedList<String> requested_by){
-        
-        String r_by = "";
-        Iterator it = requested_by.iterator();
-        while(it.hasNext()){
-            r_by += it.next();
-        }
-        
-        System.out.println("404: "+fof_url+" Used by "+r_by);
-    }
 }
