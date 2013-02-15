@@ -7,8 +7,10 @@ package web_parser_project;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import page_parsing.Page_parser;
 import web_parser_project.documents.Document_parser;
 import web_parser_project.site_getter.Site_getter;
+import web_parser_project.web_assets.Html_asset;
 import web_parser_project.web_assets.Web_asset;
 import web_parser_project.web_assets.Web_url;
 
@@ -74,10 +76,27 @@ public class Job_delineator {
             
             System.out.println("\t"+current_it.getClass().getName());
             
+            if(current_it.get_web_asset() instanceof Html_asset && current_it.get_web_asset() != null){
+                System.out.println("printing web asset");
+                Html_asset asset = (Html_asset)current_it.get_web_asset();
+                Page_parser.parse_document(asset.get_contents());
+            }
+            
         }
+        
         
         
         System.out.println("done");
     }
     
+    public void print_fof(String fof_url, LinkedList<String> requested_by){
+        
+        String r_by = "";
+        Iterator it = requested_by.iterator();
+        while(it.hasNext()){
+            r_by += it.next();
+        }
+        
+        System.out.println("404: "+fof_url+" Used by "+r_by);
+    }
 }

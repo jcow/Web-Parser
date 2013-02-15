@@ -14,7 +14,7 @@ public class Page_parser {
     
     Page_parser(){}
     
-    static void parse_document(Document the_document){
-        
+    public static void parse_document(Document the_document){
+        System.out.println(the_document.text());
     }
 }
