@@ -43,7 +43,7 @@ public class Web_parser_project {
         }
         
         // setup the dictionary
-        Spell_checker the_dictionary = new Spell_checker();
+        Spell_checker the_dictionary = Spell_checker.getInstance();
         try{
             the_dictionary.read();
         }
