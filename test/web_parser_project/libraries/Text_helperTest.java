@@ -110,6 +110,27 @@ public class Text_helperTest {
         String[] actual1 = Text_helper.split_text_to_individual_words(input1);
         assertArrayEquals(result1, actual1);
     }
+
+    /**
+     * Test of is_email method, of class Text_helper.
+     */
+    @Test
+    public void testIs_email() {
+        
+        assertEquals(false, Text_helper.is_email(null));
+        
+        assertEquals(false, Text_helper.is_email(""));
+        
+        assertEquals(true, Text_helper.is_email("jason.cowan@mso.umt.edu"));
+        
+        assertEquals(false, Text_helper.is_email("-"));
+        
+        assertEquals(false, Text_helper.is_email("-hi"));
+        
+        assertEquals(false, Text_helper.is_email("@mentioningsomething"));
+        
+        
+    }
     
     
     

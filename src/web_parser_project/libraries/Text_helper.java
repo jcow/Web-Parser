@@ -3,6 +3,8 @@
  * and open the template in the editor.
  */
 package web_parser_project.libraries;
+import org.apache.commons.validator.routines.EmailValidator;
+
 
 /**
  *
@@ -11,6 +13,7 @@ package web_parser_project.libraries;
 public class Text_helper {
     
     private static final String regex_for_text_splitting = "[ ]+";
+    private static EmailValidator email_validator = EmailValidator.getInstance();
     
     public Text_helper(){}
     
@@ -68,5 +71,24 @@ public class Text_helper {
         else{
             return false;
         }
+    }
+    
+    public static boolean is_email(String the_string){
+        if(the_string != null && the_string.length() > 1){
+            
+            if(Text_helper.get_email_validator().isValid(the_string)){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public static EmailValidator get_email_validator(){
+        return Text_helper.email_validator;
     }
 }
