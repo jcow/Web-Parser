@@ -105,7 +105,7 @@ public class Text_helperTest {
         System.out.println("Testing the split text into individual words function");
         assertNull(Text_helper.split_text_to_individual_words(null));
         
-        String input1 = "Hello, John; 'I";
+        String input1 = "Hello,  John; 'I";
         String[] result1 = {"Hello,", "John;", "'I"};
         String[] actual1 = Text_helper.split_text_to_individual_words(input1);
         assertArrayEquals(result1, actual1);
