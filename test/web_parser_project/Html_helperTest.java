@@ -86,17 +86,35 @@ public class Html_helperTest {
     @Test
     public void testStrip_page_anchor() {
         System.out.println("strip_page_anchor");
+
+        assertEquals("http://life.umt.edu", Html_helper.strip_page_anchor("http://life.umt.edu"));
         
-        String url1 = "http://life.umt.edu";
-        String expResult1 = "http://life.umt.edu";
-        String result1 = Html_helper.strip_page_anchor(url1);
-        assertEquals(expResult1, result1);
+        assertEquals("http://life.umt.edu", Html_helper.strip_page_anchor("http://life.umt.edu#happy_happy_joy_joy"));
         
-        String url2 = "http://life.umt.edu#happy_happy_joy_joy";
-        String expResult2 = "http://life.umt.edu";
-        String result2 = Html_helper.strip_page_anchor(url2);
-        assertEquals(expResult2, result2);
+        assertEquals(null, Html_helper.strip_page_anchor(null));
+        
     }
+    
+    /**
+     * Test of strip_end_slash method, of class Html_helper.
+     */
+    @Test
+    public void testStrip_end_slash() {
+        System.out.println("strip_end_slash");
+
+        assertEquals(null, Html_helper.strip_end_slash(null));
+        
+        assertEquals("", Html_helper.strip_end_slash(""));
+        
+        assertEquals("http://life.umt.edu", Html_helper.strip_end_slash("http://life.umt.edu"));
+        
+        assertEquals("http://life.umt.edu", Html_helper.strip_end_slash("http://life.umt.edu/"));
+        
+        
+        
+    }
+    
+    
 
     /**
      * Test of is_404 method, of class Html_helper.

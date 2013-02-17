@@ -48,15 +48,32 @@ public class Html_helper {
         }
     }
     
-    public static String strip_page_anchor(String url){
+    public static String strip_page_anchor(String the_string){
         
-        int pound_index = url.indexOf('#');
         
-        if(pound_index == -1){
-            return url;
+        if(the_string != null ){
+            int pound_index = the_string.indexOf('#');
+            
+            if(pound_index == -1){
+                return the_string;
+            }
+            else{
+                return the_string.substring(0, pound_index);
+            }  
         }
         else{
-            return url.substring(0, pound_index);
+            return null;
+        }
+    }
+    
+    
+    public static String strip_end_slash(String the_string){
+        
+        if(the_string != null && the_string.length() > 0 && the_string.charAt(the_string.length()-1) == '/'){
+             return the_string.substring(0, the_string.length()-1);
+        }
+        else{
+            return the_string;
         }
     }
     
