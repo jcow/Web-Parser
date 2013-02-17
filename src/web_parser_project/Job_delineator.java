@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import page_parsing.Page_parser;
-import web_parser_project.documents.Document_parser;
 import web_parser_project.site_getter.Site_getter;
 import web_parser_project.web_assets.Html_asset;
 import web_parser_project.web_assets.Web_asset;
@@ -30,7 +29,6 @@ public class Job_delineator {
     
     public void run(String starting_url){
         
-        Document_parser doc_parser = new Document_parser();
         Web_url current_site;
         
         int limit = 2;
