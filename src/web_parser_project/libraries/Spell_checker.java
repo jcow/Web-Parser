@@ -18,46 +18,62 @@ public class Spell_checker {
     
     private HashMap<String,String> dictionary;
     
-    public Spell_checker(){
-        dictionary = new HashMap();
+    private static Spell_checker instance = null;
+    private Spell_checker() {
+           // Exists only to defeat instantiation.
+    }
+        
+    public static Spell_checker getInstance() {
+           if(instance == null) {
+              instance = new Spell_checker();
+           }
+           return instance;
     }
     
     /**
      * Takes in a sentence, paragraph, section of text and checks if any words are misspelt 
      * @param text_blob
      * @return 
-     *      Returns a linked list of misspelled words
+     *      Returns a linked list of misspelled words or null if none were found
      */
     public LinkedList<String> find_spelling_errors(String text_blob){
+
+        LinkedList<String> misspellings = null;
+        String[] words = Text_helper.split_text_to_individual_words(text_blob);
         
-        
-        
-        return null;
-        
+        if(words.length != 0){
+            
+            for(int i = 0; i < words.length; i++){
+                if(is_misspelt(words[i])){
+                    
+                    // lazy instantiation
+                    if(misspellings == null){
+                        misspellings = new LinkedList();
+                    }
+                    
+                    misspellings.add(words[i]);
+                }
+            }
+            
+            return misspellings;
+        }
+        else{
+            return null;
+        }
     }
     
-    /**
-     * Parses a section of text based off of the white space and or hyphens between words
-     * @param text_blob
-     * @return 
-     */
-    private LinkedList<String> get_blobs_individual_words(String text_blob){
-        
-        String[] parts = text_blob.split(" ");
-        if(parts.length > 0){
-            LinkedList<String> misspelt_words;
-            for(int i = 0; i < parts.length; i++){
-                
-                
-            }
+    public boolean is_misspelt(String word){
+        if(dictionary.containsKey(word)){
+            return false;
         }
-        
-        
-        return null;
+        else{
+            return true;
+        }
     }
-
+    
     public void read() throws IOException{
-            
+        dictionary = new HashMap();
+        
         LinkedList<String> read_in_dictionary = File_reader.read_file(Config.get_dictionary_location());
        
         if(read_in_dictionary == null){
