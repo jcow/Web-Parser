@@ -9,6 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import web_parser_project.libraries.Spell_checker;
+import web_parser_project.libraries.Text_helper;
 import web_parser_project.web_assets.Html_asset;
 import web_parser_project.web_assets.Web_asset;
 import web_parser_project.web_assets.Web_url;
@@ -62,15 +63,45 @@ public class Page_parser {
                     System.out.print("\t");
                 }
                 
-                System.out.println(node.ownText());
+                // check the text of the node
+                check_nodes_text(node);
+                
+                // parse out the children of this node
                 parse_nodes(node.children(), tab+1);
             }
         }
         
     }
     
-    public void spell_check_node(Element node){
-        String internal_text = node.ownText();
-        current_html_asset.add_to_misspellings(spell_checker.find_spelling_errors(internal_text));
+    private void check_nodes_text(Element node){
+        String[] words = Text_helper.split_text_to_individual_words(node.ownText());
+        
+        for(int i = 0; i < words.length; i++){
+            
+            // log if it's an @mention
+            if(Text_helper.is_at_mention(words[i])){
+                current_html_asset.add_to_at_mensions(words[i]);
+            }
+            // log if it's a hash tag
+            else if(Text_helper.is_hash_tag(words[i])){
+                current_html_asset.add_to_hash_tags(words[i]);
+            }
+            // log if it's an email address
+            else if(Text_helper.is_email(words[i])){
+                current_html_asset.add_to_emails(words[i]);
+            }
+            // spell check it if it didn't hit any of the others
+            else{
+                spell_check_text(words[i]);
+            }
+            
+        }
+        
+    }
+    
+    private void spell_check_text(String text){
+        if(spell_checker.is_misspelt(text)){
+            current_html_asset.add_to_misspellings(text);
+        }
     }
 }

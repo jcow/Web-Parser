@@ -31,45 +31,25 @@ public class Spell_checker {
     }
     
     /**
-     * Takes in a sentence, paragraph, section of text and checks if any words are misspelt 
+     * Takes in a word that hasn't been formatted and determines if it's misspelt
      * @param text_blob
      * @return 
      *      Returns a linked list of misspelled words or null if none were found
      */
-    public LinkedList<String> find_spelling_errors(String text_blob){
-
-        LinkedList<String> misspellings = null;
-        String[] words = Text_helper.split_text_to_individual_words(text_blob);
-        
-        if(words.length != 0){
-            
-            for(int i = 0; i < words.length; i++){
-                if(is_misspelt(words[i])){
-                    
-                    // lazy instantiation
-                    if(misspellings == null){
-                        misspellings = new LinkedList();
-                    }
-                    
-                    misspellings.add(words[i]);
-                }
-            }
-            
-            return misspellings;
-        }
-        else{
-            return null;
-        }
-    }
-    
     public boolean is_misspelt(String word){
+
+        word = word.trim();                                     // trim
+        word = word.toLowerCase();                              // convert to lowercase
+        word = Text_helper.remove_punctuation_from_ends(word);  // remove the punctuation from ends
+                
         if(dictionary.containsKey(word)){
             return false;
-        }
+        }  
         else{
             return true;
         }
     }
+    
     
     public void read() throws IOException{
         dictionary = new HashMap();

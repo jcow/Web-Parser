@@ -31,7 +31,7 @@ public class Job_delineator {
         
         Web_url current_site;
         
-        int limit = 2;
+        int limit = 1;
         
         int counter = 0;
         while(site_reader.has_next() && counter < limit){
