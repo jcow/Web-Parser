@@ -11,7 +11,6 @@ package web_parser_project.libraries;
 public class Text_helper {
     
     private static final String regex_for_text_splitting = "[ ]+";
-    private static final char[] end_of_word_punctuation_chars = {';', ',', '.', '?', '!', '\'', '"', ')', '(', ':'};
     
     public Text_helper(){}
     
@@ -28,20 +27,29 @@ public class Text_helper {
         }
     }
     
-    public static String strip_punctuation_from_end(String the_string){
-        if(the_string.length() > 0){
-            
-            for(char character : end_of_word_punctuation_chars){
-                if(the_string.charAt(the_string.length()-1) == character){
-                    return the_string.substring(0, the_string.length()-1);
-                }
+    public static String remove_punctuation_from_ends(String the_string){
+        
+        if(the_string == null || the_string.length() == 0){
+            return the_string;
+        }
+        
+        int new_start = 0;
+        int new_end = the_string.length();
+        for(int i = 0; i < the_string.length(); i++){
+            if(Character.isLetterOrDigit(the_string.charAt(i)) == true){
+                new_start = i;
+                break;
             }
-            
-            return the_string;
         }
-        else{
-            return the_string;
+        
+        for(int p = the_string.length()-1; p >= 0; p--){
+            if(Character.isLetterOrDigit(the_string.charAt(p)) == true){
+                new_end = p+1;
+                break;
+            }
         }
+        
+        return the_string.substring(new_start, new_end);
     }
     
     public static boolean is_hash_tag(String the_string){

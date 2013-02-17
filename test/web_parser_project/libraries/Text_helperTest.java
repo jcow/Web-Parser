@@ -37,21 +37,21 @@ public class Text_helperTest {
     }
 
     /**
-     * Test of strip_punctuation_from_end method, of class Text_helper.
+     * Test of remove_punctuation_from_ends method, of class Text_helper.
      */
     @Test
-    public void testStrip_punctuation_from_end() {
-        System.out.println("strip_punctuation_from_end");
+    public void testRemove_punctuation_from_ends() {
+        System.out.println("remove_punctuation_from_ends");
         String[] test_strings = {
             "", "hello", "cat!", "but,", "rick*", "phil,ly", "jim;"
         };
         String[] result_strings = {
-            "", "hello", "cat", "but", "rick*", "phil,ly", "jim"
+            "", "hello", "cat", "but", "rick", "phil,ly", "jim"
         };
        
         for(int i = 0; i < test_strings.length; i++){
-            String result = Text_helper.strip_punctuation_from_end(test_strings[i]);
-            assertEquals(result_strings[i], result);
+            String result = Text_helper.remove_punctuation_from_ends(test_strings[i]);
+            assertEquals("The string at index "+i+" had an issue", result_strings[i], result);
         }
         
     }
