@@ -4,13 +4,13 @@
  */
 package web_parser_project;
 
+import data.Config;
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import web_parser_project.libraries.Config;
 
 /**
  *
@@ -40,8 +40,4 @@ public class ConfigTest {
     public void tearDown() {
     }
 
-    @Test
-    public void get_config_location() {
-       Assert.assertTrue(the_config.get_config_location() != null);
-    }
 }

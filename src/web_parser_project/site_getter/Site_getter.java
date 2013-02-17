@@ -106,7 +106,9 @@ public class Site_getter {
             add_to_explored_non_200_status_code(current_url, 404);
             
         }
-        
+        catch(ClassCastException e){
+            System.out.println("Bad Cast");
+        }
         // something bad happend :(
         catch(IOException e){
             System.out.println("IO Exception");
@@ -169,6 +171,9 @@ public class Site_getter {
                 
                 // strips out the # anchors
                 link_url = Html_helper.strip_page_anchor(link_url);
+                
+                // strips off the end / if there is one
+                link_url = Html_helper.strip_end_slash(link_url);
                 
                 // if the page is not linking to itself, continue on
                 if(link_url.compareTo(current_url) != 0){

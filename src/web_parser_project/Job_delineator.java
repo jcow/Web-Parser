@@ -33,7 +33,7 @@ public class Job_delineator {
         Document_parser doc_parser = new Document_parser();
         Web_url current_site;
         
-        int limit = 10;
+        int limit = 2;
         
         int counter = 0;
         while(site_reader.has_next() && counter < limit){
@@ -52,6 +52,8 @@ public class Job_delineator {
         
         
         System.out.println("\n\n-----------------Parsed Pages----------------\n");
+        
+        Page_parser page_parser = new Page_parser();
         
         HashMap<String, Web_url> traveled_sites = site_reader.get_traveled_urls();
         Iterator it  = traveled_sites.keySet().iterator();
@@ -78,8 +80,7 @@ public class Job_delineator {
             
             if(current_it.get_web_asset() instanceof Html_asset && current_it.get_web_asset() != null){
                 System.out.println("printing web asset");
-                Html_asset asset = (Html_asset)current_it.get_web_asset();
-                Page_parser.parse_document(asset.get_contents());
+                page_parser.parse(current_it);
             }
             
         }

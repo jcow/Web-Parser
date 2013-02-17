@@ -5,7 +5,7 @@
 package web_parser_project;
 
 import data.Config;
-import data.Dictionary;
+import web_parser_project.libraries.Spell_checker;
 import java.io.IOException;
 import web_parser_project.libraries.Incoming_args;
 
@@ -43,7 +43,7 @@ public class Web_parser_project {
         }
         
         // setup the dictionary
-        Dictionary the_dictionary = new Dictionary();
+        Spell_checker the_dictionary = new Spell_checker();
         try{
             the_dictionary.read();
         }
@@ -54,8 +54,12 @@ public class Web_parser_project {
         
         
         // args won't be ok because I'm in dev mode, so here is something to kick this off
-        String starting_url = "http://localhost/html_files_for_testing/index.html";
-        String domain = "http://localhost/html_files_for_testing";
+//        String starting_url = "http://localhost/html_files_for_testing/index.html";
+//        String domain = "http://localhost/html_files_for_testing";
+        
+        String starting_url = "http://lesica.com";
+        String domain = "http://lesica.com";
+        
         Job_delineator site_parser = new Job_delineator(starting_url, domain);
             
         site_parser.run(starting_url);
