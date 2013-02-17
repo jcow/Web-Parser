@@ -87,6 +87,7 @@ public class Spell_checker {
     
     private void convert_linked_list_to_hash_map(LinkedList<String> read_in_dictionary){
         for(String word : read_in_dictionary){
+            word = word.toLowerCase();
             dictionary.put(word, word);
         }
     }
