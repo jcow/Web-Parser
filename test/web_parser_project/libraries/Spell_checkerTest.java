@@ -73,20 +73,6 @@ public class Spell_checkerTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of find_spelling_errors method, of class Spell_checker.
-     */
-    @Test
-    public void testFind_spelling_errors() {
-        System.out.println("find_spelling_errors");
-        String text_blob = "";
-        Spell_checker instance = null;
-        LinkedList expResult = null;
-        LinkedList result = instance.find_spelling_errors(text_blob);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
     /**
      * Test of is_misspelt method, of class Spell_checker.
