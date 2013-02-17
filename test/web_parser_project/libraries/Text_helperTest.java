@@ -93,8 +93,22 @@ public class Text_helperTest {
        
         for(int i = 0; i < test_strings.length; i++){
             boolean result = Text_helper.is_at_mention(test_strings[i]);
-            assertEquals(results[i], result);
+            assertEquals("The item at index "+i+"failed", results[i], result);
         }
+    }
+
+    /**
+     * Test of split_text_to_individual_words method, of class Text_helper.
+     */
+    @Test
+    public void testSplit_text_to_individual_words() {
+        System.out.println("Testing the split text into individual words function");
+        assertNull(Text_helper.split_text_to_individual_words(null));
+        
+        String input1 = "Hello, John; 'I";
+        String[] result1 = {"Hello,", "John;", "'I"};
+        String[] actual1 = Text_helper.split_text_to_individual_words(input1);
+        assertArrayEquals(result1, actual1);
     }
     
     
