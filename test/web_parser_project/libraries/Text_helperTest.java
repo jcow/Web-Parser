@@ -43,13 +43,14 @@ public class Text_helperTest {
     public void testRemove_punctuation_from_ends() {
         System.out.println("remove_punctuation_from_ends");
         String[] test_strings = {
-            "", "hello", "cat!", "but,", "rick*", "phil,ly", "jim;"
+            "", "hello", "cat!", "but,", "rick*", "phil,ly", "jim;", "!a%", ":&*^%$"
         };
         String[] result_strings = {
-            "", "hello", "cat", "but", "rick", "phil,ly", "jim"
+            "", "hello", "cat", "but", "rick", "phil,ly", "jim", "a", ""
         };
        
         for(int i = 0; i < test_strings.length; i++){
+            System.out.println("\tTesting "+test_strings[i]);
             String result = Text_helper.remove_punctuation_from_ends(test_strings[i]);
             assertEquals("The string at index "+i+" had an issue", result_strings[i], result);
         }

@@ -37,20 +37,31 @@ public class Text_helper {
         }
         
         int new_start = 0;
-        int new_end = the_string.length();
         for(int i = 0; i < the_string.length(); i++){
-            if(Character.isLetterOrDigit(the_string.charAt(i)) == true){
-                new_start = i;
+            if(Character.isLetterOrDigit(the_string.charAt(i)) == false){
+                new_start = i+1;
+            }
+            else{
                 break;
             }
         }
         
+        // it's all puncuation
+        if(new_start == the_string.length()){
+            return "";
+        }
+        
+        int new_end = the_string.length();
         for(int p = the_string.length()-1; p >= 0; p--){
-            if(Character.isLetterOrDigit(the_string.charAt(p)) == true){
-                new_end = p+1;
+            if(Character.isLetterOrDigit(the_string.charAt(p)) == false){
+                new_end = p;
+            }
+            else{
                 break;
             }
         }
+        
+        System.out.println(new_start+" "+new_end);
         
         return the_string.substring(new_start, new_end);
     }
