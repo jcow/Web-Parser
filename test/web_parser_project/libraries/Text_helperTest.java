@@ -106,10 +106,16 @@ public class Text_helperTest {
         System.out.println("Testing the split text into individual words function");
         assertNull(Text_helper.split_text_to_individual_words(null));
         
-        String input1 = "Hello,  John; 'I";
-        String[] result1 = {"Hello,", "John;", "'I"};
+        String input1 = "Hello,  John; 'I cats-meow frank/john /jim";
+        String[] result1 = {"Hello,", "John;", "'I", "cats", "meow", "frank", "john", "", "jim"};
         String[] actual1 = Text_helper.split_text_to_individual_words(input1);
-        assertArrayEquals(result1, actual1);
+        
+        
+        String input2 = "---";
+        String[] result2 = {};
+        String[] actual2 = Text_helper.split_text_to_individual_words(input2);
+        
+        assertArrayEquals(result2, actual2);
     }
 
     /**

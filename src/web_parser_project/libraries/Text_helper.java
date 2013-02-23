@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 package web_parser_project.libraries;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 
 
@@ -12,7 +13,7 @@ import org.apache.commons.validator.routines.EmailValidator;
  */
 public class Text_helper {
     
-    private static final String regex_for_text_splitting = "[ ]+";
+    private static final String regex_for_text_splitting = "[ ]+|-|/";
     private static EmailValidator email_validator = EmailValidator.getInstance();
     
     public Text_helper(){}
@@ -99,5 +100,25 @@ public class Text_helper {
     
     public static EmailValidator get_email_validator(){
         return Text_helper.email_validator;
+    }
+    
+    public static boolean is_acronym(String word){
+        if(StringUtils.isAllUpperCase(word)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public static boolean is_number(String word){
+        try  
+        {  
+           double d = Double.parseDouble(word);  
+           return true;
+        }  
+        catch(NumberFormatException nfe){
+            return false;
+        } 
     }
 }
