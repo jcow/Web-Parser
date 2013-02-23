@@ -61,8 +61,6 @@ public class Text_helper {
             }
         }
         
-        System.out.println(new_start+" "+new_end);
-        
         return the_string.substring(new_start, new_end);
     }
     
