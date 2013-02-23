@@ -61,4 +61,8 @@ public class Html_asset extends Web_asset{
         }
     }
     
+    public LinkedList<String> get_misspellings(){
+        return misspellings;
+    }
+    
 }
