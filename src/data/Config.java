@@ -16,17 +16,24 @@ public class Config {
     
     private static String dictionary_location;
     
+    private static String database_host;
+    private static String database_port;
+    private static String database_name;
+    private static String database_username;
+    private static String database_password;
     
-    private static String dictionary_index = "dictionary_location";
+    
+    private static String dictionary_index          = "dictionary_location";
+    private static String database_host_index       = "database_host"; 
+    private static String database_port_index       = "database_port";
+    private static String database_name_index       = "database_name";
+    private static String database_username_index   = "database_username";
+    private static String database_password_index   = "database_password";
+    
     
     public Config(){
         config_location = "C:\\Users\\Jason\\Documents\\NetBeansProjects\\web_parser_project\\src\\web_parser_project\\config.txt";
     }
-    
-    public static String get_dictionary_location(){
-        return dictionary_location;
-    }
-    
     
     public void read() throws IOException{
         
@@ -66,15 +73,35 @@ public class Config {
             String index = parts[0].trim();
             String value = parts[1].trim();
         
-            // check the values
-            if(is_location_of_dictionary_index(index)){
+            // dictionary location
+            if(is_location_of_index(dictionary_index, index)){
                 dictionary_location = value;
+            }
+            // database_host
+            else if(is_location_of_index(database_host_index, index)){
+                database_host = value;
+            }
+            // database port index
+            else if(is_location_of_index(database_port_index, index)){
+                database_port = value;
+            }
+            // database name index
+            else if(is_location_of_index(database_name_index, index)){
+                database_name = value;
+            }
+            // database username index
+            else if(is_location_of_index(database_username_index, index)){
+                database_username = value;
+            }
+            // database password index
+            else if(is_location_of_index(database_password_index, index)){
+                database_password = value;
             }
         }
     }
     
-    public boolean is_location_of_dictionary_index(String index){
-        if(index.equals(dictionary_index)){
+    public boolean is_location_of_index(String index_to_match, String index_read_in){
+        if(index_read_in.equals(index_to_match)){
             return true;
         }
         else{
@@ -82,7 +109,27 @@ public class Config {
         }
     }
     
+    public static String get_dictionary_location(){
+        return dictionary_location;
+    }
     
+    public static String get_database_host(){
+        return database_host;
+    }
     
+    public static String get_database_port(){
+        return database_port;
+    }
     
+    public static String get_database_name(){
+        return database_name;
+    }
+    
+    public static String get_database_username(){
+        return database_username;
+    }
+    
+    public static String get_database_password(){
+        return database_password;
+    }
 }

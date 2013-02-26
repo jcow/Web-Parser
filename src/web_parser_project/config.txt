@@ -1,2 +1,11 @@
 #location of the dictionary
 dictionary_location:: C:\Users\Jason\Documents\NetBeansProjects\web_parser_project\src\web_parser_project\dictionary.txt
+
+#---------------------------------------
+#   Database Specifics
+#---------------------------------------
+database_host::localhost 
+database_port::3306
+database_name::
+database_username::root
+database_password::
