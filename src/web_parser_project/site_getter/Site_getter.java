@@ -48,7 +48,7 @@ public class Site_getter {
     public Web_url get_next(){
         Web_url current_url = non_traveled_urls.remove();
         
-        System.out.println("Parsing: "+current_url.get_url());
+        //System.out.println("Parsing: "+current_url.get_url());
         
         try{
             
@@ -89,30 +89,30 @@ public class Site_getter {
         // Bad url
         catch(MalformedURLException e){
             
-            System.out.println("----------");
-            System.out.println("Malformed URL");
-            System.out.println(e);
-            System.out.println(current_url.get_url());
-            System.out.println("----------");
+            //System.out.println("----------");
+            //System.out.println("Malformed URL");
+            //System.out.println(e);
+            //System.out.println(current_url.get_url());
+            //System.out.println("----------");
             
             add_to_explored_malformed_url(current_url);
             
         }
         // 404 not found
         catch(FileNotFoundException e){
-            System.out.println("File not found");
-            System.out.println(current_url.get_url());
+            //System.out.println("File not found");
+            //System.out.println(current_url.get_url());
             
             add_to_explored_non_200_status_code(current_url, 404);
             
         }
         catch(ClassCastException e){
-            System.out.println("Bad Cast");
+            //System.out.println("Bad Cast");
         }
         // something bad happend :(
         catch(IOException e){
-            System.out.println("IO Exception");
-            System.out.println(e);
+            //System.out.println("IO Exception");
+            //System.out.println(e);
             
             add_to_explored_io_exception(current_url);
         }
@@ -152,14 +152,14 @@ public class Site_getter {
     
     private void store_links(Document the_document, String current_url){
         
-        System.out.println("\tChecking Domain");
-        System.out.println("\t\t"+starting_url);
+        //System.out.println("\tChecking Domain");
+//        System.out.println("\t\t"+starting_url);
         System.out.println("\t\t"+current_url);
         
         // the link page must be in the same domain if it is to be parsed also check if it hasn't been checked already
         if(Html_helper.is_same_domain(domain, current_url)){
-            System.out.println("\t\tPassed");
-            System.out.println("\tLinks");
+            //System.out.println("\t\tPassed");
+            //System.out.println("\tLinks");
             
             String link_url;
             Elements links = the_document.select("a[href]");
@@ -167,7 +167,7 @@ public class Site_getter {
                 
                 link_url = link.attr("abs:href");
                 
-                System.out.print("\t\t"+link_url);
+                System.out.println("\t\t\t"+link_url);
                 
                 // strips out the # anchors
                 link_url = Html_helper.strip_page_anchor(link_url);
@@ -182,24 +182,24 @@ public class Site_getter {
                     Web_url seen_url = url_has_already_been_seen(link_url);
                     if(seen_url == null){
                         
-                        System.out.println(" - added to unexplored");
+                        //System.out.println(" - added to unexplored");
                         
                         add_unexplored_url(link_url, current_url);
                     }
                     // if a page has been seen, store a reference to it
                     else{
-                        System.out.println(" - added to reference");
+                        //System.out.println(" - added to reference");
                         seen_url.add_to_reference(current_url);
                     }
                 }
                 else{
-                    System.out.println(" - not added to anything");
+                    //System.out.println(" - not added to anything");
                 }
                 
             }
         }
         else{
-            System.out.println("\t\tFailed");
+            //System.out.println("\t\tFailed");
         }
     }
     

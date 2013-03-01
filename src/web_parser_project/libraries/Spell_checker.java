@@ -41,16 +41,17 @@ public class Spell_checker {
         // empty, leave it
         if(word == null || word.length() == 0){return false;}
         
-        // check if it's all upper-case
-        if(Text_helper.is_acronym(word)){return false;}
-        
         word = word.trim();                                     // trim
         word = word.toLowerCase();                              // convert to lowercase
         word = Text_helper.remove_punctuation_from_ends(word);  // remove the punctuation from ends
-                
+        
+        
+        
+        
         // all puncuation, now empty
         // or it's a number
-        if(word.length() == 0 || Text_helper.is_number(word)){
+        // or if it's all upper-case
+        if(word.length() == 0 || Text_helper.is_number(word) || Text_helper.is_acronym(word)){
             return false;
         }
         

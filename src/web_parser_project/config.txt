@@ -6,6 +6,6 @@ dictionary_location:: C:\Users\Jason\Documents\NetBeansProjects\web_parser_proje
 #---------------------------------------
 database_host::localhost 
 database_port::3306
-database_name::
+database_name::web_parser
 database_username::root
-database_password::
+database_password:: 
