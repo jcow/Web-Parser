@@ -11,7 +11,6 @@ import page_parsing.Page_parser;
 import web_parser_project.libraries.Html_helper;
 import web_parser_project.site_getter.Site_getter;
 import web_parser_project.web_assets.Html_asset;
-import web_parser_project.web_assets.Web_asset;
 import web_parser_project.web_assets.Web_url;
 
 /**
