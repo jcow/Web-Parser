@@ -12,6 +12,9 @@ import web_parser_project.libraries.Html_helper;
  * @author Jason
  */
 public class Web_url {
+    
+    protected int id;
+    
     protected String the_url;
     protected String direct_parent;
     protected LinkedList<String> urls_which_reference_asset;
@@ -31,7 +34,12 @@ public class Web_url {
         
         io_error = false;
         malformed_url = false;
+        
+        id  = 0;
     }
+    
+    public void set_id(int inc_id){id = inc_id;}
+    public int get_id(){return id;}
     
     public void set_url(String inc_url){the_url = inc_url;}
     public String get_url(){return the_url;}
