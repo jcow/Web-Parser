@@ -80,7 +80,7 @@ public class Job_delineator {
             
             
                 
-            // must be in the same domain to get spell checked
+            // must be in the same domain to get checked in-depth
             if(Html_helper.is_same_domain(starting_url, current_it.get_url())){            
                 if(current_it.get_web_asset() instanceof Html_asset && current_it.get_web_asset() != null){
                     //System.out.println("printing web asset");
