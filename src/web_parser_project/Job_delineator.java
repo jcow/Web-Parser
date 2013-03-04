@@ -4,6 +4,7 @@
  */
 package web_parser_project;
 
+import database.Database_dump;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -20,14 +21,18 @@ import web_parser_project.web_assets.Web_url;
 public class Job_delineator {
     
     private Site_getter site_reader;
-    private int parsed_pages = 0;
-    private int read_urls = 0;
+    private String starting_url;
+    private String domain;
     
-    public Job_delineator(String starting_url, String domain){
-        site_reader = new Site_getter(starting_url, domain);
+    public Job_delineator(String s_url, String dom){
+        
+        starting_url = s_url;
+        domain = dom;
+        
+        site_reader = new Site_getter(s_url, dom);
     }
     
-    public void run(String starting_url){
+    public void run(){
         
         Web_url current_site;
         
@@ -99,6 +104,10 @@ public class Job_delineator {
             
         }
         
+        
+            
+        Database_dump d = new Database_dump();
+        d.dump_to_database(starting_url, domain, traveled_sites);
         
         
         System.out.println("done");

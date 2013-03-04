@@ -94,4 +94,22 @@ public class Web_url {
         return malformed_url;
     }
     
+    public int get_io_error(){
+        if(io_error){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+    
+    public int get_malformed_url(){
+        if(malformed_url){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+    
 }

@@ -54,26 +54,24 @@ public class Web_parser_project {
         }
         
         
-        Database_dump d = new Database_dump();
-        d.dump_to_database("cat", "dog", null);
-        
-        String breakp = "";
+//        Database_dump d = new Database_dump();
+//        d.dump_to_database("cat", "dog", null);
         
         
         
         // args won't be ok because I'm in dev mode, so here is something to kick this off
-//        String starting_url = "http://localhost/html_files_for_testing/";
-//        String domain = "http://localhost/html_files_for_testing";
+        String starting_url = "http://localhost/html_files_for_testing/";
+        String domain = "http://localhost/html_files_for_testing";
         
 //        String starting_url = "http://lesica.com";
 //        String domain = "http://lesica.com";
         
-        String starting_url = "http://life.umt.edu/curry/";
-        String domain = "http://life.umt.edu/curry";
+//        String starting_url = "http://life.umt.edu/curry/";
+//        String domain = "http://life.umt.edu/curry";
         
         Job_delineator site_parser = new Job_delineator(starting_url, domain);
             
-        site_parser.run(starting_url);
+        site_parser.run();
     }
     
     public static boolean check_inc_args(Incoming_args inc_args, String args[]){
