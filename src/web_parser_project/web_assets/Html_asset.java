@@ -65,4 +65,16 @@ public class Html_asset extends Web_asset{
         return misspellings;
     }
     
+    public LinkedList<String> get_at_mentions(){
+        return at_mentions;
+    }
+    
+    public LinkedList<String> get_emails(){
+        return emails;
+    }
+    
+    public LinkedList<String> get_hash_tags(){
+        return hash_tags;
+    }
+    
 }

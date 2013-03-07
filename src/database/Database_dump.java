@@ -16,6 +16,7 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import web_parser_project.web_assets.Html_asset;
+import web_parser_project.web_assets.Web_asset;
 import web_parser_project.web_assets.Web_url;
 
 /**
@@ -24,6 +25,8 @@ import web_parser_project.web_assets.Web_url;
  */
 public class Database_dump{
     
+    // the amount of queries allowed to be added to a execution batch before it's fired off
+    int batch_limit = 2;
     
     private String parsing_entity_table_name = "parsing_entity";
     private String[] parsing_entity_columns = {"starting_url", "domain"};
@@ -31,14 +34,17 @@ public class Database_dump{
     private String url_table_name = "url";
     private String[] url_columns = {"parsing_entity_id", "url", "direct_parent", "http_code", "content_type", "io_error", "malformed_url_error"};
     
-    private String html_asset_table_name = "html_asset";
-    private String[] html_asset_columns = {"url_id"};
-    
     private String misspelling_table_name = "misspelling";
-    private String[] misspelling_columns = {"html_asset_id", "value"};
+    private String[] misspelling_columns = {"url_id", "value"};
     
     private String at_mention_table_name = "at_mention";
-    private String[] at_mention_columns = {"html_asset_id", "value"};
+    private String[] at_mention_columns = {"url_id", "value"};
+    
+    private String email_table_name = "email";
+    private String[] email_columns = {"url_id", "value"};
+    
+    private String hash_tag_table_name = "hash_tag";
+    private String[] hash_tag_columns = {"url_id", "value"};
     
     public void dump_to_database(String starting_url, String domain, HashMap<String, Web_url> traveled_urls){
         
@@ -50,7 +56,6 @@ public class Database_dump{
                 int parsing_entity_id = write_to_parsing_entity(connection, starting_url, domain);
                 
                 if(parsing_entity_id != 0){
-                    Iterator traveled_sites_iterator = traveled_urls.keySet().iterator();
                     save_urls(connection, traveled_urls, parsing_entity_id);
                 }
             }
@@ -86,13 +91,21 @@ public class Database_dump{
         
         Iterator traveled_sites_iterator = traveled_sites.keySet().iterator();
         PreparedStatement prep_state = create_prepared_insert(connection, url_table_name, url_columns);
+        
         String key;
         Web_url current_url;
         
-        int counter = 0;
+        int counter = 1;
+        
+        // used to keep a small subset of urls that need to be saved
+        Web_url[] batch_urls = new Web_url[batch_limit];
+        
         while(traveled_sites_iterator.hasNext()){
             key = (String)traveled_sites_iterator.next();
             current_url = (Web_url)traveled_sites.get(key);
+            
+            // add the url to the batch to be executed
+            batch_urls[counter-1] = current_url;
             
             if(current_url != null){
                 String[] values = {
@@ -109,34 +122,103 @@ public class Database_dump{
                 prep_state.addBatch();
             }
             
-            if(counter == 1000){
+            if(counter % batch_limit == 0){
                 prep_state.executeBatch();
+                
+                ResultSet result_set = prep_state.getGeneratedKeys();
+                save_web_url_sub_data(connection, batch_urls, result_set);
+                
+                close_prepared_statement(prep_state);
+                close_result_set(result_set);
+                
+                prep_state = create_prepared_insert(connection, url_table_name, url_columns);
+                
+                batch_urls = new Web_url[batch_limit];
+                counter = 1;
             }
-            
-            counter += 1;
+            else{
+                counter++;
+            }
         }
         
         prep_state.executeBatch();
+        ResultSet result_set = prep_state.getGeneratedKeys();
+        save_web_url_sub_data(connection, batch_urls, result_set);
+        close_prepared_statement(prep_state);
+        close_result_set(result_set);
     }
     
-    private void save_html_asset_info(Html_asset h_asset){
-        
+    private void save_web_url_sub_data(Connection connection, Web_url[] web_urls, ResultSet res) throws SQLException{
+        int counter = 0;
+        while(res.next()){
+            if(web_urls[counter] != null && web_urls[counter].get_web_asset() != null){
+                int web_url_id = res.getInt(1);
+                
+                if(Web_asset.is_html_asset(web_urls[counter].get_web_asset())){
+                    Html_asset html_asset = (Html_asset)web_urls[counter].get_web_asset();
+                    
+                    save_misspellings(connection, web_url_id, html_asset.get_misspellings());
+                    save_at_mentions(connection, web_url_id, html_asset.get_at_mentions());
+                    save_emails(connection, web_url_id, html_asset.get_emails());
+                    save_hash_tags(connection, web_url_id, html_asset.get_hash_tags());
+                }
+                // other...
+                else{
+                    
+                }
+                
+            }
+            counter++;
+        }
     }
     
-    private void save_misspellings(int html_asset_id, LinkedList<String> misspellings){
+    /**
+     * Takes similar value items associated with the url and stores them in their respective table
+     */
+    private void save_items(Connection connection, String table_name, String[] columns,
+                                        int url_id, LinkedList<String> values) throws SQLException{
         
+        PreparedStatement prep_state = create_prepared_insert(connection, table_name, columns);
+        Iterator values_it = values.iterator();
+        
+        int counter = 1;
+        while(values_it.hasNext()){
+            String word = (String) values_it.next();
+            String[] storing_values = {Integer.toString(url_id), word};
+            set_strings(prep_state, storing_values);
+            
+            prep_state.addBatch();
+            
+            if(counter % batch_limit == 0){
+                prep_state.executeBatch();
+            }
+        }
+        
+        prep_state.executeBatch();
+        
+        close_prepared_statement(prep_state);
     }
     
-    private void save_at_mentions(int html_asset_id,  LinkedList<String> at_mentions){
-        
+    private void save_misspellings(Connection connection, int url_id, LinkedList<String> misspellings) throws SQLException{
+        save_items(connection, misspelling_table_name, misspelling_columns, url_id, misspellings);
     }
     
-    private void save_emails(int html_asset_id,  LinkedList<String> emails){
-        
+    private void save_at_mentions(Connection connection, int url_id,  LinkedList<String> at_mentions) throws SQLException{
+        save_items(connection, at_mention_table_name, at_mention_columns, url_id, at_mentions);
     }
     
-    private void save_hashtags(int html_asset_id,  LinkedList<String> hashtags){
-        
+    private void save_emails(Connection connection, int url_id,  LinkedList<String> emails) throws SQLException{
+        save_items(connection, email_table_name, email_columns, url_id, emails);
+    }
+    
+    private void save_hash_tags(Connection connection, int url_id,  LinkedList<String> hashtags) throws SQLException{
+        save_items(connection, hash_tag_table_name, hash_tag_columns, url_id, hashtags);
+    }
+    
+    private void close_result_set(ResultSet res) throws SQLException{
+        if(res != null && res.isClosed() == false){
+            res.close();
+        }
     }
     
     private void close_prepared_statement(PreparedStatement prep_state) throws SQLException{
@@ -159,9 +241,7 @@ public class Database_dump{
                 }
             }
             finally{
-                if(res != null){
-                    res.close();
-                }
+                close_result_set(res);
             }
         }
         
