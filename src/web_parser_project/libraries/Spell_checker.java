@@ -30,8 +30,17 @@ public class Spell_checker {
            return instance;
     }
     
+    public String clean(String word){
+        word = word.trim();                                     // trim
+        word = word.toLowerCase();                              // convert to lowercase
+        word = Text_helper.remove_punctuation_from_ends(word);  // remove the punctuation from ends
+        
+        return word;
+    }
+    
     /**
      * Takes in a word that hasn't been formatted and determines if it's misspelt
+     * You should probably run the string through the clean function first
      * @param text_blob
      * @return 
      *      Returns a linked list of misspelled words or null if none were found
@@ -40,14 +49,7 @@ public class Spell_checker {
 
         // empty, leave it
         if(word == null || word.length() == 0){return false;}
-        
-        word = word.trim();                                     // trim
-        word = word.toLowerCase();                              // convert to lowercase
-        word = Text_helper.remove_punctuation_from_ends(word);  // remove the punctuation from ends
-        
-        
-        
-        
+      
         // all puncuation, now empty
         // or it's a number
         // or if it's all upper-case

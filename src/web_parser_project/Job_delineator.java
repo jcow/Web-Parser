@@ -89,15 +89,18 @@ public class Job_delineator {
             if(Html_helper.is_same_domain(starting_url, current_it.get_url())){            
                 if(current_it.get_web_asset() instanceof Html_asset && current_it.get_web_asset() != null){
                     //System.out.println("printing web asset");
+                    
+                    // parse the page
                     page_parser.parse(current_it);
-                    Html_asset asset = (Html_asset)current_it.get_web_asset();
-                    LinkedList<String> misspellings = asset.get_misspellings();
-                    Iterator misp_it = misspellings.iterator();
-                    System.out.println(current_it.get_url());
-                    while(misp_it.hasNext()){
-                        String misp = (String)misp_it.next();
-                        System.out.println("\t\t\t"+misp);
-                    }
+                    
+//                    Html_asset asset = (Html_asset)current_it.get_web_asset();
+//                    LinkedList<String> misspellings = asset.get_misspellings();
+//                    Iterator misp_it = misspellings.iterator();
+//                    System.out.println(current_it.get_url());
+//                    while(misp_it.hasNext()){
+//                        String misp = (String)misp_it.next();
+//                        System.out.println("\t\t\t"+misp);
+//                    }
 
                 }
             }

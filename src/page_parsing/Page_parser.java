@@ -100,8 +100,9 @@ public class Page_parser {
     }
     
     private void spell_check_text(String text){
-        if(spell_checker.is_misspelt(text)){
-            current_html_asset.add_to_misspellings(text);
+        String clean_text = spell_checker.clean(text);
+        if(spell_checker.is_misspelt(clean_text)){
+            current_html_asset.add_to_misspellings(clean_text);
         }
     }
 }
