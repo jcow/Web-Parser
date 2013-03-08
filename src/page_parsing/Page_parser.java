@@ -8,6 +8,7 @@ import java.util.ListIterator;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import web_parser_project.libraries.Html_helper;
 import web_parser_project.libraries.Spell_checker;
 import web_parser_project.libraries.Text_helper;
 import web_parser_project.web_assets.Html_asset;
@@ -63,6 +64,11 @@ public class Page_parser {
                     System.out.print("\t");
                 }
                 
+                System.out.println(node.tagName().length());
+                
+                // check if the node is deprecated
+                check_if_node_is_deprecated(node);
+                
                 // check the text of the node
                 check_nodes_text(node);
                 
@@ -73,26 +79,38 @@ public class Page_parser {
         
     }
     
+    private void check_if_node_is_deprecated(Element node){
+        String node_name = node.tagName().trim().toLowerCase();
+        if(Html_helper.is_tag_deprecated(node_name)){
+            current_html_asset.add_to_deprecated_tags(node_name);
+        }
+    }
+    
     private void check_nodes_text(Element node){
         String[] words = Text_helper.split_text_to_individual_words(node.ownText());
         
         for(int i = 0; i < words.length; i++){
             
-            // log if it's an @mention
-            if(Text_helper.is_at_mention(words[i])){
-                current_html_asset.add_to_at_mensions(words[i]);
-            }
-            // log if it's a hash tag
-            else if(Text_helper.is_hash_tag(words[i])){
-                current_html_asset.add_to_hash_tags(words[i]);
-            }
-            // log if it's an email address
-            else if(Text_helper.is_email(words[i])){
-                current_html_asset.add_to_emails(words[i]);
-            }
-            // spell check it if it didn't hit any of the others
-            else{
-                spell_check_text(words[i]);
+            // check if it contains a number leave it alone
+            if(Text_helper.contains_number(words[i]) == false){
+                
+                // log if it's an @mention
+                if(Text_helper.is_at_mention(words[i])){
+                    current_html_asset.add_to_at_mensions(words[i]);
+                }
+                // log if it's a hash tag
+                else if(Text_helper.is_hash_tag(words[i])){
+                    current_html_asset.add_to_hash_tags(words[i]);
+                }
+                // log if it's an email address
+                else if(Text_helper.is_email(words[i])){
+                    current_html_asset.add_to_emails(words[i]);
+                }
+                // spell check it if it didn't hit any of the others
+                else{
+                    spell_check_text(words[i]);
+                }
+                
             }
             
         }

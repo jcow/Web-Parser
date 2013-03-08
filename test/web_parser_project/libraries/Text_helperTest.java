@@ -4,6 +4,7 @@
  */
 package web_parser_project.libraries;
 
+import org.apache.commons.validator.routines.EmailValidator;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -137,6 +138,53 @@ public class Text_helperTest {
         assertEquals(false, Text_helper.is_email("@mentioningsomething"));
         
         
+    }
+
+    /**
+     * Test of get_email_validator method, of class Text_helper.
+     */
+    @Test
+    public void testGet_email_validator() {
+        System.out.println("get_email_validator");
+        EmailValidator expResult = null;
+        EmailValidator result = Text_helper.get_email_validator();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of is_acronym method, of class Text_helper.
+     */
+    @Test
+    public void testIs_acronym() {
+        assertEquals(false, Text_helper.is_acronym("aaaaaaaaj"));
+        assertEquals(false, Text_helper.is_acronym(" HI JIM "));
+    }
+
+    /**
+     * Test of is_number method, of class Text_helper.
+     */
+    @Test
+    public void testIs_number() {
+        assertEquals(false, Text_helper.contains_number(""));
+        assertEquals(false, Text_helper.contains_number("hello good sir"));
+        assertEquals(false, Text_helper.contains_number(";lkjqpowiuer<>kj"));
+        assertEquals(true, Text_helper.contains_number("hello good d9sir"));
+    }
+
+    /**
+     * Test of contains_number method, of class Text_helper.
+     */
+    @Test
+    public void testContains_number() {
+        System.out.println("contains_number");
+        String word = "";
+        boolean expResult = false;
+        boolean result = Text_helper.contains_number(word);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
     
     

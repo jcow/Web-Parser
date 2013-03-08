@@ -18,6 +18,7 @@ public class Html_asset extends Web_asset{
     protected LinkedList<String> at_mentions;
     protected LinkedList<String> hash_tags;
     protected LinkedList<String> emails;
+    protected LinkedList<String> deprecated_tags;
     
     public Html_asset(Document inc_contents){
         contents = inc_contents;
@@ -25,6 +26,7 @@ public class Html_asset extends Web_asset{
         at_mentions = new LinkedList();
         hash_tags = new LinkedList();
         emails = new LinkedList();
+        deprecated_tags = new LinkedList();
     }
     
     public Document get_contents(){
@@ -55,6 +57,12 @@ public class Html_asset extends Web_asset{
         }
     }
     
+    public void add_to_deprecated_tags(String tag){
+        if(tag != null){
+            deprecated_tags.add(tag);
+        }
+    }
+    
     public void add_to_misspellings(LinkedList<String> incoming_misspellings){
         if(incoming_misspellings != null){
             misspellings.addAll(incoming_misspellings);
@@ -75,6 +83,10 @@ public class Html_asset extends Web_asset{
     
     public LinkedList<String> get_hash_tags(){
         return hash_tags;
+    }
+    
+    public LinkedList<String> get_deprecated_tags(){
+        return deprecated_tags;
     }
     
 }

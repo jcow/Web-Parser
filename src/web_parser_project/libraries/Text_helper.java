@@ -121,4 +121,19 @@ public class Text_helper {
             return false;
         } 
     }
+    
+    /**
+     * Looks at a word and determines if it contains a number or not
+     * @return 
+     */
+    public static boolean contains_number(String word){
+        
+        for(int i = 0; i < word.length(); i++){
+            if(Character.isDigit(word.charAt(i))){
+                return true;
+            }
+        }
+        
+        return false;
+    }
 }

@@ -4,6 +4,8 @@
  */
 package web_parser_project.libraries;
 
+import java.util.HashMap;
+
 /**
  *
  * @author Jason
@@ -15,10 +17,22 @@ public class Html_helper {
     // TODO, this list needs to be larger and include videos, etc
     private static String image_extensions = "png,jpg,gif";
     private static String video_extensions = "mp3";
+    private static HashMap<String,String> deprecated_tags;
     
     
     private Html_helper(){
-        
+        deprecated_tags = new HashMap();
+        deprecated_tags.put("applet", "applet");
+        deprecated_tags.put("basefont", "basefont");
+        deprecated_tags.put("center", "center");
+        deprecated_tags.put("dir", "dir");
+        deprecated_tags.put("font", "font");
+        deprecated_tags.put("strike", "strike");
+        deprecated_tags.put("u", "u");
+        deprecated_tags.put("isindex", "isindex");
+        deprecated_tags.put("xmp", "xmp");
+        deprecated_tags.put("plaintext", "plaintext");
+        deprecated_tags.put("listing", "listing");
     }
     
     
@@ -147,6 +161,18 @@ public class Html_helper {
         else{
             return false;
         }
+    }
+    
+    public static boolean is_tag_deprecated(String tag){
+        
+        Html_helper html_helper = Html_helper.get_instance();
+        
+        if(tag != null){
+            if(deprecated_tags.containsKey(tag)){
+                return true;
+            }
+        }
+        return false;
     }
     
     
