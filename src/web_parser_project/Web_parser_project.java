@@ -5,8 +5,8 @@
 package web_parser_project;
 
 import data.Config;
-import database.Database;
-import database.Database_dump;
+import output.Database;
+import output.Database_dump;
 import java.io.IOException;
 import web_parser_project.libraries.Incoming_args;
 import web_parser_project.libraries.Spell_checker;

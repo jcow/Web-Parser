@@ -5,6 +5,7 @@
 package web_parser_project.libraries;
 
 import java.util.HashMap;
+import org.jsoup.nodes.Element;
 
 /**
  *
@@ -163,9 +164,7 @@ public class Html_helper {
         }
     }
     
-    public static boolean is_tag_deprecated(String tag){
-        
-        Html_helper html_helper = Html_helper.get_instance();
+    public boolean is_tag_deprecated(String tag){
         
         if(tag != null){
             if(deprecated_tags.containsKey(tag)){
@@ -173,6 +172,18 @@ public class Html_helper {
             }
         }
         return false;
+    }
+    
+    public boolean contains_inline_styling(Element tag){
+        return tag.hasAttr("style");
+    }
+    
+    public String get_tag_name(Element node){
+        return node.tagName().trim().toLowerCase();
+    }
+    
+    public String get_style_value(Element node){
+        return node.attr("style");
     }
     
     

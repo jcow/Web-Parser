@@ -9,3 +9,19 @@ database_port::3306
 database_name::web_parser
 database_username::root
 database_password:: 
+
+
+#---------------------------------------
+#    Output File Writing Location specifics
+#---------------------------------------
+output_file_name::dump
+output_file_location::C:\Users\Jason\Desktop
+
+#----------------------------------------
+#   Output Settings
+#----------------------------------------
+# output_type
+#   how you want the data to be saved
+#   options
+#       database - attempt to save to the database
+output_type:: database

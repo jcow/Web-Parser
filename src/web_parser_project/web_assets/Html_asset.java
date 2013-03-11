@@ -19,6 +19,7 @@ public class Html_asset extends Web_asset{
     protected LinkedList<String> hash_tags;
     protected LinkedList<String> emails;
     protected LinkedList<String> deprecated_tags;
+    protected LinkedList<Inline_style> inline_styling;
     
     public Html_asset(Document inc_contents){
         contents = inc_contents;
@@ -27,10 +28,15 @@ public class Html_asset extends Web_asset{
         hash_tags = new LinkedList();
         emails = new LinkedList();
         deprecated_tags = new LinkedList();
+        inline_styling = new LinkedList();
     }
     
     public Document get_contents(){
         return contents;
+    }
+    
+    public void add_to_inline_styling(String tag_name, String style_value){
+        inline_styling.add(new Inline_style(tag_name, style_value));
     }
     
     public void add_to_at_mensions(String at_mention){

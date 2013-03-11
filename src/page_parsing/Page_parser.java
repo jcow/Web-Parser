@@ -23,9 +23,11 @@ public class Page_parser {
     
     private Html_asset current_html_asset;
     private Spell_checker spell_checker;
+    private Html_helper html_helper;
     
     public Page_parser(){
         spell_checker = Spell_checker.getInstance();
+        html_helper = Html_helper.get_instance();
     }
     
     public void parse(Web_url w_url){
@@ -69,6 +71,9 @@ public class Page_parser {
                 // check if the node is deprecated
                 check_if_node_is_deprecated(node);
                 
+                // check if the node contains inline styling
+                check_if_node_contains_inline_styling(node);
+                
                 // check the text of the node
                 check_nodes_text(node);
                 
@@ -79,9 +84,18 @@ public class Page_parser {
         
     }
     
+    private void check_if_node_contains_inline_styling(Element node){
+        if(html_helper.contains_inline_styling(node)){
+            current_html_asset.add_to_inline_styling(html_helper.get_tag_name(node), html_helper.get_style_value(node));
+            String p = html_helper.get_style_value(node);
+            String q = html_helper.get_tag_name(node);
+            System.out.println("hi");
+        }
+    }
+    
     private void check_if_node_is_deprecated(Element node){
-        String node_name = node.tagName().trim().toLowerCase();
-        if(Html_helper.is_tag_deprecated(node_name)){
+        String node_name = html_helper.get_tag_name(node);
+        if(html_helper.is_tag_deprecated(node_name)){
             current_html_asset.add_to_deprecated_tags(node_name);
         }
     }

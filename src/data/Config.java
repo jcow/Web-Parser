@@ -22,6 +22,10 @@ public class Config {
     private static String database_username;
     private static String database_password;
     
+    private static String output_file_name;
+    private static String output_file_location;
+    
+    private static String output_type;
     
     private static String dictionary_index          = "dictionary_location";
     private static String database_host_index       = "database_host"; 
@@ -29,6 +33,11 @@ public class Config {
     private static String database_name_index       = "database_name";
     private static String database_username_index   = "database_username";
     private static String database_password_index   = "database_password";
+    
+    private static String output_file_name_index = "output_file_name";
+    private static String output_file_location_index = "output_file_location";
+    
+    private static String output_type_index = "output_type";
     
     
     public Config(){
@@ -97,6 +106,18 @@ public class Config {
             else if(is_location_of_index(database_password_index, index)){
                 database_password = value;
             }
+            // output file name index
+            else if(is_location_of_index(output_file_name_index, index)){
+                output_file_name = value;
+            }
+            // output file location index
+            else if(is_location_of_index(output_file_location_index, index)){
+                output_file_location = value;
+            }
+            // output type
+            else if(is_location_of_index(output_type_index, index)){
+                output_type = value;
+            }
         }
     }
     
@@ -131,5 +152,17 @@ public class Config {
     
     public static String get_database_password(){
         return database_password;
+    }
+    
+    public static String get_output_type(){
+        return output_type;
+    }
+    
+    public static boolean is_output_to_database(){
+        return (output_type.compareTo("database") == 0)?true:false;
+    }
+    
+    public static boolean is_output_to_json_file(){
+        return (output_type.compareTo("json") == 0)?true:false;
     }
 }

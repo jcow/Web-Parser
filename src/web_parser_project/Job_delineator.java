@@ -4,10 +4,11 @@
  */
 package web_parser_project;
 
-import database.Database_dump;
+import output.Database_dump;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import output.Output;
 import page_parsing.Page_parser;
 import web_parser_project.libraries.Html_helper;
 import web_parser_project.site_getter.Site_getter;
@@ -83,7 +84,7 @@ public class Job_delineator {
             //System.out.println("\t"+current_it.getClass().getName());
             
             
-            
+            System.out.println(current_it.get_url());
                 
             // must be in the same domain to get checked in-depth
             if(Html_helper.is_same_domain(starting_url, current_it.get_url())){            
@@ -108,10 +109,8 @@ public class Job_delineator {
         }
         
         
-            
-        Database_dump d = new Database_dump();
-        d.dump_to_database(starting_url, domain, traveled_sites);
         
+        Output.do_output(starting_url, domain, traveled_sites);
         
         System.out.println("done");
     }
