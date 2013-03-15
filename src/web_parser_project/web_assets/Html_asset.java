@@ -13,6 +13,9 @@ import org.jsoup.nodes.Document;
  */
 public class Html_asset extends Web_asset{
     
+    protected String doc_type;
+    protected String title;
+    protected String description;
     protected Document contents;
     protected LinkedList<String> misspellings;
     protected LinkedList<String> at_mentions;
@@ -31,8 +34,24 @@ public class Html_asset extends Web_asset{
         inline_styling = new LinkedList();
     }
     
+    public void set_doctype(String doc){
+        doc_type = doc;
+    }
+    
+    public String get_doctype(){
+        return doc_type;
+    }
+    
     public Document get_contents(){
         return contents;
+    }
+    
+    public String get_description(){
+        return description;
+    }
+    
+    public void set_description(String desc){
+        description = desc;
     }
     
     public void add_to_inline_styling(String tag_name, String style_value){

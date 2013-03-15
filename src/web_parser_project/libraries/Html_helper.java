@@ -5,6 +5,7 @@
 package web_parser_project.libraries;
 
 import java.util.HashMap;
+import org.jsoup.nodes.DocumentType;
 import org.jsoup.nodes.Element;
 
 /**
@@ -186,5 +187,35 @@ public class Html_helper {
         return node.attr("style");
     }
     
+    public static boolean is_node_doctype(Element node){
+        
+        if(node != null){
+            if(node instanceof DocumentType){ wtf brah?
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public static boolean is_node_head(Element node){
+        if(node != null){
+            if(node.tagName().trim().toLowerCase().compareTo("head") == 0){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public static boolean is_node_body(Element node){
+        if(node != null){
+            if(node.tagName().trim().toLowerCase().compareTo("body") == 0){
+                return true;
+            }
+        }
+        
+        return false;
+    }
     
 }

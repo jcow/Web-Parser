@@ -40,12 +40,57 @@ public class Page_parser {
     
     public void parse_document(){
         Document page_document = current_html_asset.get_contents();
+        Elements first_elements = page_document.children();
+        
+        if(first_elements.isEmpty() == false){
+            ListIterator<Element> iterator = first_elements.listIterator();
+            Element node;
+            while(iterator.hasNext()){
+                node = iterator.next();
+            }
+        }
         
         parse_body(page_document.body());
     }
+        
+    public void parse_first_elements(Elements nodes){
+        if(nodes.isEmpty() == false){
+            ListIterator<Element> iterator = nodes.listIterator();
+            Element node;
+            while(iterator.hasNext()){
+                node = iterator.next();
+                
+                
+                // doctype node
+                
+                
+                // head node
+                if(Html_helper.is_node_head(node)){
+                    parse_head(node);
+                }
+                
+                // body node
+                if(Html_helper.is_node_body(node)){
+                    parse_body(node);
+                }
+            }
+        }
+    }
+    
+    public void set_doctype(Element node){
+        current_html_asset.set_doctype(node.);
+    }
+    
+    public void parse_head(Element head){
+        
+    }
+    
+    public void parse_head_nodes(Element nodes, int tab){
+        
+    }
     
     public void parse_body(Element body){
-        parse_nodes(body.children(), 0);
+        parse_body_nodes(body.children(), 0);
     }
     
     
@@ -54,7 +99,7 @@ public class Page_parser {
      * @param nodes
      * @param tab 
      */
-    public void parse_nodes(Elements nodes, int tab){
+    public void parse_body_nodes(Elements nodes, int tab){
         
         if(nodes.isEmpty() == false){
             ListIterator<Element> iterator = nodes.listIterator();
@@ -78,7 +123,7 @@ public class Page_parser {
                 check_nodes_text(node);
                 
                 // parse out the children of this node
-                parse_nodes(node.children(), tab+1);
+                parse_body_nodes(node.children(), tab+1);
             }
         }
         
