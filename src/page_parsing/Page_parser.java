@@ -4,9 +4,12 @@
  */
 package page_parsing;
 
+import java.util.List;
 import java.util.ListIterator;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.DocumentType;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 import web_parser_project.libraries.Html_helper;
 import web_parser_project.libraries.Spell_checker;
@@ -40,45 +43,26 @@ public class Page_parser {
     
     public void parse_document(){
         Document page_document = current_html_asset.get_contents();
-        Elements first_elements = page_document.children();
         
-        if(first_elements.isEmpty() == false){
-            ListIterator<Element> iterator = first_elements.listIterator();
-            Element node;
-            while(iterator.hasNext()){
-                node = iterator.next();
-            }
-        }
-        
+        parse_doctype(page_document);
         parse_body(page_document.body());
     }
+    
+    public void parse_doctype(Document page_document){
         
-    public void parse_first_elements(Elements nodes){
-        if(nodes.isEmpty() == false){
-            ListIterator<Element> iterator = nodes.listIterator();
-            Element node;
-            while(iterator.hasNext()){
-                node = iterator.next();
-                
-                
-                // doctype node
-                
-                
-                // head node
-                if(Html_helper.is_node_head(node)){
-                    parse_head(node);
-                }
-                
-                // body node
-                if(Html_helper.is_node_body(node)){
-                    parse_body(node);
+        List<Node> first_nodes = page_document.childNodes();
+        
+        // loop through highest nodes to find the doctype
+        if(first_nodes.isEmpty() == false){
+            for (Node node : first_nodes) {
+                if (Html_helper.is_node_doctype(node)) {
+                    DocumentType document_type = (DocumentType)node;
+                    current_html_asset.set_doctype(document_type.toString());
                 }
             }
         }
-    }
-    
-    public void set_doctype(Element node){
-        current_html_asset.set_doctype(node.);
+        
+        
     }
     
     public void parse_head(Element head){
