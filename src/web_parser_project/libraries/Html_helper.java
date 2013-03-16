@@ -7,6 +7,7 @@ package web_parser_project.libraries;
 import java.util.HashMap;
 import org.jsoup.nodes.DocumentType;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 
 /**
  *
@@ -187,10 +188,9 @@ public class Html_helper {
         return node.attr("style");
     }
     
-    public static boolean is_node_doctype(Element node){
-        
+    public static boolean is_node_doctype(Node node){
         if(node != null){
-            if(node instanceof DocumentType){ wtf brah?
+            if(node instanceof DocumentType){
                 return true;
             }
         }
