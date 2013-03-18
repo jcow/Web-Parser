@@ -14,12 +14,12 @@ import org.apache.commons.validator.routines.EmailValidator;
 public class Text_helper {
     
     private static final String regex_for_text_splitting = "[ ]+|-|/";
-    private static EmailValidator email_validator = EmailValidator.getInstance();
     
     public Text_helper(){}
     
     /**
-     * Splits a string into individual words based on a specific set of characters
+     * Splits a string into individual words based on a specific set of characters    private static EmailValidator email_validator = EmailValidator.getInstance();
+
      * @return 
      */
     public static String[] split_text_to_individual_words(String the_string){
@@ -98,8 +98,8 @@ public class Text_helper {
         }
     }
     
-    public static EmailValidator get_email_validator(){
-        return Text_helper.email_validator;
+    private static EmailValidator get_email_validator(){
+        return EmailValidator.getInstance();
     }
     
     public static boolean is_acronym(String word){
