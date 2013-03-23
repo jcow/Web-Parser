@@ -66,6 +66,9 @@
 			<dt>Content Type</dt>
 			<dd>{{content_type}}</dd>
 			
+                        <dt>Retrieval Time</dt>
+                        <dd>{{retrieval_time}}</dt>
+                        
 			<dt>IO Error</dt>
 			<dd>{{io_error}}</dd>
 			

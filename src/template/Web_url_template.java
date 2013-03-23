@@ -32,6 +32,7 @@ public class Web_url_template {
             w_url.http_code = current_url.get_http_code();
             w_url.direct_parent = current_url.get_direct_parent();
             w_url.content_type = current_url.get_content_type();
+            w_url.retrieval_time = current_url.get_retrieval_time();
             w_url.io_error = current_url.is_io_error();
             w_url.malformed_url = current_url.is_malformed_url();
             
@@ -74,6 +75,7 @@ public class Web_url_template {
         String direct_parent;
         int http_code;
         String content_type;
+        long retrieval_time;
         boolean io_error;
         boolean malformed_url;
         LinkedList<Str> referencing_urls;

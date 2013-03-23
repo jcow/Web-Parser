@@ -21,6 +21,7 @@ public class Web_url {
     protected int http_code;
     protected String content_type;
     protected Web_asset asset;
+    protected long retrieval_time;
     
     protected boolean io_error;
     protected boolean malformed_url;
@@ -36,6 +37,8 @@ public class Web_url {
         malformed_url = false;
         
         id  = 0;
+        
+        retrieval_time = 0;
     }
     
     public void set_id(int inc_id){id = inc_id;}
@@ -84,6 +87,14 @@ public class Web_url {
     
     public void set_malformed_url(boolean inc_mal_url){
         malformed_url = inc_mal_url;
+    }
+    
+    public void set_retrieval_time(long start, long stop){
+        retrieval_time = stop-start;
+    }
+    
+    public long get_retrieval_time(){
+        return retrieval_time;
     }
     
     public boolean is_io_error(){

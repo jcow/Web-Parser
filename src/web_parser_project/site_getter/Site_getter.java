@@ -52,6 +52,8 @@ public class Site_getter {
         
         try{
             
+            long start_time = System.currentTimeMillis();
+            
             URL the_url = new URL(current_url.get_url());
             
             HttpURLConnection.setFollowRedirects(true);
@@ -61,6 +63,9 @@ public class Site_getter {
             
             InputStream in = connection.getInputStream();
             
+            long end_time = System.currentTimeMillis();
+            
+            current_url.set_retrieval_time(start_time, end_time);
             
             int http_status = connection.getResponseCode();
             String content_type = connection.getContentType();
