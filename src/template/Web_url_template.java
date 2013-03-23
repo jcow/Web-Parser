@@ -7,7 +7,6 @@ package template;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import web_parser_project.web_assets.Html_asset;
 import web_parser_project.web_assets.Web_url;
 
