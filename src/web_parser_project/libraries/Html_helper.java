@@ -198,24 +198,5 @@ public class Html_helper {
         return false;
     }
     
-    public static boolean is_node_head(Element node){
-        if(node != null){
-            if(node.tagName().trim().toLowerCase().compareTo("head") == 0){
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    
-    public static boolean is_node_body(Element node){
-        if(node != null){
-            if(node.tagName().trim().toLowerCase().compareTo("body") == 0){
-                return true;
-            }
-        }
-        
-        return false;
-    }
     
 }

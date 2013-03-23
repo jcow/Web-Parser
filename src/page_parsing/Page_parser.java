@@ -12,6 +12,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 import web_parser_project.libraries.Html_helper;
+import web_parser_project.libraries.Html_meta_helper;
 import web_parser_project.libraries.Spell_checker;
 import web_parser_project.libraries.Text_helper;
 import web_parser_project.web_assets.Html_asset;
@@ -45,7 +46,7 @@ public class Page_parser {
         Document page_document = current_html_asset.get_contents();
         
         parse_doctype(page_document);
-        parse_head(page_document);
+        parse_head(page_document, page_document.head());
         parse_body(page_document.body());
     }
     
@@ -66,12 +67,20 @@ public class Page_parser {
         
     }
     
-    public void parse_head(Document page_document){
+    public void parse_head(Document page_document, Element head){
+        
+        // set the title
         current_html_asset.set_title(page_document.title());
+        
+        parse_head_nodes(head.children());
     }
     
-    public void parse_head_nodes(Element nodes, int tab){
-        
+    public void parse_head_nodes(Elements nodes){
+        for(Element node : nodes){
+            if(Html_meta_helper.is_element_meta_description(node)){
+               current_html_asset.set_description(Html_meta_helper.get_meta_content(node));
+            }
+        }
     }
     
     public void parse_body(Element body){
