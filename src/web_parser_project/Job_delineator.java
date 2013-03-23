@@ -4,6 +4,7 @@
  */
 package web_parser_project;
 
+import data.Config;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -36,7 +37,7 @@ public class Job_delineator {
         
         Web_url current_site;
         
-        int limit = 1;
+        int limit = Config.get_parse_count_limit();
         
         int counter = 0;
         while(site_reader.has_next() && counter < limit){

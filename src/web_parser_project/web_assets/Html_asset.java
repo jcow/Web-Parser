@@ -42,12 +42,20 @@ public class Html_asset extends Web_asset{
         return doc_type;
     }
     
-    public Document get_contents(){
-        return contents;
+    public void set_title(String t){
+        title = t;
+    }
+    
+    public String get_title(){
+        return title;
     }
     
     public String get_description(){
         return description;
+    }
+    
+    public Document get_contents(){
+        return contents;
     }
     
     public void set_description(String desc){

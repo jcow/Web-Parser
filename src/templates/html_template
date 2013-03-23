@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Dump</title>
+	<style>
+		dl{
+			margin-left: 20px;
+		}
+		ul{
+			margin-bottom: 20px;
+		}
+		dt{
+			font-weight: bold;
+		}
+		
+		body{
+			background-color: #5BCAE3;
+		}
+		
+		.main{
+			width: 800px;
+			margin: 30px auto 30px auto;
+			padding: 20px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			background-color:white;
+		}
+		
+		.url{
+			cursor:pointer;
+		}
+		
+		.url_attr{
+			display:none;
+		}
+		
+	</style>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+		$(document).ready(function(){
+			$('.url').click(function(){
+				$(this).find('.url_attr').slideToggle('slow', function(){});
+			});
+		});
+		
+		
+	</script>
+	
+</head>
+
+<body>
+<div class="main">
+	{{#urls}}
+	<div class="url">
+		<h2 class="url_location">{{url}}</h2>
+		<dl class="url_attr">
+			<dt>Http Code</dt>
+			<dd>{{http_code}}</dd>
+			
+			<dt>Direct Parent</dt>
+			<dd>{{direct_parent}}</dd>
+			
+			<dt>Content Type</dt>
+			<dd>{{content_type}}</dd>
+			
+			<dt>IO Error</dt>
+			<dd>{{io_error}}</dd>
+			
+			<dt>Malformed URL</dt>
+			<dd>{{malformed_url}}</dd>
+			
+			<dt>Referencing Urls</dt>
+			<ul>
+				{{#referencing_urls}}
+					<li>{{value}}</li>
+				{{/referencing_urls}}
+			</ul>
+			
+			{{#h_asset}}
+			<h3>HTML Page</h3>
+				<dl>
+					<dt>Document Type</dt>
+					<dd>{{doc_type}} </dd>
+					
+					<dt>Title</dt>
+					<dd>{{title}} </dd>
+					
+					<dt>Description</dt>
+					<dd>{{description}} </dd>
+					
+					<dt>Misspellings</dt>
+					<ul>
+					{{#misspellings}}
+						<li>{{value}}</li>
+					{{/misspellings}}
+					</ul>
+					
+					<dt>At Mentions</dt>
+					<ul>
+					{{#at_mentions}}
+						<li>{{value}}</li>
+					{{/at_mentions}}
+					</ul>
+					
+					<dt>Hash Tags</dt>
+					<ul>
+					{{#hash_tags}}
+						<li>{{value}}</li>
+					{{/hash_tags}}
+					</ul>
+					
+					<dt>Emails</dt>
+					<ul>
+					{{#emails}}
+						<li>{{value}}</li>
+					{{/emails}}
+					</ul>
+					
+					<dt>Deprecated Tags</dt>
+					<ul>
+					{{#deprecated_tags}}
+						<li>{{value}}</li>
+					{{/deprecated_tags}}
+					</ul>
+					
+				</dl>
+			{{/h_asset}}
+		</dl>	
+	</div>
+	{{/urls}}
+</body>
+</div>

@@ -16,6 +16,8 @@ public class Config {
     
     private static String dictionary_location;
     
+    private static int parse_count_limit;
+    
     private static String database_host;
     private static String database_port;
     private static String database_name;
@@ -24,6 +26,7 @@ public class Config {
     
     private static String output_file_name;
     private static String output_file_location;
+    private static String output_file_template_location;
     
     private static String output_type;
     
@@ -36,8 +39,11 @@ public class Config {
     
     private static String output_file_name_index = "output_file_name";
     private static String output_file_location_index = "output_file_location";
+    private static String output_file_template_location_index = "output_file_template_location";
     
     private static String output_type_index = "output_type";
+    
+    private static String parse_count_limit_index = "parse_count_limit";
     
     
     public Config(){
@@ -118,6 +124,14 @@ public class Config {
             else if(is_location_of_index(output_type_index, index)){
                 output_type = value;
             }
+            // output file location output_file_template_location
+            else if(is_location_of_index(output_file_template_location_index, index)){
+                output_file_template_location = value;
+            }
+            // parse count limit
+            else if(is_location_of_index(parse_count_limit_index, index)){
+                parse_count_limit = Integer.parseInt(value);
+            }
         }
     }
     
@@ -158,11 +172,47 @@ public class Config {
         return output_type;
     }
     
+    public static String get_output_file_name(){
+        return output_file_name;
+    }
+    
+    public static String get_output_file_location(){
+        return output_file_location;
+    }
+    
+    public static String get_output_file_template_location(){
+        return output_file_template_location;
+    }
+    
+    public static int get_parse_count_limit(){
+        return parse_count_limit;
+    }
+    
+    /**
+     * Returns the file location and the file name appended together
+     * @return 
+     */
+    public static String get_output_file_string(){
+        
+        if(output_file_location.charAt(0) == '/'){
+            return output_file_location+output_file_name;
+        }
+        else{
+            return output_file_location+"/"+output_file_name;
+        }
+        
+        
+    }
+    
     public static boolean is_output_to_database(){
         return (output_type.compareTo("database") == 0)?true:false;
     }
     
     public static boolean is_output_to_json_file(){
         return (output_type.compareTo("json") == 0)?true:false;
+    }
+    
+    public static boolean is_output_to_html_file(){
+        return (output_type.compareTo("html") == 0)?true:false;
     }
 }

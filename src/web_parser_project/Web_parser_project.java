@@ -60,11 +60,11 @@ public class Web_parser_project {
         
         
         // args won't be ok because I'm in dev mode, so here is something to kick this off
-        String starting_url = "http://localhost/html_files_for_testing/";
-        String domain = "http://localhost/html_files_for_testing";
+//        String starting_url = "http://localhost/html_files_for_testing/";
+//        String domain = "http://localhost/html_files_for_testing";
         
-//        String starting_url = "http://lesica.com";
-//        String domain = "http://lesica.com";
+        String starting_url = "http://lesica.com";
+        String domain = "http://lesica.com";
         
 //        String starting_url = "http://life.umt.edu/curry/";
 //        String domain = "http://life.umt.edu/curry";

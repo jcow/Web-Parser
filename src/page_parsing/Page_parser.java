@@ -45,6 +45,7 @@ public class Page_parser {
         Document page_document = current_html_asset.get_contents();
         
         parse_doctype(page_document);
+        parse_head(page_document);
         parse_body(page_document.body());
     }
     
@@ -65,8 +66,8 @@ public class Page_parser {
         
     }
     
-    public void parse_head(Element head){
-        
+    public void parse_head(Document page_document){
+        current_html_asset.set_title(page_document.title());
     }
     
     public void parse_head_nodes(Element nodes, int tab){
@@ -118,7 +119,6 @@ public class Page_parser {
             current_html_asset.add_to_inline_styling(html_helper.get_tag_name(node), html_helper.get_style_value(node));
             String p = html_helper.get_style_value(node);
             String q = html_helper.get_tag_name(node);
-            System.out.println("hi");
         }
     }
     
