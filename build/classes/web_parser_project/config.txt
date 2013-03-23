@@ -1,5 +1,14 @@
-#location of the dictionary
+#--------------------------------------
+#   Location of the dictionaries
+#--------------------------------------
 dictionary_location:: C:\Users\Jason\Documents\NetBeansProjects\web_parser_project\src\web_parser_project\dictionary.txt
+custom_dictionary_location:: C:\Users\Jason\Documents\NetBeansProjects\web_parser_project\src\web_parser_project\custom_dictionary.txt
+
+#---------------------------------------
+# Parse limit
+# Determine how far to parse
+#---------------------------------------
+parse_count_limit::1000
 
 #---------------------------------------
 #   Database Specifics
@@ -9,3 +18,21 @@ database_port::3306
 database_name::web_parser
 database_username::root
 database_password:: 
+
+
+#---------------------------------------
+#    Output File Writing Location specifics
+#---------------------------------------
+output_file_template_location::C:\Users\Jason\Documents\NetBeansProjects\web_parser_project\src\templates\html_template
+output_file_name::dump.html
+output_file_location::C:\Users\Jason\Desktop
+
+#----------------------------------------
+#   Output Settings
+#----------------------------------------
+# output_type
+#   how you want the data to be saved
+#   options
+#       database - attempt to save to the database
+#       html - output to an html file
+output_type:: html

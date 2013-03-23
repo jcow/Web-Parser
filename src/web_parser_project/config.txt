@@ -1,6 +1,8 @@
-#location of the dictionary
+#--------------------------------------
+#   Location of the dictionaries
+#--------------------------------------
 dictionary_location:: C:\Users\Jason\Documents\NetBeansProjects\web_parser_project\src\web_parser_project\dictionary.txt
-
+custom_dictionary_location:: C:\Users\Jason\Documents\NetBeansProjects\web_parser_project\src\web_parser_project\custom_dictionary.txt
 
 #---------------------------------------
 # Parse limit

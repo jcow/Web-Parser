@@ -71,12 +71,20 @@ public class Spell_checker {
         dictionary = new HashMap();
         
         LinkedList<String> read_in_dictionary = File_reader.read_file(Config.get_dictionary_location());
-       
+        
+        
+        
         if(read_in_dictionary == null){
             throw new IOException("Dictionary cannot be null");
         }
         else{
             convert_linked_list_to_hash_map(read_in_dictionary);
+            
+            // check and set custom dictionary
+            if(Config.get_custom_dictionary_location() != null){
+                LinkedList<String> custom_dict = File_reader.read_file(Config.get_custom_dictionary_location());
+                convert_linked_list_to_hash_map(custom_dict);
+            }
         }
     }
     
@@ -84,6 +92,7 @@ public class Spell_checker {
     private void convert_linked_list_to_hash_map(LinkedList<String> read_in_dictionary){
         for(String word : read_in_dictionary){
             word = word.toLowerCase();
+            word = word.trim();
             dictionary.put(word, word);
         }
     }

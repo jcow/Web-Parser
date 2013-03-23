@@ -141,19 +141,6 @@ public class Text_helperTest {
     }
 
     /**
-     * Test of get_email_validator method, of class Text_helper.
-     */
-    @Test
-    public void testGet_email_validator() {
-        System.out.println("get_email_validator");
-        EmailValidator expResult = null;
-        EmailValidator result = Text_helper.get_email_validator();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of is_acronym method, of class Text_helper.
      */
     @Test

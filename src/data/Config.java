@@ -16,6 +16,8 @@ public class Config {
     
     private static String dictionary_location;
     
+    private static String custom_dictionary_location;
+    
     private static int parse_count_limit;
     
     private static String database_host;
@@ -31,6 +33,8 @@ public class Config {
     private static String output_type;
     
     private static String dictionary_index          = "dictionary_location";
+    private static String custom_dictionary_index   = "custom_dictionary_location";
+    
     private static String database_host_index       = "database_host"; 
     private static String database_port_index       = "database_port";
     private static String database_name_index       = "database_name";
@@ -92,6 +96,10 @@ public class Config {
             if(is_location_of_index(dictionary_index, index)){
                 dictionary_location = value;
             }
+            // custom dictionary location
+            else if(is_location_of_index(custom_dictionary_index, index)){
+                custom_dictionary_location = value;
+            }
             // database_host
             else if(is_location_of_index(database_host_index, index)){
                 database_host = value;
@@ -146,6 +154,10 @@ public class Config {
     
     public static String get_dictionary_location(){
         return dictionary_location;
+    }
+    
+    public static String get_custom_dictionary_location(){
+        return custom_dictionary_location;
     }
     
     public static String get_database_host(){
