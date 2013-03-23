@@ -24,6 +24,7 @@ public class Web_url_template {
         Web_url current_url;
         Html_asset current_asset;
         Iterator it = traveled_sites.keySet().iterator();
+        
         while(it.hasNext()){
             String key = (String)it.next();
             current_url = (Web_url)traveled_sites.get(key);
