@@ -180,7 +180,7 @@ public class Html_helper {
         return tag.hasAttr("style");
     }
     
-    public String get_tag_name(Element node){
+    public static String get_tag_name(Element node){
         return node.tagName().trim().toLowerCase();
     }
     
@@ -196,6 +196,15 @@ public class Html_helper {
         }
         
         return false;
+    }
+    
+    public static boolean is_node_image(Element node){
+        if(Html_helper.get_tag_name(node).equals("img")) {
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     

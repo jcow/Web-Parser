@@ -29,7 +29,7 @@ public class Html_meta_helper {
         if(Html_meta_helper.is_element_meta(node)){
             String name = node.attr("name");
             
-            if(name != null && name.equals("description")){
+            if(name.equals("description")){
                 return true;
             }
         }

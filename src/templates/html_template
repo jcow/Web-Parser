@@ -128,7 +128,12 @@
 						<li>{{value}}</li>
 					{{/deprecated_tags}}
 					</ul>
-					
+                                        <dt>Images with no alt text</dt>
+					<ul>
+                                        {{#no_alt_text}}
+                                                <li>{{value}}</li>
+                                        {{/no_alt_text}}
+                                        </ul>
 				</dl>
 			{{/h_asset}}
 		</dl>	

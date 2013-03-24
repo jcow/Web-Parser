@@ -113,6 +113,12 @@ public class Page_parser {
                 // check if the node contains inline styling
                 check_if_node_contains_inline_styling(node);
                 
+                System.out.println(node.tagName());
+                // if the node is an image
+                if(Html_helper.is_node_image(node)){
+                    check_image_node(node);
+                }
+                
                 // check the text of the node
                 check_nodes_text(node);
                 
@@ -127,12 +133,12 @@ public class Page_parser {
         if(html_helper.contains_inline_styling(node)){
             current_html_asset.add_to_inline_styling(html_helper.get_tag_name(node), html_helper.get_style_value(node));
             String p = html_helper.get_style_value(node);
-            String q = html_helper.get_tag_name(node);
+            String q = Html_helper.get_tag_name(node);
         }
     }
     
     private void check_if_node_is_deprecated(Element node){
-        String node_name = html_helper.get_tag_name(node);
+        String node_name = Html_helper.get_tag_name(node);
         if(html_helper.is_tag_deprecated(node_name)){
             current_html_asset.add_to_deprecated_tags(node_name);
         }
@@ -173,6 +179,20 @@ public class Page_parser {
         String clean_text = spell_checker.clean(text);
         if(spell_checker.is_misspelt(clean_text)){
             current_html_asset.add_to_misspellings(clean_text);
+        }
+    }
+    
+    private void check_image_node(Element node){
+        // check if there is any alt text
+        String alt_text = node.attr("alt");
+        
+        // no alt text
+        if(alt_text.equals("")){
+           current_html_asset.add_to_no_alt_text(node.attr("src"));
+        }
+        // spell check alt text
+        else{
+           spell_check_text(alt_text);
         }
     }
 }

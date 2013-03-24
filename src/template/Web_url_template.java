@@ -48,6 +48,7 @@ public class Web_url_template {
                 w_url.h_asset.hash_tags = convert_string_to_str(current_asset.get_hash_tags());
                 w_url.h_asset.emails = convert_string_to_str(current_asset.get_emails());
                 w_url.h_asset.deprecated_tags = convert_string_to_str(current_asset.get_deprecated_tags());
+                w_url.h_asset.no_alt_text = convert_string_to_str(current_asset.get_no_alt_text());
                 
             }
             
@@ -103,6 +104,7 @@ public class Web_url_template {
         LinkedList<Str> hash_tags;
         LinkedList<Str> emails;
         LinkedList<Str> deprecated_tags;
+        LinkedList<Str> no_alt_text;
         
         H_asset(){
             
