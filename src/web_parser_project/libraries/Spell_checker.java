@@ -32,7 +32,6 @@ public class Spell_checker {
     
     public String clean(String word){
         word = word.trim();                                     // trim
-        word = word.toLowerCase();                              // convert to lowercase
         word = Text_helper.remove_punctuation_from_ends(word);  // remove the punctuation from ends
         
         return word;
@@ -91,7 +90,6 @@ public class Spell_checker {
     
     private void convert_linked_list_to_hash_map(LinkedList<String> read_in_dictionary){
         for(String word : read_in_dictionary){
-            word = word.toLowerCase();
             word = word.trim();
             dictionary.put(word, word);
         }
