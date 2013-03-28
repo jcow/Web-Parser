@@ -127,7 +127,7 @@ public class Page_parser {
                 }
                 
                 // check the text of the node
-                check_nodes_text(node);
+                check_text(Text_helper.split_text_to_individual_words(node.ownText()));
                 
                 // parse out the children of this node
                 parse_body_nodes(node.children(), tab+1);
@@ -151,8 +151,7 @@ public class Page_parser {
         }
     }
     
-    private void check_nodes_text(Element node){
-        String[] words = Text_helper.split_text_to_individual_words(node.ownText());
+    private void check_text(String[] words){
         
         for(int i = 0; i < words.length; i++){
             
@@ -199,7 +198,7 @@ public class Page_parser {
         }
         // spell check alt text
         else{
-           spell_check_text(alt_text);
+           check_text(Text_helper.split_text_to_individual_words(alt_text));
         }
     }
     

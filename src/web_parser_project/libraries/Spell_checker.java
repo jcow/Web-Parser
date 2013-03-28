@@ -40,15 +40,18 @@ public class Spell_checker {
     /**
      * Takes in a word that hasn't been formatted and determines if it's misspelt
      * You should probably run the string through the clean function first
-     * @param text_blob
+     * @param word
      * @return 
-     *      Returns a linked list of misspelled words or null if none were found
+     *      Returns true if the word was misspelt
      */
     public boolean is_misspelt(String word){
 
         // empty, leave it
         if(word == null || word.length() == 0){return false;}
       
+        // make it lower case
+        word = word.toLowerCase();
+        
         // all puncuation, now empty
         // or it's a number
         // or if it's all upper-case
@@ -90,7 +93,7 @@ public class Spell_checker {
     
     private void convert_linked_list_to_hash_map(LinkedList<String> read_in_dictionary){
         for(String word : read_in_dictionary){
-            word = word.trim();
+            word = word.trim().toLowerCase();
             dictionary.put(word, word);
         }
     }
