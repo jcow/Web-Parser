@@ -207,5 +207,12 @@ public class Html_helper {
         }
     }
     
-    
+    public static boolean is_node_anchor(Element node){
+        if(Html_helper.get_tag_name(node).equals("a")){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

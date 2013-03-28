@@ -11,6 +11,7 @@ import org.jsoup.nodes.DocumentType;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
+import web_parser_project.libraries.Html_accessibility_helper;
 import web_parser_project.libraries.Html_helper;
 import web_parser_project.libraries.Html_meta_helper;
 import web_parser_project.libraries.Spell_checker;
@@ -28,10 +29,12 @@ public class Page_parser {
     private Html_asset current_html_asset;
     private Spell_checker spell_checker;
     private Html_helper html_helper;
+    private Html_accessibility_helper accessibility_helper;
     
     public Page_parser(){
         spell_checker = Spell_checker.getInstance();
         html_helper = Html_helper.get_instance();
+        accessibility_helper = Html_accessibility_helper.get_instance();
     }
     
     public void parse(Web_url w_url){
@@ -113,10 +116,14 @@ public class Page_parser {
                 // check if the node contains inline styling
                 check_if_node_contains_inline_styling(node);
                 
-                System.out.println(node.tagName());
                 // if the node is an image
                 if(Html_helper.is_node_image(node)){
                     check_image_node(node);
+                }
+                
+                // if the node is a link
+                if(Html_helper.is_node_anchor(node)){
+                    check_anchor(node.text());
                 }
                 
                 // check the text of the node
@@ -193,6 +200,12 @@ public class Page_parser {
         // spell check alt text
         else{
            spell_check_text(alt_text);
+        }
+    }
+    
+    private void check_anchor(String text){
+        if(Html_accessibility_helper.is_poor_link_name(text)){
+            current_html_asset.add_to_poor_link_naming(text);
         }
     }
 }

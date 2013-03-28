@@ -49,7 +49,7 @@ public class Web_url_template {
                 w_url.h_asset.emails = convert_string_to_str(current_asset.get_emails());
                 w_url.h_asset.deprecated_tags = convert_string_to_str(current_asset.get_deprecated_tags());
                 w_url.h_asset.no_alt_text = convert_string_to_str(current_asset.get_no_alt_text());
-                
+                w_url.h_asset.poor_link_naming = convert_string_to_str(current_asset.get_poor_link_naming());
             }
             
             url_list.add(w_url);
@@ -105,6 +105,7 @@ public class Web_url_template {
         LinkedList<Str> emails;
         LinkedList<Str> deprecated_tags;
         LinkedList<Str> no_alt_text;
+        LinkedList<Str> poor_link_naming;
         
         H_asset(){
             

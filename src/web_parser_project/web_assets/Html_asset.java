@@ -23,7 +23,10 @@ public class Html_asset extends Web_asset{
     protected LinkedList<String> emails;
     protected LinkedList<String> deprecated_tags;
     protected LinkedList<Inline_style> inline_styling;
+    
+    // accessibility
     protected LinkedList<String> no_alt_text;
+    protected LinkedList<String> poor_link_naming;
     
     public Html_asset(Document inc_contents){
         contents = inc_contents;
@@ -34,6 +37,7 @@ public class Html_asset extends Web_asset{
         deprecated_tags = new LinkedList();
         inline_styling = new LinkedList();
         no_alt_text = new LinkedList();
+        poor_link_naming = new LinkedList();
     }
     
     public void set_doctype(String doc){
@@ -66,6 +70,10 @@ public class Html_asset extends Web_asset{
     
     public void add_to_no_alt_text(String n){
         no_alt_text.add(n);
+    }
+    
+    public void add_to_poor_link_naming(String n){
+        poor_link_naming.add(n);
     }
     
     public void add_to_inline_styling(String tag_name, String style_value){
@@ -130,6 +138,10 @@ public class Html_asset extends Web_asset{
     
     public LinkedList<String> get_no_alt_text(){
         return no_alt_text;
+    }
+    
+    public LinkedList<String> get_poor_link_naming(){
+        return poor_link_naming;
     }
     
 }

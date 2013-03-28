@@ -134,6 +134,12 @@
                                                 <li>{{value}}</li>
                                         {{/no_alt_text}}
                                         </ul>
+                                        <dt>Poorly Named Links</dt>
+					<ul>
+                                        {{#poor_link_naming}}
+                                                <li>{{value}}</li>
+                                        {{/poor_link_naming}}
+                                        </ul>
 				</dl>
 			{{/h_asset}}
 		</dl>	
