@@ -23,8 +23,8 @@ database_password::
 #---------------------------------------
 #    Output File Writing Location specifics
 #---------------------------------------
-output_file_template_location::C:\Users\Jason\Documents\NetBeansProjects\web_parser_project\src\templates\html_template
-output_file_name::dump.html
+output_file_template_location::C:\Users\Jason\Documents\NetBeansProjects\web_parser_project\src\templates\json_template
+output_file_name::dump.json
 output_file_location::C:\Users\Jason\Desktop
 
 #----------------------------------------

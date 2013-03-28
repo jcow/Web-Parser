@@ -24,7 +24,15 @@ public class Web_url_template {
         Html_asset current_asset;
         Iterator it = traveled_sites.keySet().iterator();
         
+        int counter = 0;
+        int last_item = traveled_sites.size()-1;
+        
+        System.out.println(last_item);
+        
         while(it.hasNext()){
+            
+            System.out.print(counter+"  ::");
+            
             String key = (String)it.next();
             current_url = (Web_url)traveled_sites.get(key);
             W_url w_url = new W_url();
@@ -37,6 +45,16 @@ public class Web_url_template {
             w_url.malformed_url = current_url.is_malformed_url();
             
             w_url.referencing_urls = convert_string_to_str(current_url.get_references());
+            
+            if(counter == last_item){
+                w_url.is_not_last = false;
+            }
+            else{
+                w_url.is_not_last = true;
+            }
+            
+            System.out.println(w_url.is_not_last);
+            
             
             if(current_url.get_web_asset() instanceof Html_asset){
                 current_asset = (Html_asset)current_url.get_web_asset();
@@ -54,6 +72,7 @@ public class Web_url_template {
             }
             
             url_list.add(w_url);
+            counter++;
         }
     }
     
@@ -64,14 +83,27 @@ public class Web_url_template {
     private LinkedList<Str> convert_string_to_str(LinkedList<String> strings){
         LinkedList<Str> str = new LinkedList();
         
+        int counter = 0;
+        int last_index = strings.size() - 1;
         for(String string : strings){
-            str.add(new Str(string));
+            if(counter == last_index){
+                str.add(new Str(string, false));
+            }
+            else{
+                str.add(new Str(string, true));
+            }
+            counter++;
         }
         
         return str;
     }
     
-    class W_url{
+    
+    class LItem{
+        boolean is_not_last;
+    }
+    
+    class W_url extends LItem{
         
         String url;
         String direct_parent;
@@ -81,17 +113,19 @@ public class Web_url_template {
         boolean io_error;
         boolean malformed_url;
         LinkedList<Str> referencing_urls;
+        boolean last_url;
 
         H_asset h_asset;
         
         public W_url(){}
     }
     
-    class Str{
+    class Str extends LItem{
         String value;
         
-        Str(String v){
+        Str(String v, boolean i){
             value = v;
+            is_not_last = i;
         }
     }
     
