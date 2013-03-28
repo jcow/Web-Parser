@@ -140,6 +140,14 @@
                                                 <li>{{value}}</li>
                                         {{/poor_link_naming}}
                                         </ul>
+
+                                        <dt>Inputs no labels</dt>
+					<ul>
+                                        {{#inputs_no_labels}}
+                                                <li>{{value}}</li>
+                                        {{/inputs_no_labels}}
+                                        </ul>
+
 				</dl>
 			{{/h_asset}}
 		</dl>	

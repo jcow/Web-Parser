@@ -215,4 +215,45 @@ public class Html_helper {
             return false;
         }
     }
+    
+    public static boolean is_node_label(Element node){
+        return (Html_helper.get_tag_name(node).equals("label"))?true:false;
+    }
+    
+    public static boolean is_node_input(Element node){
+        return (Html_helper.get_tag_name(node).equals("input"))?true:false;
+    }
+    
+    public static boolean is_node_textarea(Element node){
+        return (Html_helper.get_tag_name(node).equals("textarea"))?true:false;
+    }
+    
+    public static boolean is_node_select(Element node){
+        return (Html_helper.get_tag_name(node).equals("select"))?true:false;
+    }
+    
+    public static boolean is_node_submit_input(Element node){
+        if(Html_helper.is_node_input(node) && node.attr("type").equals("submit")){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    /**
+     * Determines if a node is a form input, select, or text area and ignore <input type="submit"> fields
+     * @param node
+     * @return 
+     */
+    public static boolean should_node_have_associated_label(Element node){
+        if(Html_helper.is_node_submit_input(node) == false && (Html_helper.is_node_input(node) || Html_helper.is_node_select(node)|| Html_helper.is_node_textarea(node))){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    
 }

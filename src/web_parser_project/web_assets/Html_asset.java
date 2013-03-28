@@ -27,6 +27,7 @@ public class Html_asset extends Web_asset{
     // accessibility
     protected LinkedList<String> no_alt_text;
     protected LinkedList<String> poor_link_naming;
+    protected LinkedList<String> inputs_no_labels;
     
     public Html_asset(Document inc_contents){
         contents = inc_contents;
@@ -38,6 +39,7 @@ public class Html_asset extends Web_asset{
         inline_styling = new LinkedList();
         no_alt_text = new LinkedList();
         poor_link_naming = new LinkedList();
+        inputs_no_labels = new LinkedList();
     }
     
     public void set_doctype(String doc){
@@ -116,6 +118,10 @@ public class Html_asset extends Web_asset{
         }
     }
     
+    public void set_inputs_no_labels(LinkedList<String> inc_inputs_no_labels){
+        inputs_no_labels = inc_inputs_no_labels;
+    }
+    
     public LinkedList<String> get_misspellings(){
         return misspellings;
     }
@@ -142,6 +148,10 @@ public class Html_asset extends Web_asset{
     
     public LinkedList<String> get_poor_link_naming(){
         return poor_link_naming;
+    }
+    
+    public LinkedList<String> get_inputs_no_labels(){
+        return inputs_no_labels;
     }
     
 }

@@ -50,6 +50,7 @@ public class Web_url_template {
                 w_url.h_asset.deprecated_tags = convert_string_to_str(current_asset.get_deprecated_tags());
                 w_url.h_asset.no_alt_text = convert_string_to_str(current_asset.get_no_alt_text());
                 w_url.h_asset.poor_link_naming = convert_string_to_str(current_asset.get_poor_link_naming());
+                w_url.h_asset.inputs_no_labels = convert_string_to_str(current_asset.get_inputs_no_labels());
             }
             
             url_list.add(w_url);
@@ -106,6 +107,7 @@ public class Web_url_template {
         LinkedList<Str> deprecated_tags;
         LinkedList<Str> no_alt_text;
         LinkedList<Str> poor_link_naming;
+        LinkedList<Str> inputs_no_labels;
         
         H_asset(){
             

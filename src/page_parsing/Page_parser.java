@@ -30,6 +30,7 @@ public class Page_parser {
     private Spell_checker spell_checker;
     private Html_helper html_helper;
     private Html_accessibility_helper accessibility_helper;
+    private Labels_to_form_elements label_to_form_element;
     
     public Page_parser(){
         spell_checker = Spell_checker.getInstance();
@@ -40,8 +41,13 @@ public class Page_parser {
     public void parse(Web_url w_url){
         
         if(Web_asset.is_html_asset(w_url.get_web_asset())){
+            
             current_html_asset = (Html_asset)w_url.get_web_asset();
+            label_to_form_element = new Labels_to_form_elements();
+            
             parse_document();
+            
+            check_labels_to_input();
         }
     }
     
@@ -126,6 +132,16 @@ public class Page_parser {
                     check_anchor(node.text());
                 }
                 
+                // if the node is an form element that should have an associated label
+                if(Html_helper.should_node_have_associated_label(node)){
+                    label_to_form_element.add_to_form_element(node.attr("name")); 
+                }
+                // if the node is a label
+                else if(Html_helper.is_node_label(node)){
+                    
+                    label_to_form_element.add_to_labels(node.attr("for"));
+                }
+                
                 // check the text of the node
                 check_text(Text_helper.split_text_to_individual_words(node.ownText()));
                 
@@ -206,5 +222,9 @@ public class Page_parser {
         if(Html_accessibility_helper.is_poor_link_name(text)){
             current_html_asset.add_to_poor_link_naming(text);
         }
+    }
+    
+    private void check_labels_to_input(){
+        current_html_asset.set_inputs_no_labels(label_to_form_element.get_difference());
     }
 }
