@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import web_parser_project.web_assets.Totals_asset;
 import web_parser_project.web_assets.Web_url;
 
 
@@ -38,7 +39,7 @@ public class Template {
         template_location = Config.get_output_file_template_location();
     }
     
-    public void create(String starting_url, String domain, HashMap<String, Web_url> urls){
+    public void create(String starting_url, String domain, HashMap<String, Web_url> urls, Totals_asset totals){
         System.out.println("donkey");
         MustacheFactory mf = new DefaultMustacheFactory();
         try {
@@ -53,7 +54,7 @@ public class Template {
             }
             
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            mustache.execute(fw, new Web_url_template(starting_url, domain, urls)).flush();
+            mustache.execute(fw, new Web_url_template(starting_url, domain, urls, totals)).flush();
             
             System.out.println("blarrg");
 

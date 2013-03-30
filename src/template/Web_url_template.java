@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import web_parser_project.web_assets.Html_asset;
+import web_parser_project.web_assets.Totals_asset;
 import web_parser_project.web_assets.Web_url;
 
 /**
@@ -18,9 +19,14 @@ public class Web_url_template {
     
     Parse_results parse_result = new Parse_results();
     
-    public Web_url_template(String starting_url, String domain, HashMap<String, Web_url>traveled_sites){
+    public Web_url_template(String starting_url, String domain, HashMap<String, Web_url>traveled_sites, Totals_asset totals){
         
-        parse_result.total_urls = traveled_sites.size();
+        parse_result.total_urls = totals.get_total_urls();
+        parse_result.total_misspellings = totals.get_total_misspellings();
+        parse_result.total_same_domain_urls = totals.get_total_same_domain_urls();
+        parse_result.total_time = totals.get_total_time();
+        parse_result.total_pages = totals.get_total_pages();
+        parse_result.total_images = totals.get_total_images();
         
         
         Web_url current_url;
@@ -153,7 +159,12 @@ public class Web_url_template {
     }
     
     class Parse_results{
+        long total_time;
+        int total_misspellings;
+        int total_pages;
+        int total_images;
         int total_urls;
+        int total_same_domain_urls;
         LinkedList<W_url> url_list;
         
         public Parse_results(){

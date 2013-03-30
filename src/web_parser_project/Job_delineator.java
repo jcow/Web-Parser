@@ -119,7 +119,7 @@ public class Job_delineator {
         
         
         
-        Output.do_output(starting_url, domain, traveled_sites);
+        Output.do_output(starting_url, domain, traveled_sites, totals);
         
         System.out.println("done");
     }

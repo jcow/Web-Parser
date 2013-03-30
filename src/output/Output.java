@@ -6,9 +6,8 @@ package output;
 
 import data.Config;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.concurrent.Callable;
 import template.Template;
+import web_parser_project.web_assets.Totals_asset;
 import web_parser_project.web_assets.Web_url;
 
 /**
@@ -25,7 +24,7 @@ public class Output {
         new_line = System.getProperty("line.separator");
     }
     
-    public static void do_output(String starting_url, String domain, HashMap<String, Web_url> traveled_sites){
+    public static void do_output(String starting_url, String domain, HashMap<String, Web_url> traveled_sites, Totals_asset totals){
         if(Config.is_output_to_database()){
             Database_dump d = new Database_dump();
             d.dump_to_database(starting_url, domain, traveled_sites);
@@ -35,7 +34,7 @@ public class Output {
         }
         else if(Config.is_output_to_html_file()){
             Template template = new Template();
-            template.create(starting_url, domain, traveled_sites);
+            template.create(starting_url, domain, traveled_sites, totals);
         }
     }
     
