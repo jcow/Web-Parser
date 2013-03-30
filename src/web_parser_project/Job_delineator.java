@@ -13,6 +13,7 @@ import page_parsing.Page_parser;
 import web_parser_project.libraries.Html_helper;
 import web_parser_project.site_getter.Site_getter;
 import web_parser_project.web_assets.Html_asset;
+import web_parser_project.web_assets.Totals_asset;
 import web_parser_project.web_assets.Web_url;
 
 /**
@@ -36,10 +37,12 @@ public class Job_delineator {
     public void run(){
         
         Web_url current_site;
+        Totals_asset totals = new Totals_asset();
         
         int limit = Config.get_parse_count_limit();
         
         int counter = 0;
+        long start_time = System.currentTimeMillis();
         while(site_reader.has_next() && counter < limit){
             current_site = site_reader.get_next();
             
@@ -53,13 +56,17 @@ public class Job_delineator {
             */
             counter++;
         }
+        long end_time = System.currentTimeMillis();
         
+        totals.add_to_total_time(end_time - start_time);
         
         System.out.println("\n\n-----------------Parsed Pages----------------\n");
         
-        Page_parser page_parser = new Page_parser();
-        
         HashMap<String, Web_url> traveled_sites = site_reader.get_traveled_urls();
+        
+        totals.add_to_total_urls(traveled_sites.size());
+        Page_parser page_parser = new Page_parser(totals);
+        
         Iterator it  = traveled_sites.keySet().iterator();
         Web_url current_it;
         while(it.hasNext()){
@@ -87,10 +94,12 @@ public class Job_delineator {
             System.out.println(current_it.get_url());
                 
             // must be in the same domain to get checked in-depth
-            if(Html_helper.is_same_domain(starting_url, current_it.get_url())){            
+            if(Html_helper.is_same_domain(starting_url, current_it.get_url())){ 
+                
+                totals.add_to_total_same_domain_urls(1);
+                
                 if(current_it.get_web_asset() instanceof Html_asset && current_it.get_web_asset() != null){
-                    //System.out.println("printing web asset");
-                    
+
                     // parse the page
                     page_parser.parse(current_it);
                     
