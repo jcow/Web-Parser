@@ -16,10 +16,13 @@ import web_parser_project.web_assets.Web_url;
  */
 public class Web_url_template {
     
-    LinkedList<W_url> url_list;
+    Parse_results parse_result = new Parse_results();
     
     public Web_url_template(String starting_url, String domain, HashMap<String, Web_url>traveled_sites){
-        url_list = new LinkedList();
+        
+        parse_result.total_urls = traveled_sites.size();
+        
+        
         Web_url current_url;
         Html_asset current_asset;
         Iterator it = traveled_sites.keySet().iterator();
@@ -71,14 +74,15 @@ public class Web_url_template {
                 w_url.h_asset.inputs_no_labels = convert_string_to_str(current_asset.get_inputs_no_labels());
             }
             
-            url_list.add(w_url);
+            parse_result.url_list.add(w_url);
             counter++;
         }
     }
     
     public LinkedList<W_url> urls(){
-        return url_list;
+        return parse_result.url_list;
     }
+    
     
     private LinkedList<Str> convert_string_to_str(LinkedList<String> strings){
         LinkedList<Str> str = new LinkedList();
@@ -145,6 +149,15 @@ public class Web_url_template {
         
         H_asset(){
             
+        }
+    }
+    
+    class Parse_results{
+        int total_urls;
+        LinkedList<W_url> url_list;
+        
+        public Parse_results(){
+            url_list = new LinkedList();
         }
     }
         

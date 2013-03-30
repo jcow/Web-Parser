@@ -1,4 +1,6 @@
 var content_dump = {
+        {{#parse_result}}
+        total_urls:{{total_urls}},
 	urls:[ 
             {{#urls}}
 		{
@@ -6,7 +8,7 @@ var content_dump = {
                     http_code:{{http_code}},
 		    direct_parent:'{{direct_parent}}',
                     content_type:'{{content_type}}',
-                    retrieval_time:'{{retrieval_time}}',
+                    retrieval_time:{{retrieval_time}},
                     io_error:{{io_error}},
                     malformed_url:{{malformed_url}},
                     referencing_urls:[
@@ -32,4 +34,5 @@ var content_dump = {
                 {{#is_not_last}},{{/is_not_last}}
             {{/urls}}
         ]
+        {{/parse_result}}
 }
