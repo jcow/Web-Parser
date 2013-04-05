@@ -166,6 +166,15 @@ public class Html_helper {
         }
     }
     
+    public static boolean is_content_type_image(String content_type){
+        if(content_type.contains("image")){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
     public boolean is_tag_deprecated(String tag){
         
         if(tag != null){

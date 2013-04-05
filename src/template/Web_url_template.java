@@ -25,7 +25,7 @@ public class Web_url_template {
         parse_result.total_misspellings = totals.get_total_misspellings();
         parse_result.total_same_domain_urls = totals.get_total_same_domain_urls();
         parse_result.total_time = totals.get_total_time();
-        parse_result.total_pages = totals.get_total_pages();
+        parse_result.total_same_domain_pages = totals.get_total_pages();
         parse_result.total_images = totals.get_total_images();
         
         
@@ -165,7 +165,7 @@ public class Web_url_template {
     class Parse_results{
         long total_time;
         int total_misspellings;
-        int total_pages;
+        int total_same_domain_pages;
         int total_images;
         int total_urls;
         int total_same_domain_urls;

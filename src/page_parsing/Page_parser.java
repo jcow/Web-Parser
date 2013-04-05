@@ -51,8 +51,6 @@ public class Page_parser {
             parse_document();
             
             check_labels_to_input();
-            
-            totals.add_to_total_pages(1);
         }
     }
     

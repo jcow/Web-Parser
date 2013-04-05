@@ -8,15 +8,16 @@ public class Totals_asset {
     
     private long total_time;
     private int total_misspellings;
-    private int total_pages;
+    private int total_same_domain_pages;
     private int total_images;
     private int total_urls;
     private int total_same_domain_urls;
     
+    
     public Totals_asset(){
         total_time = 0;
         total_misspellings = 0;
-        total_pages = 0;
+        total_same_domain_pages = 0;
         total_images = 0;
         total_urls = 0;
         total_same_domain_urls = 0;
@@ -31,7 +32,7 @@ public class Totals_asset {
     }
     
     public void add_to_total_pages(int t){
-        total_pages += t;
+        total_same_domain_pages += t;
     }
     
     public void add_to_total_images(int i){
@@ -55,7 +56,7 @@ public class Totals_asset {
     }
     
     public int get_total_pages(){
-        return total_pages;
+        return total_same_domain_pages;
     }
     
     public int get_total_images(){

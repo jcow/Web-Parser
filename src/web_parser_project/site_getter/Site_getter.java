@@ -73,6 +73,7 @@ public class Site_getter {
             // set some header values
             current_url.set_content_length(connection.getContentLengthLong());
             current_url.set_last_modified(connection.getLastModified());
+            current_url.set_content_type(content_type);
             
             // 200 ok
             if(Html_helper.is_200(http_status)){
@@ -82,7 +83,7 @@ public class Site_getter {
                 
                     store_links(html_page, current_url.get_url());
                     
-                    return add_to_explored(current_url, html_page, http_status, content_type);
+                    return add_to_explored(current_url, html_page, http_status);
                 }
                 else{
                     return add_to_explored_non_html_asset(current_url, in, http_status, content_type);
@@ -217,10 +218,9 @@ public class Site_getter {
         non_traveled_urls.add(url_to_add);
     }
     
-    private Web_url add_to_explored(Web_url w_url, Document the_document, int status_code, String content_type){
+    private Web_url add_to_explored(Web_url w_url, Document the_document, int status_code){
         
         w_url.set_web_asset(new Html_asset(the_document));
-        w_url.set_content_type(content_type);
         w_url.set_http_code(status_code);
         
         traveled_assets.put(w_url.get_url(), w_url);

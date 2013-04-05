@@ -73,24 +73,8 @@ public class Job_delineator {
             String key = (String)it.next();
             current_it = (Web_url)traveled_sites.get(key);
             
-            /*
-            if(current_it.is_404()){
-                print_fof(current_it.get_url(), current_it.get_references());
-            }
-            else if(current_it.is_200_ok()){
-                System.out.println("OK: "+current_it.get_url());
-            }*/
-            
             Iterator referred_to = current_it.get_references().iterator();
-            
-            /*System.out.println("\tReferred By:");
-            while(referred_to.hasNext()){
-                System.out.println("\t\t"+referred_to.next());
-            }*/
-            
-            //System.out.println("\t"+current_it.getClass().getName());
-            
-            
+          
             System.out.println(current_it.get_url());
                 
             // must be in the same domain to get checked in-depth
@@ -99,20 +83,17 @@ public class Job_delineator {
                 totals.add_to_total_same_domain_urls(1);
                 
                 if(current_it.get_web_asset() instanceof Html_asset && current_it.get_web_asset() != null){
+                    
+                    // add to total pages
+                    totals.add_to_total_pages(1);
 
                     // parse the page
                     page_parser.parse(current_it);
-                    
-//                    Html_asset asset = (Html_asset)current_it.get_web_asset();
-//                    LinkedList<String> misspellings = asset.get_misspellings();
-//                    Iterator misp_it = misspellings.iterator();
-//                    System.out.println(current_it.get_url());
-//                    while(misp_it.hasNext()){
-//                        String misp = (String)misp_it.next();
-//                        System.out.println("\t\t\t"+misp);
-//                    }
-
                 }
+            }
+            
+            if(Html_helper.is_content_type_image(current_it.get_content_type())){
+                totals.add_to_total_images(1);
             }
             
         }

@@ -3,8 +3,9 @@ var content_dump = {
         "total_urls":{{total_urls}},
         "total_time":{{total_time}},
         "total_misspellings":{{total_misspellings}},
-        "total_pages":{{total_pages}},
+        "total_same_domain_pages":{{total_same_domain_pages}},
         "total_same_domain_urls":{{total_same_domain_urls}},
+        "total_images":{{total_images}},
 	"urls":[ 
             {{#urls}}
 		{
