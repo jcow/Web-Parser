@@ -5,9 +5,13 @@
 package web_parser_project;
 
 import data.Config;
+import java.awt.Desktop;
+import java.io.File;
 import output.Database;
 import output.Database_dump;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import web_parser_project.libraries.Incoming_args;
 import web_parser_project.libraries.Spell_checker;
 
@@ -75,6 +79,33 @@ public class Web_parser_project {
         Job_delineator site_parser = new Job_delineator(starting_url, domain);
             
         site_parser.run();
+        
+        
+        /*
+         
+         * CODE TO OPEN UP APPLICATION IN A USERS BROWSER!
+         
+         
+         */
+        
+        
+//        String htmlFilePath = "C:/wamp/www/html_files_for_testing/index.html"; // path to your new file
+//        File htmlFile = new File(htmlFilePath);
+//        try {
+//            // open the default web browser for the HTML page
+//            Desktop.getDesktop().browse(htmlFile.toURI());
+        
+//            http://stackoverflow.com/questions/602032/getting-java-gui-to-open-a-webpage-in-web-browser
+//            // if a web browser is the default HTML handler, this might work too
+////            Desktop.getDesktop().open(htmlFile);
+//            
+//        } catch (IOException ex) {
+//            Logger.getLogger(Web_parser_project.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+
+        
+        
+        
     }
     
     public static boolean check_inc_args(Incoming_args inc_args, String args[]){
