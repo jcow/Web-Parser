@@ -1,4 +1,4 @@
-var content_dump = {
+{
         {{#parse_result}}
         "total_urls":{{total_urls}},
         "total_time":{{total_time}},

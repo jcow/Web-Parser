@@ -16,10 +16,10 @@ public class Totals_asset {
     
     public Totals_asset(){
         total_time = 0;
-        total_misspellings = 0;
-        total_same_domain_pages = 0;
         total_images = 0;
         total_urls = 0;
+        total_misspellings = 0;
+        total_same_domain_pages = 0;
         total_same_domain_urls = 0;
     }
     
