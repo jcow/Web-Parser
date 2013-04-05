@@ -52,6 +52,8 @@ public class Web_url_template {
             w_url.retrieval_time = current_url.get_retrieval_time();
             w_url.io_error = current_url.is_io_error();
             w_url.malformed_url = current_url.is_malformed_url();
+            w_url.content_length = current_url.get_content_length();
+            w_url.last_modified = current_url.get_last_modified();
             
             w_url.referencing_urls = convert_string_to_str(current_url.get_references());
             
@@ -124,6 +126,8 @@ public class Web_url_template {
         boolean malformed_url;
         LinkedList<Str> referencing_urls;
         boolean last_url;
+        long content_length;
+        long last_modified;
 
         H_asset h_asset;
         

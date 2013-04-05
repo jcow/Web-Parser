@@ -70,9 +70,13 @@ public class Site_getter {
             int http_status = connection.getResponseCode();
             String content_type = connection.getContentType();
             
+            // set some header values
+            current_url.set_content_length(connection.getContentLengthLong());
+            current_url.set_last_modified(connection.getLastModified());
+            
             // 200 ok
             if(Html_helper.is_200(http_status)){
-                
+                        
                 if(Html_helper.is_content_type_html(content_type)){
                     Document html_page = Jsoup.parse(in, null, current_url.get_url());
                 

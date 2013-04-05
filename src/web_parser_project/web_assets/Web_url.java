@@ -21,7 +21,15 @@ public class Web_url {
     protected int http_code;
     protected String content_type;
     protected Web_asset asset;
+    
+    // number of milliseconds to retrieve an item
     protected long retrieval_time;
+    
+    // gets the content's length in bytes
+    protected long content_length;
+    
+    // last modified date in seconds since the unix epoch
+    protected long last_modified;
     
     protected boolean io_error;
     protected boolean malformed_url;
@@ -61,8 +69,16 @@ public class Web_url {
         
     }
     
+    public void set_content_length(long clength){
+        content_length = clength;
+    }
+    
     public void set_web_asset(Web_asset w_asset){
         asset = w_asset;
+    }
+    
+    public void set_last_modified(long lmodified){
+        last_modified = lmodified;
     }
     
     public Web_asset get_web_asset(){
@@ -121,6 +137,14 @@ public class Web_url {
         else{
             return 0;
         }
+    }
+    
+    public long get_content_length(){
+        return content_length;
+    }
+    
+    public long get_last_modified(){
+        return last_modified;
     }
     
 }
