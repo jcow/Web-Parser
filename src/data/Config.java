@@ -12,6 +12,9 @@ import java.util.LinkedList;
  * @author Jason
  */
 public class Config {
+    
+    private static String application_type;
+    
     private static String config_location;
     
     private static String dictionary_location;
@@ -34,6 +37,8 @@ public class Config {
     private static String output_file_template_location;
     
     private static String output_type;
+    
+    private static String application_type_index    = "application_type";
     
     private static String dictionary_index          = "dictionary_location";
     private static String custom_dictionary_index   = "custom_dictionary_location";
@@ -149,6 +154,10 @@ public class Config {
             else if(is_location_of_index(timeout_limit_index, index)){
                 timeout_limit = Integer.parseInt(value);
             }
+            // application type index
+            else if(is_location_of_index(application_type_index, index)){
+                application_type = value;
+            }
         }
     }
     
@@ -159,6 +168,14 @@ public class Config {
         else{
             return false;
         }
+    }
+    
+    public static String get_application_type(){
+        return application_type;
+    }
+    
+    public static boolean is_app_type_gui(){
+        return (application_type.equals("gui"))?true:false;
     }
     
     public static String get_dictionary_location(){

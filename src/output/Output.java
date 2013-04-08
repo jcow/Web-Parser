@@ -5,7 +5,12 @@
 package output;
 
 import data.Config;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import template.Template;
 import web_parser_project.web_assets.Totals_asset;
 import web_parser_project.web_assets.Web_url;
@@ -25,16 +30,36 @@ public class Output {
     }
     
     public static void do_output(String starting_url, String domain, HashMap<String, Web_url> traveled_sites, Totals_asset totals){
-        if(Config.is_output_to_database()){
-            Database_dump d = new Database_dump();
-            d.dump_to_database(starting_url, domain, traveled_sites);
-        }
-        else if(Config.is_output_to_json_file()){
-            
-        }
-        else if(Config.is_output_to_html_file()){
+        
+        if(Config.is_app_type_gui()){
+            // make the file
             Template template = new Template();
             template.create(starting_url, domain, traveled_sites, totals);
+            
+            // open it
+            open_gui();
+        }
+        else{
+            if(Config.is_output_to_database()){
+                Database_dump d = new Database_dump();
+                d.dump_to_database(starting_url, domain, traveled_sites);
+            }
+            else if(Config.is_output_to_json_file()){
+
+            }
+            else if(Config.is_output_to_html_file()){
+                Template template = new Template();
+                template.create(starting_url, domain, traveled_sites, totals);
+            }
+        }
+    }
+    
+    private static void open_gui(){
+        try {
+            File the_file = new File(Config.get_output_file_string());
+            Desktop.getDesktop().browse(the_file.toURI());
+        } catch (IOException ex) {
+            Logger.getLogger(Output.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

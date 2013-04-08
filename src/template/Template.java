@@ -40,7 +40,7 @@ public class Template {
     }
     
     public void create(String starting_url, String domain, HashMap<String, Web_url> urls, Totals_asset totals){
-        System.out.println("donkey");
+        
         MustacheFactory mf = new DefaultMustacheFactory();
         try {
             
@@ -55,9 +55,6 @@ public class Template {
             
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
             mustache.execute(fw, new Web_url_template(starting_url, domain, urls, totals)).flush();
-            
-            System.out.println("blarrg");
-
         } 
         catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
