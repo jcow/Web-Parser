@@ -56,6 +56,8 @@ public class Site_getter {
             
             URL the_url = new URL(current_url.get_url());
             
+            System.out.println(the_url);
+            
             HttpURLConnection.setFollowRedirects(true);
             HttpURLConnection connection = (HttpURLConnection) the_url.openConnection();
             
@@ -81,7 +83,7 @@ public class Site_getter {
                 if(Html_helper.is_content_type_html(content_type)){
                     Document html_page = Jsoup.parse(in, null, current_url.get_url());
                 
-                    store_links(html_page, current_url.get_url());
+                    store_things(html_page, current_url.get_url());
                     
                     return add_to_explored(current_url, html_page, http_status);
                 }
@@ -160,56 +162,63 @@ public class Site_getter {
         }
     }
     
-    private void store_links(Document the_document, String current_url){
+    private void store_things(Document the_document, String current_url){
         
         //System.out.println("\tChecking Domain");
 //        System.out.println("\t\t"+starting_url);
-        System.out.println("\t\t"+current_url);
+        System.out.println("cats\t\t"+current_url);
         
-        // the link page must be in the same domain if it is to be parsed also check if it hasn't been checked already
+        // the current page must be in the same domain if it is to be parsed also check if it hasn't been checked already
         if(Html_helper.is_same_domain(domain, current_url)){
             //System.out.println("\t\tPassed");
             //System.out.println("\tLinks");
             
-            String link_url;
+            String url;
             Elements links = the_document.select("a[href]");
             for (Element link : links) {
+                url = link.attr("abs:href");
+                store_item(current_url, url);
+            }
+            
+            Elements imgs = the_document.select("img");
+            for(Element img : imgs){
+                url = img.attr("abs:src");
+                store_item(current_url, url);
+            }
+        }
+    }
+    
+    /**
+     * Called by store things... stores an item that is passed from it
+     */
+    private void store_item(String current_url, String link_url){
+        System.out.println("\t\t\t"+link_url);
                 
-                link_url = link.attr("abs:href");
-                
-                System.out.println("\t\t\t"+link_url);
-                
-                // strips out the # anchors
-                link_url = Html_helper.strip_page_anchor(link_url);
-                
-                // strips off the end / if there is one
-                link_url = Html_helper.strip_end_slash(link_url);
-                
-                // if the page is not linking to itself, continue on
-                if(link_url.compareTo(current_url) != 0){
-                    
-                    // if the page has not been seen already, and it is not in the queue, then store a reference
-                    Web_url seen_url = url_has_already_been_seen(link_url);
-                    if(seen_url == null){
-                        
-                        //System.out.println(" - added to unexplored");
-                        
-                        add_unexplored_url(link_url, current_url);
-                    }
-                    // if a page has been seen, store a reference to it
-                    else{
-                        //System.out.println(" - added to reference");
-                        seen_url.add_to_reference(current_url);
-                    }
-                }
-                else{
-                    //System.out.println(" - not added to anything");
-                }
-                
+        // strips out the # anchors
+        link_url = Html_helper.strip_page_anchor(link_url);
+
+        // strips off the end / if there is one
+        link_url = Html_helper.strip_end_slash(link_url);
+
+        // if the page is not linking to itself, continue on
+        if(link_url.compareTo(current_url) != 0){
+
+            // if the page has not been seen already, and it is not in the queue, then store a reference
+            Web_url seen_url = url_has_already_been_seen(link_url);
+            if(seen_url == null){
+
+                //System.out.println(" - added to unexplored");
+
+                add_unexplored_url(link_url, current_url);
+            }
+            // if a page has been seen, store a reference to it
+            else{
+                //System.out.println(" - added to reference");
+                seen_url.add_to_reference(current_url);
             }
         }
         else{
-            //System.out.println("\t\tFailed");
+            //System.out.println(" - not added to anything");
         }
     }
     
