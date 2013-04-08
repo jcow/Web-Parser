@@ -4,7 +4,7 @@
  */
 package web_parser_project;
 
-import data.Config;
+import config.Config;
 import java.awt.Desktop;
 import java.io.File;
 import output.Database;

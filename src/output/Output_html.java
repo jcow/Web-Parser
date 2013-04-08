@@ -4,7 +4,7 @@
  */
 package output;
 
-import data.Config;
+import config.Config;
 import data.File_writer;
 import java.util.HashMap;
 import java.util.Iterator;

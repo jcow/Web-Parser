@@ -4,7 +4,7 @@
  */
 package web_parser_project.libraries;
 
-import data.Config;
+import config.Config;
 import data.File_reader;
 import java.io.IOException;
 import java.util.HashMap;

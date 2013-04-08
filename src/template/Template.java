@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
-import data.Config;
+import config.Config;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

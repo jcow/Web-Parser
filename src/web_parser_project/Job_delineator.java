@@ -4,7 +4,7 @@
  */
 package web_parser_project;
 
-import data.Config;
+import config.Config;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;

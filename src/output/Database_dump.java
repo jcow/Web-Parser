@@ -4,7 +4,7 @@
  */
 package output;
 
-import data.Config;
+import config.Config;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
