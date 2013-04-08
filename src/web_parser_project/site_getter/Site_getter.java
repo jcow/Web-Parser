@@ -56,7 +56,7 @@ public class Site_getter {
             
             URL the_url = new URL(current_url.get_url());
             
-            System.out.println(the_url);
+            System.out.println("\t\t"+the_url);
             
             HttpURLConnection.setFollowRedirects(true);
             HttpURLConnection connection = (HttpURLConnection) the_url.openConnection();
@@ -166,7 +166,6 @@ public class Site_getter {
         
         //System.out.println("\tChecking Domain");
 //        System.out.println("\t\t"+starting_url);
-        System.out.println("cats\t\t"+current_url);
         
         // the current page must be in the same domain if it is to be parsed also check if it hasn't been checked already
         if(Html_helper.is_same_domain(domain, current_url)){
