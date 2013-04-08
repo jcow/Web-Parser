@@ -5,11 +5,13 @@
 package web_parser_project.site_getter;
 
 
+import data.Config;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -61,6 +63,9 @@ public class Site_getter {
             HttpURLConnection.setFollowRedirects(true);
             HttpURLConnection connection = (HttpURLConnection) the_url.openConnection();
             
+            // set the timeout
+            connection.setConnectTimeout(Config.get_timeout_limit());
+            
             set_request_method(connection, current_url.get_url());
             
             InputStream in = connection.getInputStream();
@@ -100,32 +105,21 @@ public class Site_getter {
         
         // Bad url
         catch(MalformedURLException e){
-            
-            //System.out.println("----------");
-            //System.out.println("Malformed URL");
-            //System.out.println(e);
-            //System.out.println(current_url.get_url());
-            //System.out.println("----------");
-            
             add_to_explored_malformed_url(current_url);
-            
         }
         // 404 not found
         catch(FileNotFoundException e){
-            //System.out.println("File not found");
-            //System.out.println(current_url.get_url());
-            
-            add_to_explored_non_200_status_code(current_url, 404);
-            
+            add_to_explored_non_200_status_code(current_url, 404);   
         }
         catch(ClassCastException e){
-            //System.out.println("Bad Cast");
+            add_to_explored_set_casting_error(current_url);
+        }
+        // timeout
+        catch(SocketTimeoutException e){
+            add_to_explored_set_timeout_error(current_url);
         }
         // something bad happend :(
         catch(IOException e){
-            //System.out.println("IO Exception");
-            //System.out.println(e);
-            
             add_to_explored_io_exception(current_url);
         }
         
@@ -265,6 +259,15 @@ public class Site_getter {
         return w_url;
     }
     
+    private Web_url add_to_explored_set_timeout_error(Web_url w_url){
+        w_url.set_timeout_error(true);
+        return w_url;
+    }
+    
+    private Web_url add_to_explored_set_casting_error(Web_url w_url){
+        w_url.set_casting_error(true);
+        return w_url;
+    }
     
     private void set_request_method(HttpURLConnection connection, String the_url){
         // TODO, set head request if the url is an image, css file, jscript file, etc.

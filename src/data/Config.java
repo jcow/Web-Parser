@@ -20,6 +20,9 @@ public class Config {
     
     private static int parse_count_limit;
     
+    // timeout in milliseconds on how long to try to connect to a url
+    private static int timeout_limit;
+    
     private static String database_host;
     private static String database_port;
     private static String database_name;
@@ -48,6 +51,8 @@ public class Config {
     private static String output_type_index = "output_type";
     
     private static String parse_count_limit_index = "parse_count_limit";
+    
+    private static String timeout_limit_index = "timeout_limit";
     
     
     public Config(){
@@ -140,6 +145,10 @@ public class Config {
             else if(is_location_of_index(parse_count_limit_index, index)){
                 parse_count_limit = Integer.parseInt(value);
             }
+            // timeout limit
+            else if(is_location_of_index(timeout_limit_index, index)){
+                timeout_limit = Integer.parseInt(value);
+            }
         }
     }
     
@@ -198,6 +207,10 @@ public class Config {
     
     public static int get_parse_count_limit(){
         return parse_count_limit;
+    }
+    
+    public static int get_timeout_limit(){
+        return timeout_limit;
     }
     
     /**

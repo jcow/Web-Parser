@@ -11,6 +11,12 @@ custom_dictionary_location:: C:\Users\Jason\Documents\NetBeansProjects\web_parse
 parse_count_limit::1000
 
 #---------------------------------------
+# Timeout
+# How long to try to get a url before you time out, in milliseconds
+#---------------------------------------
+timeout_limit:: 10000
+
+#---------------------------------------
 #   Database Specifics
 #---------------------------------------
 database_host::localhost 

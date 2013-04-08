@@ -33,6 +33,8 @@ public class Web_url {
     
     protected boolean io_error;
     protected boolean malformed_url;
+    protected boolean timeout_error;
+    protected boolean casting_error;
     
     public Web_url(String url, String d_parent){
         the_url = url;
@@ -103,6 +105,14 @@ public class Web_url {
     
     public void set_malformed_url(boolean inc_mal_url){
         malformed_url = inc_mal_url;
+    }
+    
+    public void set_timeout_error(boolean err){
+        timeout_error = err;
+    }
+    
+    public void set_casting_error(boolean err){
+        casting_error = err;
     }
     
     public void set_retrieval_time(long start, long stop){
