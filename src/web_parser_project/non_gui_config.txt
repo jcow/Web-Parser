@@ -1,0 +1,27 @@
+#----------------------------------------
+#   Output Settings
+#----------------------------------------
+# output_type
+#   how you want the data to be saved
+#   options
+#       database - attempt to save to the database
+#       html - output to an html file
+output_type:: html
+
+#---------------------------------------
+#   Database Specifics
+#---------------------------------------
+database_host::localhost 
+database_port::3306
+database_name::web_parser
+database_username::root
+database_password:: 
+
+
+#---------------------------------------
+#    Output File Writing Location specifics
+#---------------------------------------
+output_file_template_location::C:\Users\Jason\Documents\NetBeansProjects\web_parser_project\src\templates\json_template
+output_file_name::dump.json
+output_file_location::C:\Users\Jason\Desktop
+

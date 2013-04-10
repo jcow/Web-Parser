@@ -5,6 +5,7 @@
 package web_parser_project;
 
 import config.Config;
+import config.Config_factory;
 import java.awt.Desktop;
 import java.io.File;
 import output.Database;
@@ -37,15 +38,14 @@ public class Web_parser_project {
         }
         */
         
+        
+        // this should be an incoming argument
+        String application_type = "dog";
+        
         // setup the config
-        Config the_config = new Config();
-        try{
-            the_config.read();
-        }
-        catch(IOException e){
-            System.out.println("Reading the config file failed");
-            System.exit(0);
-        }
+        Config the_config = Config_factory.get_config(application_type);
+        the_config.initialize();
+        
         
         // setup the dictionary
         Spell_checker sp_chk = Spell_checker.getInstance();
@@ -56,7 +56,6 @@ public class Web_parser_project {
             System.out.println("Reading the dictionary failed");
             System.exit(0);
         }
-        
         
 //        Database_dump d = new Database_dump();
 //        d.dump_to_database("cat", "dog", null);

@@ -1,10 +1,4 @@
 #--------------------------------------
-# Application Type
-#--------------------------------------
-application_type::gui
-
-
-#--------------------------------------
 #   Location of the dictionaries
 #--------------------------------------
 dictionary_location:: C:\Users\Jason\Documents\NetBeansProjects\web_parser_project\src\web_parser_project\dictionary.txt
@@ -21,30 +15,3 @@ parse_count_limit::1000
 # How long to try to get a url before you time out, in milliseconds
 #---------------------------------------
 timeout_limit:: 10000
-
-#---------------------------------------
-#   Database Specifics
-#---------------------------------------
-database_host::localhost 
-database_port::3306
-database_name::web_parser
-database_username::root
-database_password:: 
-
-
-#---------------------------------------
-#    Output File Writing Location specifics
-#---------------------------------------
-output_file_template_location::C:\Users\Jason\Documents\NetBeansProjects\web_parser_project\src\templates\json_template
-output_file_name::dump.html
-output_file_location::C:\Users\Jason\Documents\NetBeansProjects\web_parser_project
-
-#----------------------------------------
-#   Output Settings
-#----------------------------------------
-# output_type
-#   how you want the data to be saved
-#   options
-#       database - attempt to save to the database
-#       html - output to an html file
-output_type:: html

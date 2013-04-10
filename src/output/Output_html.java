@@ -5,6 +5,7 @@
 package output;
 
 import config.Config;
+import config.Non_GUI_config;
 import data.File_writer;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,7 +28,7 @@ public class Output_html extends Output{
         iterate_urls(traveled_sites);
         add_foot_info();
         
-        File_writer.write_to_file(Config.get_output_file_string(), out);
+        File_writer.write_to_file(Non_GUI_config.get_output_file_string(), out);
     }
     
     public void iterate_urls(HashMap<String, Web_url> traveled_sites){

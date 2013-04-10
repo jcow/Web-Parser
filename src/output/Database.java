@@ -5,6 +5,7 @@
 package output;
 
 import config.Config;
+import config.Non_GUI_config;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -40,7 +41,7 @@ public class Database {
             
             try {
                 PreparedStatement prepared_statement= connect.prepareStatement(
-                        "SELECT * FROM "+Config.get_database_name()+".parsing_entity"
+                        "SELECT * FROM "+Non_GUI_config.get_database_name()+".parsing_entity"
                 );
                 
                 ResultSet cat = prepared_statement.executeQuery();
@@ -70,10 +71,10 @@ public class Database {
           
           // Setup the connection with the DB
           Connection connect = DriverManager.getConnection("jdbc:mysql://"
-                  + Config.get_database_host()+"/"
-                  + Config.get_database_name()+"?"
-                  + "user="+Config.get_database_username()
-                  + "&password="+Config.get_database_password()
+                  + Non_GUI_config.get_database_host()+"/"
+                  + Non_GUI_config.get_database_name()+"?"
+                  + "user="+Non_GUI_config.get_database_username()
+                  + "&password="+Non_GUI_config.get_database_password()
           );
       
           return connect;
