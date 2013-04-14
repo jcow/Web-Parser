@@ -4,12 +4,12 @@
  */
 package web_parser_project;
 
-import config.Config;
+import web_parser_project.config.Config;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import output.Output;
-import page_parsing.Page_parser;
+import web_parser_project.output.Output;
+import web_parser_project.page_parsing.Page_parser;
 import web_parser_project.libraries.Html_helper;
 import web_parser_project.site_getter.Site_getter;
 import web_parser_project.web_assets.Html_asset;

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package config;
+package web_parser_project.config;
 
 import java.io.IOException;
 import java.util.LinkedList;

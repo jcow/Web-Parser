@@ -2,18 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package output;
+package web_parser_project.output;
 
-import config.Config;
-import config.GUI_config;
-import config.Non_GUI_config;
+import web_parser_project.config.Config;
+import web_parser_project.config.GUI_config;
+import web_parser_project.config.Non_GUI_config;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import template.Template;
+import web_parser_project.template.Template;
 import web_parser_project.web_assets.Totals_asset;
 import web_parser_project.web_assets.Web_url;
 

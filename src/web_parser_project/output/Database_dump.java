@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package output;
+package web_parser_project.output;
 
-import config.Config;
-import config.Non_GUI_config;
+import web_parser_project.config.Config;
+import web_parser_project.config.Non_GUI_config;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

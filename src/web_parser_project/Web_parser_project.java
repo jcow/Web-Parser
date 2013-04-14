@@ -4,12 +4,12 @@
  */
 package web_parser_project;
 
-import config.Config;
-import config.Config_factory;
+import web_parser_project.config.Config;
+import web_parser_project.config.Config_factory;
 import java.awt.Desktop;
 import java.io.File;
-import output.Database;
-import output.Database_dump;
+import web_parser_project.output.Database;
+import web_parser_project.output.Database_dump;
 import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Level;

@@ -2,16 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package template;
+package web_parser_project.template;
 
-import data.File_reader;
+import web_parser_project.data.File_reader;
 import java.util.LinkedList;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
-import config.Config;
-import config.Non_GUI_config;
+import web_parser_project.config.Config;
+import web_parser_project.config.Non_GUI_config;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

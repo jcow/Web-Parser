@@ -5,7 +5,7 @@
 package web_parser_project.site_getter;
 
 
-import config.Config;
+import web_parser_project.config.Config;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;

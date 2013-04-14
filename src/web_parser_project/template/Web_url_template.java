@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package template;
+package web_parser_project.template;
 
 import java.util.HashMap;
 import java.util.Iterator;

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package page_parsing;
+package web_parser_project.page_parsing;
 
 import java.util.List;
 import java.util.ListIterator;
