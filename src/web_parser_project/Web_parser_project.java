@@ -11,6 +11,7 @@ import java.io.File;
 import output.Database;
 import output.Database_dump;
 import java.io.IOException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import web_parser_project.libraries.Incoming_args;
@@ -40,7 +41,7 @@ public class Web_parser_project {
         
         
         // this should be an incoming argument
-        String application_type = "dog";
+        String application_type = "gui";
         
         // setup the config
         Config the_config = Config_factory.get_config(application_type);
@@ -56,6 +57,8 @@ public class Web_parser_project {
             System.out.println("Reading the dictionary failed");
             System.exit(0);
         }
+        
+        System.out.println("");
         
 //        Database_dump d = new Database_dump();
 //        d.dump_to_database("cat", "dog", null);

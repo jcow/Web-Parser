@@ -1,4 +1,4 @@
-{
+var html_parser.urls.data = {
         {{#parse_result}}
         "total_urls":{{total_urls}},
         "total_time":{{total_time}},
@@ -42,3 +42,4 @@
         ]
         {{/parse_result}}
 }
+</script>

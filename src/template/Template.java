@@ -39,14 +39,14 @@ public class Template {
         
     }
     
-    public void create(String starting_url, String domain, HashMap<String, Web_url> urls, Totals_asset totals){
+    public void create(String template_location, String output_location, String starting_url, String domain, HashMap<String, Web_url> urls, Totals_asset totals){
         
         MustacheFactory mf = new DefaultMustacheFactory();
         try {
             
-            Mustache mustache = mf.compile(new FileReader(Non_GUI_config.get_output_file_template_location()), "blllla");
+            Mustache mustache = mf.compile(new FileReader(template_location), "blllla");
             
-            File file = new File(Non_GUI_config.get_output_file_string());
+            File file = new File(output_location);
 
             // if file doesnt exists, then create it
             if (!file.exists()) { 

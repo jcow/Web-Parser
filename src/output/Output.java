@@ -5,6 +5,7 @@
 package output;
 
 import config.Config;
+import config.GUI_config;
 import config.Non_GUI_config;
 import java.awt.Desktop;
 import java.io.File;
@@ -33,6 +34,9 @@ public class Output {
     public static void do_output(String starting_url, String domain, HashMap<String, Web_url> traveled_sites, Totals_asset totals){
         
         if(Config.is_app_type_gui()){
+            Template template = new Template();
+            template.create(GUI_config.get_front_end_template_location(), GUI_config.get_front_end_dump_location(), starting_url, domain, traveled_sites, totals);
+            
 //            // make the file
 //            Template template = new Template();
 //            template.create(starting_url, domain, traveled_sites, totals);
@@ -50,7 +54,7 @@ public class Output {
             }
             else if(Non_GUI_config.is_output_to_html_file()){
                 Template template = new Template();
-                template.create(starting_url, domain, traveled_sites, totals);
+                //template.create(starting_url, domain, traveled_sites, totals);
             }
         }
     }

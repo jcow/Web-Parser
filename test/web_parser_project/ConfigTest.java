@@ -4,7 +4,7 @@
  */
 package web_parser_project;
 
-import data.Config;
+import config.Config;
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.AfterClass;

@@ -4,7 +4,7 @@
  */
 package web_parser_project.libraries;
 
-import data.Config;
+import config.Config;
 import java.io.IOException;
 import org.junit.After;
 import org.junit.AfterClass;

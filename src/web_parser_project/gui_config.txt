@@ -1,0 +1,5 @@
+#-------------------------------------------
+#  GUI specific configurations
+#-------------------------------------------
+front_end_template_location::C:\Users\Jason\Documents\NetBeansProjects\web_parser_project\src\templates\json_template.txt
+front_end_dump_location::C:\Users\Jason\Desktop\front_end_template.txt
