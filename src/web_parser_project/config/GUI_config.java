@@ -21,7 +21,7 @@ public class GUI_config extends Config{
     private static String front_end_dump_location;
     private static String front_end_dump_location_index = "front_end_dump_location";
     
-    private static String gui_config_location = "C:\\Users\\Jason\\Documents\\NetBeansProjects\\web_parser_project\\src\\web_parser_project\\gui_config.txt";
+    private static String gui_config_location = "C:\\Users\\Jason\\Documents\\NetBeansProjects\\web_parser_project\\src\\web_parser_project\\resources\\configs\\gui_config.txt";
     
     private GUI_config(){}
     
@@ -40,14 +40,16 @@ public class GUI_config extends Config{
     
   
     private void parse_gui_config_contents(LinkedList<String> contents){
-        for(String item : contents){
-            if(is_config_comment_or_empty(item) == false){
-                
-                String[] parts = super.split(item);
-                String index = parts[0].trim();
-                String value = parts[1].trim();
-        
-                parse_gui_item(index, value);
+        if(contents != null){
+            for(String item : contents){
+                if(is_config_comment_or_empty(item) == false){
+
+                    String[] parts = super.split(item);
+                    String index = parts[0].trim();
+                    String value = parts[1].trim();
+
+                    parse_gui_item(index, value);
+                }
             }
         }
     }

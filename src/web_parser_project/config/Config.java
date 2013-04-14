@@ -36,7 +36,7 @@ public abstract class Config {
     
     
     protected Config(){
-        config_location = "C:\\Users\\Jason\\Documents\\NetBeansProjects\\web_parser_project\\src\\web_parser_project\\config.txt";
+        config_location = "C:\\Users\\Jason\\Documents\\NetBeansProjects\\web_parser_project\\src\\web_parser_project\\resources\\configs\\config.txt";
     }
     
     

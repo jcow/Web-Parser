@@ -42,7 +42,7 @@ public class Non_GUI_config extends Config{
     private static String non_gui_config_location;
     
     public Non_GUI_config(){
-        non_gui_config_location = "C:\\Users\\Jason\\Documents\\NetBeansProjects\\web_parser_project\\src\\web_parser_project\\non_gui_config.txt";
+        non_gui_config_location = "C:\\Users\\Jason\\Documents\\NetBeansProjects\\web_parser_project\\src\\web_parser_project\\resources\\configs\\non_gui_config.txt";
     }
     
     public static Non_GUI_config get_instance(){
@@ -59,14 +59,16 @@ public class Non_GUI_config extends Config{
     }
     
     protected void parse_non_gui_config_contents(LinkedList<String> contents){
-        for(String item : contents){
-            if(is_config_comment_or_empty(item) == false){
-                
-                String[] parts = split(item);
-                String index = parts[0].trim();
-                String value = parts[1].trim();
-        
-                parse_non_gui_config_item(index, value);
+        if(contents != null){
+            for(String item : contents){
+                if(is_config_comment_or_empty(item) == false){
+
+                    String[] parts = split(item);
+                    String index = parts[0].trim();
+                    String value = parts[1].trim();
+
+                    parse_non_gui_config_item(index, value);
+                }
             }
         }
     }
