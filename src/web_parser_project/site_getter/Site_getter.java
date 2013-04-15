@@ -178,6 +178,24 @@ public class Site_getter {
                 url = img.attr("abs:src");
                 store_item(current_url, url);
             }
+            
+            Elements scripts = the_document.select("script");
+            for(Element script : scripts){
+                url = script.attr("abs:src");
+                if(!url.equals("")){
+                    store_item(current_url, url);
+                }
+                
+            }
+            
+            Elements link_tags = the_document.select("link");
+            for(Element link_tag : link_tags){
+                url = link_tag.attr("abs:src");
+                if(!url.equals("")){
+                    store_item(current_url, url);
+                }
+                
+            }
         }
     }
     
