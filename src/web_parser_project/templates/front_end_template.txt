@@ -18,6 +18,8 @@ html_parser.urls.data = {
                     "retrieval_time":{{retrieval_time}},
                     "io_error":{{io_error}},
                     "malformed_url":{{malformed_url}},
+                    "timeout_error":{{timeout_error}},
+                    "casting_error":{{casting_error}},
                     "content_length":{{content_length}},
                     "last_modified":{{last_modified}},
                     "referencing_urls":[
@@ -44,4 +46,3 @@ html_parser.urls.data = {
         ]
         {{/parse_result}}
 }
-</script>

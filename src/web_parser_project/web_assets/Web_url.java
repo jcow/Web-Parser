@@ -131,6 +131,14 @@ public class Web_url {
         return malformed_url;
     }
     
+    public boolean is_timeout_error(){
+        return timeout_error;
+    }
+    
+    public boolean is_casting_error(){
+        return casting_error;
+    }
+    
     public int get_io_error(){
         if(io_error){
             return 1;

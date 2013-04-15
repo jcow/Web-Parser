@@ -48,10 +48,13 @@ public class Web_url_template {
             w_url.direct_parent = current_url.get_direct_parent();
             w_url.content_type = current_url.get_content_type();
             w_url.retrieval_time = current_url.get_retrieval_time();
-            w_url.io_error = current_url.is_io_error();
-            w_url.malformed_url = current_url.is_malformed_url();
             w_url.content_length = current_url.get_content_length();
             w_url.last_modified = current_url.get_last_modified();
+            
+            w_url.io_error = current_url.is_io_error();
+            w_url.malformed_url = current_url.is_malformed_url();
+            w_url.timeout_error = current_url.is_timeout_error();
+            w_url.casting_error = current_url.is_casting_error();
             
             w_url.referencing_urls = convert_string_to_str(current_url.get_references());
             
@@ -122,10 +125,13 @@ public class Web_url_template {
         long retrieval_time;
         boolean io_error;
         boolean malformed_url;
+        boolean timeout_error;
+        boolean casting_error;
         LinkedList<Str> referencing_urls;
         boolean last_url;
         long content_length;
         long last_modified;
+        
 
         H_asset h_asset;
         
