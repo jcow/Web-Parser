@@ -11,9 +11,13 @@ import java.io.File;
 import web_parser_project.output.Database;
 import web_parser_project.output.Database_dump;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import web_parser_project.data.File_reader;
 import web_parser_project.libraries.Incoming_args;
 import web_parser_project.libraries.Spell_checker;
 
@@ -57,9 +61,7 @@ public class Web_parser_project {
             System.out.println("Reading the dictionary failed");
             System.exit(0);
         }
-        
-        System.out.println("");
-        
+       
 //        Database_dump d = new Database_dump();
 //        d.dump_to_database("cat", "dog", null);
         
@@ -120,4 +122,5 @@ public class Web_parser_project {
             return false;
         }
     }
+    
 }
