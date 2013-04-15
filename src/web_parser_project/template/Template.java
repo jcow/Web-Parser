@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import web_parser_project.web_assets.Parse_asset;
 import web_parser_project.web_assets.Totals_asset;
 import web_parser_project.web_assets.Web_url;
 
@@ -39,7 +40,7 @@ public class Template {
         
     }
     
-    public void create(String template_location, String output_location, String starting_url, String domain, HashMap<String, Web_url> urls, Totals_asset totals){
+    public void create(String template_location, String output_location, Parse_asset parse_asset){
         
         MustacheFactory mf = new DefaultMustacheFactory();
         try {
@@ -54,7 +55,7 @@ public class Template {
             }
             
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            mustache.execute(fw, new Web_url_template(starting_url, domain, urls, totals)).flush();
+            mustache.execute(fw, new Web_url_template(parse_asset)).flush();
         } 
         catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());

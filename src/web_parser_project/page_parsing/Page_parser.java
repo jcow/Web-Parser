@@ -17,6 +17,7 @@ import web_parser_project.libraries.Html_meta_helper;
 import web_parser_project.libraries.Spell_checker;
 import web_parser_project.libraries.Text_helper;
 import web_parser_project.web_assets.Html_asset;
+import web_parser_project.web_assets.Parse_asset;
 import web_parser_project.web_assets.Totals_asset;
 import web_parser_project.web_assets.Web_asset;
 import web_parser_project.web_assets.Web_url;
@@ -28,17 +29,17 @@ import web_parser_project.web_assets.Web_url;
 public class Page_parser {
     
     private Html_asset current_html_asset;
-    private Totals_asset totals;
+    private Parse_asset parse_asset;
     private Spell_checker spell_checker;
     private Html_helper html_helper;
     private Html_accessibility_helper accessibility_helper;
     private Labels_to_form_elements label_to_form_element;
     
-    public Page_parser(Totals_asset t_asset){
+    public Page_parser(Parse_asset p_asset){
         spell_checker = Spell_checker.getInstance();
         html_helper = Html_helper.get_instance();
         accessibility_helper = Html_accessibility_helper.get_instance();
-        totals = t_asset;
+        parse_asset = p_asset;
     }
     
     public void parse(Web_url w_url){
@@ -202,7 +203,7 @@ public class Page_parser {
     private void spell_check_text(String text){
         String clean_text = spell_checker.clean(text);
         if(spell_checker.is_misspelt(clean_text)){
-            totals.add_to_total_misspellings(1);
+            parse_asset.add_to_total_misspellings(1);
             current_html_asset.add_to_misspellings(clean_text);
         }
     }

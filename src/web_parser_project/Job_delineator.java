@@ -13,6 +13,7 @@ import web_parser_project.page_parsing.Page_parser;
 import web_parser_project.libraries.Html_helper;
 import web_parser_project.site_getter.Site_getter;
 import web_parser_project.web_assets.Html_asset;
+import web_parser_project.web_assets.Parse_asset;
 import web_parser_project.web_assets.Totals_asset;
 import web_parser_project.web_assets.Web_url;
 
@@ -37,7 +38,7 @@ public class Job_delineator {
     public void run(){
         
         Web_url current_site;
-        Totals_asset totals = new Totals_asset();
+        Parse_asset parse_asset = new Parse_asset(starting_url, domain);
         
         int limit = Config.get_parse_count_limit();
         
@@ -58,14 +59,14 @@ public class Job_delineator {
         }
         long end_time = System.currentTimeMillis();
         
-        totals.add_to_total_time(end_time - start_time);
+        parse_asset.add_to_total_time(end_time - start_time);
         
         System.out.println("\n\n-----------------Parsed Pages----------------\n");
         
         HashMap<String, Web_url> traveled_sites = site_reader.get_traveled_urls();
         
-        totals.add_to_total_urls(traveled_sites.size());
-        Page_parser page_parser = new Page_parser(totals);
+        parse_asset.add_to_total_urls(traveled_sites.size());
+        Page_parser page_parser = new Page_parser(parse_asset);
         
         Iterator it  = traveled_sites.keySet().iterator();
         Web_url current_it;
@@ -80,12 +81,12 @@ public class Job_delineator {
             // must be in the same domain to get checked in-depth
             if(Html_helper.is_same_domain(starting_url, current_it.get_url())){ 
                 
-                totals.add_to_total_same_domain_urls(1);
+                parse_asset.add_to_total_same_domain_urls(1);
                 
                 if(current_it.get_web_asset() instanceof Html_asset && current_it.get_web_asset() != null){
                     
                     // add to total pages
-                    totals.add_to_total_pages(1);
+                    parse_asset.add_to_total_pages(1);
 
                     // parse the page
                     page_parser.parse(current_it);
@@ -93,14 +94,19 @@ public class Job_delineator {
             }
             
             if(Html_helper.is_content_type_image(current_it.get_content_type())){
-                totals.add_to_total_images(1);
+                parse_asset.add_to_total_images(1);
             }
             
         }
         
         
+        // set the urls
+        parse_asset.set_urls(traveled_sites);
         
-        Output.do_output(starting_url, domain, traveled_sites, totals);
+        
+        
+        
+        Output.do_output(parse_asset);
         
         System.out.println("done");
     }

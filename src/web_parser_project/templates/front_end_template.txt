@@ -1,5 +1,7 @@
-var html_parser.urls.data = {
+html_parser.urls.data = {
         {{#parse_result}}
+        "starting_url":"{{starting_url}}",
+        "domain":"{{domain}}",
         "total_urls":{{total_urls}},
         "total_time":{{total_time}},
         "total_misspellings":{{total_misspellings}},

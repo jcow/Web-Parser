@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import web_parser_project.template.Template;
+import web_parser_project.web_assets.Parse_asset;
 import web_parser_project.web_assets.Totals_asset;
 import web_parser_project.web_assets.Web_url;
 
@@ -31,11 +32,11 @@ public class Output {
         new_line = System.getProperty("line.separator");
     }
     
-    public static void do_output(String starting_url, String domain, HashMap<String, Web_url> traveled_sites, Totals_asset totals){
+    public static void do_output(Parse_asset parse_asset){
         
         if(Config.is_app_type_gui()){
             Template template = new Template();
-            template.create(GUI_config.get_front_end_template_location(), GUI_config.get_front_end_dump_location(), starting_url, domain, traveled_sites, totals);
+            template.create(GUI_config.get_front_end_template_location(), GUI_config.get_front_end_dump_location(), parse_asset);
             
 //            // make the file
 //            Template template = new Template();
@@ -45,17 +46,17 @@ public class Output {
 //            open_gui();
         }
         else{
-            if(Non_GUI_config.is_output_to_database()){
-                Database_dump d = new Database_dump();
-                d.dump_to_database(starting_url, domain, traveled_sites);
-            }
-            else if(Non_GUI_config.is_output_to_json_file()){
-
-            }
-            else if(Non_GUI_config.is_output_to_html_file()){
-                Template template = new Template();
-                //template.create(starting_url, domain, traveled_sites, totals);
-            }
+//            if(Non_GUI_config.is_output_to_database()){
+//                Database_dump d = new Database_dump();
+//                d.dump_to_database(starting_url, domain, traveled_sites);
+//            }
+//            else if(Non_GUI_config.is_output_to_json_file()){
+//
+//            }
+//            else if(Non_GUI_config.is_output_to_html_file()){
+//                Template template = new Template();
+//                //template.create(starting_url, domain, traveled_sites, totals);
+//            }
         }
     }
     

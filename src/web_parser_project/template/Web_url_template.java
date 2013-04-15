@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import web_parser_project.web_assets.Html_asset;
-import web_parser_project.web_assets.Totals_asset;
+import web_parser_project.web_assets.Parse_asset;
 import web_parser_project.web_assets.Web_url;
 
 /**
@@ -19,28 +19,26 @@ public class Web_url_template {
     
     Parse_results parse_result = new Parse_results();
     
-    public Web_url_template(String starting_url, String domain, HashMap<String, Web_url>traveled_sites, Totals_asset totals){
+    public Web_url_template(Parse_asset parse_asset){
         
-        parse_result.total_urls = totals.get_total_urls();
-        parse_result.total_misspellings = totals.get_total_misspellings();
-        parse_result.total_same_domain_urls = totals.get_total_same_domain_urls();
-        parse_result.total_time = totals.get_total_time();
-        parse_result.total_same_domain_pages = totals.get_total_pages();
-        parse_result.total_images = totals.get_total_images();
-        
+        parse_result.starting_url = parse_asset.get_starting_url();
+        parse_result.domain = parse_asset.get_domain();
+        parse_result.total_urls = parse_asset.get_total_urls();
+        parse_result.total_misspellings = parse_asset.get_total_misspellings();
+        parse_result.total_same_domain_urls = parse_asset.get_total_same_domain_urls();
+        parse_result.total_time = parse_asset.get_total_time();
+        parse_result.total_same_domain_pages = parse_asset.get_total_pages();
+        parse_result.total_images = parse_asset.get_total_images();
         
         Web_url current_url;
         Html_asset current_asset;
+        HashMap<String, Web_url> traveled_sites = parse_asset.get_urls();
         Iterator it = traveled_sites.keySet().iterator();
         
         int counter = 0;
         int last_item = traveled_sites.size()-1;
         
-        System.out.println(last_item);
-        
         while(it.hasNext()){
-            
-            System.out.print(counter+"  ::");
             
             String key = (String)it.next();
             current_url = (Web_url)traveled_sites.get(key);
@@ -163,6 +161,10 @@ public class Web_url_template {
     }
     
     class Parse_results{
+        
+        String starting_url;
+        String domain;
+        
         long total_time;
         int total_misspellings;
         int total_same_domain_pages;
