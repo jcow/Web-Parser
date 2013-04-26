@@ -73,28 +73,27 @@ public class Job_delineator {
         while(it.hasNext()){
             String key = (String)it.next();
             current_it = (Web_url)traveled_sites.get(key);
-            
-            Iterator referred_to = current_it.get_references().iterator();
           
             System.out.println(current_it.get_url());
-                
-            // must be in the same domain to get checked in-depth
-            if(Html_helper.is_same_domain(starting_url, current_it.get_url())){ 
-                
-                parse_asset.add_to_total_same_domain_urls(1);
-                
-                if(current_it.get_web_asset() instanceof Html_asset && current_it.get_web_asset() != null){
-                    
-                    // add to total pages
-                    parse_asset.add_to_total_pages(1);
+            if(current_it.is_404() == false){
+                // must be in the same domain to get checked in-depth
+                if(Html_helper.is_same_domain(starting_url, current_it.get_url())){ 
 
-                    // parse the page
-                    page_parser.parse(current_it);
+                    parse_asset.add_to_total_same_domain_urls(1);
+
+                    if(current_it.get_web_asset() instanceof Html_asset && current_it.get_web_asset() != null){
+
+                        // add to total pages
+                        parse_asset.add_to_total_pages(1);
+
+                        // parse the page
+                        page_parser.parse(current_it);
+                    }
                 }
-            }
-            
-            if(Html_helper.is_content_type_image(current_it.get_content_type())){
-                parse_asset.add_to_total_images(1);
+
+                if(Html_helper.is_content_type_image(current_it.get_content_type())){
+                    parse_asset.add_to_total_images(1);
+                }
             }
             
         }
