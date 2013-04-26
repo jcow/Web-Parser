@@ -66,8 +66,6 @@ public class Site_getter {
             // set the timeout
             connection.setConnectTimeout(Config.get_timeout_limit());
             
-            set_request_method(connection, current_url.get_url());
-            
             InputStream in = connection.getInputStream();
             
             long end_time = System.currentTimeMillis();
@@ -285,11 +283,6 @@ public class Site_getter {
     private Web_url add_to_explored_set_casting_error(Web_url w_url){
         w_url.set_casting_error(true);
         return w_url;
-    }
-    
-    private void set_request_method(HttpURLConnection connection, String the_url){
-        // TODO, set head request if the url is an image, css file, jscript file, etc.
-       // do this 
     }
     
     
