@@ -158,21 +158,23 @@ public class Html_helper {
     
     
     public static boolean is_content_type_html(String content_type){
-        if(content_type.contains("text/html")){
-            return true;
+        if(content_type != null){
+            if(content_type.contains("text/html")){
+                return true;
+            }
         }
-        else{
-            return false;
-        }
+        
+        return false;
     }
     
     public static boolean is_content_type_image(String content_type){
-        if(content_type.contains("image")){
-            return true;
+        if(content_type != null){
+            if(content_type.contains("image")){
+                return true;
+            }
         }
-        else{
-            return false;
-        }
+        
+        return false;
     }
     
     public boolean is_tag_deprecated(String tag){
