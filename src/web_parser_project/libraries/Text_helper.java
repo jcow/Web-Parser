@@ -66,7 +66,7 @@ public class Text_helper {
     }
     
     public static boolean is_hash_tag(String the_string){
-        if(the_string != null && the_string.length() > 0 && the_string.charAt(0) == '#'){
+        if(the_string != null && the_string.length() > 1 && the_string.charAt(0) == '#' && StringUtils.isAlphanumeric(the_string.substring(1))){
             return true;
         }
         else{
