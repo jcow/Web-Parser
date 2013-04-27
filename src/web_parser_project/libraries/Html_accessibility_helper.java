@@ -23,6 +23,7 @@ public class Html_accessibility_helper {
         poor_link_names.put("more information", "more information");
         poor_link_names.put("more information here", "more information here");
         poor_link_names.put("continue", "continue");
+        poor_link_names.put("this", "this");
     }
     
     public static Html_accessibility_helper get_instance(){
