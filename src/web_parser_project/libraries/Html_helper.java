@@ -252,8 +252,8 @@ public class Html_helper {
         return (Html_helper.get_tag_name(node).equals("select"))?true:false;
     }
     
-    public static boolean is_node_submit_input(Element node){
-        if(Html_helper.is_node_input(node) && node.attr("type").equals("submit")){
+    public static boolean is_node_ignored_input_for_labels(Element node){
+        if(Html_helper.is_node_input(node) && (node.attr("type").equals("submit") || node.attr("type").equals("hidden") || node.attr("type").equals("button") || node.attr("type").equals("image")) ){
             return true;
         }
         else{
@@ -263,11 +263,12 @@ public class Html_helper {
     
     /**
      * Determines if a node is a form input, select, or text area and ignore <input type="submit"> fields
+     * http://www.w3.org/TR/2008/WD-WCAG20-TECHS-20080430/H44.html
      * @param node
      * @return 
      */
     public static boolean should_node_have_associated_label(Element node){
-        if(Html_helper.is_node_submit_input(node) == false && (Html_helper.is_node_input(node) || Html_helper.is_node_select(node)|| Html_helper.is_node_textarea(node))){
+        if(Html_helper.is_node_ignored_input_for_labels(node) == false && (Html_helper.is_node_input(node) || Html_helper.is_node_select(node)|| Html_helper.is_node_textarea(node))){
             return true;
         }
         else{
