@@ -60,7 +60,7 @@ public class Site_getter {
             
             System.out.println("\t\t"+the_url);
             
-            HttpURLConnection.setFollowRedirects(true);
+            HttpURLConnection.setFollowRedirects(false);
             HttpURLConnection connection = (HttpURLConnection) the_url.openConnection();
             
             // set the timeout
@@ -80,7 +80,7 @@ public class Site_getter {
             current_url.set_last_modified(connection.getLastModified());
             current_url.set_content_type(content_type);
             
-            // 200 ok
+            // 200 ok, get content, go forth
             if(Html_helper.is_200(http_status)){
                         
                 if(Html_helper.is_content_type_html(content_type)){
@@ -93,6 +93,18 @@ public class Site_getter {
                 else{
                     return add_to_explored_non_html_asset(current_url, in, http_status, content_type);
                 }
+            }
+            // redirect, store the redirect url, add the redirect's location to the system
+            else if(Html_helper.is_3xx_redirect(http_status)){
+                // store the url that's issuing the redirect
+                add_to_explored_non_html_asset(current_url, in, http_status, content_type);
+                
+                // store the location of where the redirect was trying to send you 
+                String new_local = connection.getHeaderField("Location");  
+                
+                // add the new location to the non explored list
+                store_item(current_url.get_url(), new_local);
+                
             }
             // not 200 ok
             else{
@@ -207,7 +219,7 @@ public class Site_getter {
         link_url = Html_helper.strip_page_anchor(link_url);
 
         // strips off the end / if there is one
-        link_url = Html_helper.strip_end_slash(link_url);
+//        link_url = Html_helper.strip_end_slash(link_url);
 
         // if the page is not linking to itself, continue on
         if(link_url.compareTo(current_url) != 0){
@@ -216,18 +228,18 @@ public class Site_getter {
             Web_url seen_url = url_has_already_been_seen(link_url);
             if(seen_url == null){
 
-                //System.out.println(" - added to unexplored");
+                System.out.println(" - added to unexplored");
 
                 add_unexplored_url(link_url, current_url);
             }
             // if a page has been seen, store a reference to it
             else{
-                //System.out.println(" - added to reference");
+                System.out.println(" - added to reference");
                 seen_url.add_to_reference(current_url);
             }
         }
         else{
-            //System.out.println(" - not added to anything");
+            System.out.println(" - not added to anything");
         }
     }
     

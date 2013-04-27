@@ -103,6 +103,15 @@ public class Html_helper {
         }
     }
     
+    public static boolean is_3xx_redirect(int status){
+        if(300 <= status && status <= 399){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
     public static boolean is_200(int status){
         if(status == 200){
             return true;
