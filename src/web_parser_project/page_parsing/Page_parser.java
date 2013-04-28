@@ -34,6 +34,7 @@ public class Page_parser {
     private Html_helper html_helper;
     private Html_accessibility_helper accessibility_helper;
     private Labels_to_form_elements label_to_form_element;
+    private String[] tags_to_ignore;
     
     public Page_parser(Parse_asset p_asset){
         spell_checker = Spell_checker.getInstance();
@@ -114,42 +115,45 @@ public class Page_parser {
             while(iterator.hasNext()){
                 node = iterator.next();
                 
-                for(int p = 0; p < tab; p++){
-                    System.out.print("\t");
+                if(is_ignore_node(node) == false){
+                
+                    for(int p = 0; p < tab; p++){
+                        System.out.print("\t");
+                    }
+
+                    System.out.println(node.tagName().length());
+
+                    // check if the node is deprecated
+                    check_if_node_is_deprecated(node);
+
+                    // check if the node contains inline styling
+                    check_if_node_contains_inline_styling(node);
+
+                    // if the node is an image
+                    if(Html_helper.is_node_image(node)){
+                        check_image_node(node);
+                    }
+
+                    // if the node is a link
+                    if(Html_helper.is_node_anchor(node)){
+                        check_anchor(node.text());
+                    }
+
+                    // if the node is an form element that should have an associated label
+                    if(Html_helper.should_node_have_associated_label(node)){
+                        label_to_form_element.add_to_form_element(node.attr("id")); 
+                    }
+                    // if the node is a label
+                    else if(Html_helper.is_node_label(node)){
+                        label_to_form_element.add_to_labels(node.attr("for"));
+                    }
+
+                    // check the text of the node
+                    check_text(Text_helper.split_text_to_individual_words(node.ownText()));
+
+                    // parse out the children of this node
+                    parse_body_nodes(node.children(), tab+1);
                 }
-                
-                System.out.println(node.tagName().length());
-                
-                // check if the node is deprecated
-                check_if_node_is_deprecated(node);
-                
-                // check if the node contains inline styling
-                check_if_node_contains_inline_styling(node);
-                
-                // if the node is an image
-                if(Html_helper.is_node_image(node)){
-                    check_image_node(node);
-                }
-                
-                // if the node is a link
-                if(Html_helper.is_node_anchor(node)){
-                    check_anchor(node.text());
-                }
-                
-                // if the node is an form element that should have an associated label
-                if(Html_helper.should_node_have_associated_label(node)){
-                    label_to_form_element.add_to_form_element(node.attr("id")); 
-                }
-                // if the node is a label
-                else if(Html_helper.is_node_label(node)){
-                    label_to_form_element.add_to_labels(node.attr("for"));
-                }
-                
-                // check the text of the node
-                check_text(Text_helper.split_text_to_individual_words(node.ownText()));
-                
-                // parse out the children of this node
-                parse_body_nodes(node.children(), tab+1);
             }
         }
         
@@ -230,5 +234,16 @@ public class Page_parser {
     
     private void check_labels_to_input(){
         current_html_asset.set_inputs_no_labels(label_to_form_element.get_difference());
+    }
+    
+    private boolean is_ignore_node(Element node){
+         String node_name = Html_helper.get_tag_name(node).toLowerCase();
+         
+         if(node_name.equals("script") || node_name.equals("style") || node_name.equals("code")){
+             return true;
+         }
+         else{
+             return false;
+         }
     }
 }

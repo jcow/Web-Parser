@@ -221,8 +221,9 @@ public class Site_getter {
         // strips off the end / if there is one
 //        link_url = Html_helper.strip_end_slash(link_url);
 
-        // if the page is not linking to itself, continue on
-        if(link_url.compareTo(current_url) != 0){
+        // if the page is not linking to itself
+        // and the domain is not to be ignored
+        if(link_url.compareTo(current_url) != 0 && Config.is_url_in_ignore_directory(link_url)){
 
             // if the page has not been seen already, and it is not in the queue, then store a reference
             Web_url seen_url = url_has_already_been_seen(link_url);
