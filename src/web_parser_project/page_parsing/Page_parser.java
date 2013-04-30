@@ -46,7 +46,6 @@ public class Page_parser {
     public void parse(Web_url w_url){
         
         if(Web_asset.is_html_asset(w_url.get_web_asset())){
-            
             current_html_asset = (Html_asset)w_url.get_web_asset();
             label_to_form_element = new Labels_to_form_elements();
             
@@ -218,7 +217,7 @@ public class Page_parser {
         
         // no alt text
         if(alt_text.equals("")){
-           current_html_asset.add_to_no_alt_text(node.attr("src"));
+           current_html_asset.add_to_no_alt_text(node.attr("abs:src"));
         }
         // spell check alt text
         else{
