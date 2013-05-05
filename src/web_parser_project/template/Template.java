@@ -44,7 +44,7 @@ public class Template {
         
         MustacheFactory mf = new DefaultMustacheFactory();
         try {
-            
+            System.out.println(template_location);
             Mustache mustache = mf.compile(new FileReader(template_location), "blllla");
             
             File file = new File(output_location);

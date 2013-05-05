@@ -42,7 +42,7 @@ public class Non_GUI_config extends Config{
     private static String non_gui_config_location;
     
     public Non_GUI_config(){
-        non_gui_config_location = "C:\\Users\\Jason\\Documents\\NetBeansProjects\\web_parser_project\\src\\web_parser_project\\resources\\configs\\non_gui_config.txt";
+        non_gui_config_location = "resources/configs/non_gui_config.txt";
     }
     
     public static Non_GUI_config get_instance(){

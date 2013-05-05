@@ -4,19 +4,8 @@
  */
 package web_parser_project.config;
 
-import java.io.FileNotFoundException;
-import web_parser_project.data.File_reader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.commons.io.IOUtils;
-import web_parser_project.libraries.Html_helper;
+import web_parser_project.data.File_reader;
 
 /**
  *
@@ -54,7 +43,7 @@ public abstract class Config {
     
     
     protected Config(){
-        config_location = "C:\\Users\\Jason\\Documents\\NetBeansProjects\\web_parser_project\\src\\web_parser_project\\resources\\configs\\config.txt";
+        config_location = "resources/configs/config.txt";
     }
     
     

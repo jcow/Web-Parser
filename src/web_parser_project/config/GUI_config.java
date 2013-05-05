@@ -21,7 +21,7 @@ public class GUI_config extends Config{
     private static String front_end_dump_location;
     private static String front_end_dump_location_index = "front_end_dump_location";
     
-    private static String gui_config_location = "C:\\Users\\Jason\\Documents\\NetBeansProjects\\web_parser_project\\src\\web_parser_project\\resources\\configs\\gui_config.txt";
+    private static String gui_config_location = "resources/configs/gui_config.txt";
     
     private GUI_config(){}
     
