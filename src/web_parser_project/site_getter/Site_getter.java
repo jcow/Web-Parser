@@ -50,15 +50,11 @@ public class Site_getter {
     public Web_url get_next(){
         Web_url current_url = non_traveled_urls.remove();
         
-        //System.out.println("Parsing: "+current_url.get_url());
-        
         try{
             
             long start_time = System.currentTimeMillis();
             
             URL the_url = new URL(current_url.get_url());
-            
-            System.out.println("\t\t"+the_url);
             
             HttpURLConnection.setFollowRedirects(false);
             HttpURLConnection connection = (HttpURLConnection) the_url.openConnection();
@@ -168,13 +164,8 @@ public class Site_getter {
     
     private void store_things(Document the_document, String current_url){
         
-        //System.out.println("\tChecking Domain");
-//        System.out.println("\t\t"+starting_url);
-        
         // the current page must be in the same domain if it is to be parsed also check if it hasn't been checked already
         if(Html_helper.is_same_domain(domain, current_url)){
-            //System.out.println("\t\tPassed");
-            //System.out.println("\tLinks");
             
             String url;
             Elements links = the_document.select("a[href]");
@@ -213,13 +204,12 @@ public class Site_getter {
      * Called by store things... stores an item that is passed from it
      */
     private void store_item(String current_url, String link_url){
-        System.out.println("\t\t\t"+link_url);
-                
+
         // strips out the # anchors
         link_url = Html_helper.strip_page_anchor(link_url);
 
         // strips off the end / if there is one
-//        link_url = Html_helper.strip_end_slash(link_url);
+        //link_url = Html_helper.strip_end_slash(link_url);
 
         // if the page is not linking to itself
         // and the domain is not to be ignored
@@ -228,19 +218,12 @@ public class Site_getter {
             // if the page has not been seen already, and it is not in the queue, then store a reference
             Web_url seen_url = url_has_already_been_seen(link_url);
             if(seen_url == null){
-
-                System.out.println(" - added to unexplored");
-
                 add_unexplored_url(link_url, current_url);
             }
             // if a page has been seen, store a reference to it
             else{
-                System.out.println(" - added to reference");
                 seen_url.add_to_reference(current_url);
             }
-        }
-        else{
-            System.out.println(" - not added to anything");
         }
     }
     

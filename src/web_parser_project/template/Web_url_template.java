@@ -65,9 +65,6 @@ public class Web_url_template {
                 w_url.is_not_last = true;
             }
             
-            System.out.println(w_url.is_not_last);
-            
-            
             if(current_url.get_web_asset() instanceof Html_asset){
                 current_asset = (Html_asset)current_url.get_web_asset();
                 w_url.h_asset = new H_asset();

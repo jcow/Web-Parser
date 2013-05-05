@@ -97,7 +97,7 @@ public class Page_parser {
     }
     
     public void parse_body(Element body){
-        parse_body_nodes(body.children(), 0);
+        parse_body_nodes(body.children());
     }
     
     
@@ -106,7 +106,7 @@ public class Page_parser {
      * @param nodes
      * @param tab 
      */
-    public void parse_body_nodes(Elements nodes, int tab){
+    public void parse_body_nodes(Elements nodes){
         
         if(nodes.isEmpty() == false){
             ListIterator<Element> iterator = nodes.listIterator();
@@ -116,12 +116,6 @@ public class Page_parser {
                 
                 if(is_ignore_node(node) == false){
                 
-                    for(int p = 0; p < tab; p++){
-                        System.out.print("\t");
-                    }
-
-                    System.out.println(node.tagName().length());
-
                     // check if the node is deprecated
                     check_if_node_is_deprecated(node);
 
@@ -151,7 +145,7 @@ public class Page_parser {
                     check_text(Text_helper.split_text_to_individual_words(node.ownText()));
 
                     // parse out the children of this node
-                    parse_body_nodes(node.children(), tab+1);
+                    parse_body_nodes(node.children());
                 }
             }
         }

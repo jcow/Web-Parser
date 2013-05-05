@@ -41,7 +41,6 @@ public class Labels_to_form_elements {
         for(String form_element : form_elements){
             found = false;
             for(String label : labels){
-                System.out.println("\t"+label);
                 if(form_element.equals(label)){
                     found = true;
                     break;
