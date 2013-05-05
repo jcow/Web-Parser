@@ -4,6 +4,7 @@
  */
 package web_parser_project.config;
 
+import java.io.FileNotFoundException;
 import web_parser_project.data.File_reader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -175,77 +176,86 @@ public abstract class Config {
     }
     
     public static boolean is_url_in_ignore_directory(String url){
-        boolean is_in_ignore = false;
-        for(String robots_txt_directory: robots_txt_directory_ignores){
-            if(url.contains(robots_txt_directory)){
-                is_in_ignore = true;
-                break;
+        if(respect_robots_txt == true){
+            boolean is_in_ignore = false;
+            for(String robots_txt_directory: robots_txt_directory_ignores){
+                if(url.contains(robots_txt_directory)){
+                    is_in_ignore = true;
+                    break;
+                }
             }
+            return is_in_ignore;
         }
-        return is_in_ignore;
+        else{
+            return false;
+        }
     }
     
     private void set_robots_txt_location(){
-        String dom = domain;
-        if(domain.length() >= 2 && domain.charAt(domain.length()-1) == '/'){
-            dom = domain.substring(0, domain.length()-1);
-        }
         
-        robots_txt_directory_ignores = new LinkedList();
-        
-        URL the_url;
-        try {
-            the_url = new URL(dom+"/robots.txt");
-            
-            System.out.println("\t\t"+the_url);
-
-            HttpURLConnection.setFollowRedirects(false);
-            HttpURLConnection connection = (HttpURLConnection) the_url.openConnection();
-
-            // set the timeout
-            connection.setConnectTimeout(Config.get_timeout_limit());
-
-            InputStream in = connection.getInputStream();
-
-            int http_status = connection.getResponseCode();
-            
-            
-
-            // 200 ok, get content, go forth
-            if(Html_helper.is_200(http_status)){
-                String r_txt = IOUtils.toString(in, "UTF-8");
-                String[] parts = r_txt.split("\\r?\\n");
-                
-                // right now we don't specify the useragent so only look for the * useragent disallows
-                boolean in_right_disallows = false;
-                for(int i = 0; i < parts.length; i++){
-                    if(parts[i].trim().contains("User-agent: *")){
-                        in_right_disallows = true;
-                    }
-                    else if(in_right_disallows == true){
-                        if(parts[i].trim().contains("Disallow")){
-                            String[] disallow_parts = parts[i].split(":");
-                            if(disallow_parts.length == 2){
-                                robots_txt_directory_ignores.add(disallow_parts[1].trim());
-                            }
-                        }
-                        else{
-                            in_right_disallows = false;
-                        }
-                    }
-                }
-                
-                
-                System.out.println("yo");
-            }
-            
-        } 
-        catch (MalformedURLException ex) {
-            Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch(Exception ex){
-            Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        String dom = domain;
+//        if(domain.length() >= 2 && domain.charAt(domain.length()-1) == '/'){
+//            dom = domain.substring(0, domain.length()-1);
+//        }
+//        
+//        robots_txt_directory_ignores = new LinkedList();
+//        
+//        URL the_url;
+//        try {
+//            the_url = new URL(dom+"/robots.txt");
+//            
+//            System.out.println("\t\t"+the_url);
+//
+//            HttpURLConnection.setFollowRedirects(false);
+//            HttpURLConnection connection = (HttpURLConnection) the_url.openConnection();
+//
+//            // set the timeout
+//            connection.setConnectTimeout(Config.get_timeout_limit());
+//
+//            InputStream in = connection.getInputStream();
+//
+//            int http_status = connection.getResponseCode();
+//            
+//            
+//
+//            // 200 ok, get content, go forth
+//            if(Html_helper.is_200(http_status)){
+//                String r_txt = IOUtils.toString(in, "UTF-8");
+//                String[] parts = r_txt.split("\\r?\\n");
+//                
+//                // right now we don't specify the useragent so only look for the * useragent disallows
+//                boolean in_right_disallows = false;
+//                for(int i = 0; i < parts.length; i++){
+//                    if(parts[i].trim().contains("User-agent: *")){
+//                        in_right_disallows = true;
+//                    }
+//                    else if(in_right_disallows == true){
+//                        if(parts[i].trim().contains("Disallow")){
+//                            String[] disallow_parts = parts[i].split(":");
+//                            if(disallow_parts.length == 2){
+//                                robots_txt_directory_ignores.add(disallow_parts[1].trim());
+//                            }
+//                        }
+//                        else{
+//                            in_right_disallows = false;
+//                        }
+//                    }
+//                }
+//                
+//                
+//                System.out.println("yo");
+//            }
+//            
+//        }
+//        catch (MalformedURLException ex) {
+//            Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        catch(FileNotFoundException ex){
+//            Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        catch(Exception ex){
+//            Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+//        }
             
     }
 

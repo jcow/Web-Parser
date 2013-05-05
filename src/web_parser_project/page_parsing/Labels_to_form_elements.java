@@ -39,8 +39,6 @@ public class Labels_to_form_elements {
         
         boolean found;
         for(String form_element : form_elements){
-            System.out.println("-----------------------------");
-            System.out.println(form_element);
             found = false;
             for(String label : labels){
                 System.out.println("\t"+label);
@@ -53,7 +51,6 @@ public class Labels_to_form_elements {
             if(found == false){
                 not_found_input_labels.add(form_element);
             }
-            System.out.println("-----------------------------");
         }
         
         return not_found_input_labels;

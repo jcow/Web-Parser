@@ -44,24 +44,17 @@ public class Job_delineator {
         
         int counter = 0;
         long start_time = System.currentTimeMillis();
+        System.out.println("Getting URLs");
         while(site_reader.has_next() && counter < limit){
             current_site = site_reader.get_next();
-            
-            /*
-            if(current_site != null){
-                doc_parser.parse(current_site);
-                parsed_pages++;
-            }
-            
-            read_urls++;
-            */
+            System.out.println(current_site.get_url());
             counter++;
         }
+        System.out.println("Done Getting URLs");
+        
         long end_time = System.currentTimeMillis();
         
         parse_asset.add_to_total_time(end_time - start_time);
-        
-        System.out.println("\n\n-----------------Parsed Pages----------------\n");
         
         HashMap<String, Web_url> traveled_sites = site_reader.get_traveled_urls();
         
@@ -70,11 +63,11 @@ public class Job_delineator {
         
         Iterator it  = traveled_sites.keySet().iterator();
         Web_url current_it;
+        
+        System.out.println("Starting Parse of Obtained URLs");
         while(it.hasNext()){
             String key = (String)it.next();
             current_it = (Web_url)traveled_sites.get(key);
-          
-            System.out.println(current_it.get_url());
             
             if(current_it.is_404() == false){
                 
@@ -88,9 +81,6 @@ public class Job_delineator {
                         // add to total pages
                         parse_asset.add_to_total_pages(1);
 
-                        
-                        
-                        
                         // parse the page
                         page_parser.parse(current_it);
                     }
@@ -103,26 +93,11 @@ public class Job_delineator {
             
         }
         
-        
         // set the urls
         parse_asset.set_urls(traveled_sites);
         
-        
-        
-        
         Output.do_output(parse_asset);
         
-        System.out.println("done");
-    }
-    
-    public void print_fof(String fof_url, LinkedList<String> requested_by){
-        
-        String r_by = "";
-        Iterator it = requested_by.iterator();
-        while(it.hasNext()){
-            r_by += it.next();
-        }
-        
-        System.out.println("404: "+fof_url+" Used by "+r_by);
+        System.out.println("Finished");
     }
 }

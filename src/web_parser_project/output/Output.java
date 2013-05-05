@@ -35,15 +35,12 @@ public class Output {
     public static void do_output(Parse_asset parse_asset){
         
         if(Config.is_app_type_gui()){
+            // make and write to the file
             Template template = new Template();
             template.create(GUI_config.get_front_end_template_location(), GUI_config.get_front_end_dump_location(), parse_asset);
             
-//            // make the file
-//            Template template = new Template();
-//            template.create(starting_url, domain, traveled_sites, totals);
-//            
-//            // open it
-//            open_gui();
+            // open up the html file
+            open_gui();
         }
         else{
 //            if(Non_GUI_config.is_output_to_database()){
@@ -61,12 +58,12 @@ public class Output {
     }
     
     private static void open_gui(){
-//        try {
-//            File the_file = new File(Non_GUI_config.get_output_file_string());
-//            Desktop.getDesktop().browse(the_file.toURI());
-//        } catch (IOException ex) {
-//            Logger.getLogger(Output.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            File the_file = new File("front_end/main.html");
+            Desktop.getDesktop().browse(the_file.toURI());
+        } catch (IOException ex) {
+            Logger.getLogger(Output.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     
