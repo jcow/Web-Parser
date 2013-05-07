@@ -47,7 +47,7 @@ public class Job_delineator {
             current_site = site_reader.get_next();
             counter++;
         }
-        System.out.println("Done Getting URLs");
+        System.out.println("Done Getting URLs\n");
         
         long end_time = System.currentTimeMillis();
         
