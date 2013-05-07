@@ -1,0 +1,17 @@
+#navigation{
+	padding: 0px 30px;
+	margin: 0 0 20px 0;
+	border-bottom: 1px solid #363636;
+}
+
+#navigation .navigation_button{
+	list-style-type: none;
+	padding: 10px;
+	cursor:pointer;
+	display:inline-block;
+}
+
+#navigation .navigation_button:hover{
+	background-color:#8CE6FF;
+}
+
