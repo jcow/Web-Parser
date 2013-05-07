@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import web_parser_project.web_assets.Html_asset;
 import web_parser_project.web_assets.Parse_asset;
 import web_parser_project.web_assets.Web_url;
+import web_parser_project.web_assets.web_assets_html.Form_element;
 
 /**
  *
@@ -77,7 +78,7 @@ public class Web_url_template {
                 w_url.h_asset.deprecated_tags = convert_string_to_str(current_asset.get_deprecated_tags());
                 w_url.h_asset.no_alt_text = convert_string_to_str(current_asset.get_no_alt_text());
                 w_url.h_asset.poor_link_naming = convert_string_to_str(current_asset.get_poor_link_naming());
-                w_url.h_asset.inputs_no_labels = convert_string_to_str(current_asset.get_inputs_no_labels());
+                w_url.h_asset.inputs_no_labels = convert_form_element_to_f_element(current_asset.get_inputs_no_labels());
             }
             
             parse_result.url_list.add(w_url);
@@ -107,6 +108,26 @@ public class Web_url_template {
         
         return str;
     }
+    
+    private LinkedList<FElement> convert_form_element_to_f_element(LinkedList<Form_element> form_elements){
+        LinkedList<FElement> felement = new LinkedList();
+        
+        int counter = 0;
+        int last_index = form_elements.size() - 1;
+        for(Form_element form_element : form_elements){
+            if(counter == last_index){
+                felement.add(new FElement(form_element, false));
+            }
+            else{
+                felement.add(new FElement(form_element, true));
+            }
+            counter++;
+        }
+        
+        return felement;
+    }
+    
+    
     
     
     class LItem{
@@ -144,6 +165,19 @@ public class Web_url_template {
         }
     }
     
+    class FElement extends LItem{
+        String tag_name;
+        String for_value;
+        String id_value;
+        
+        FElement(Form_element form_element, boolean i){
+            tag_name = form_element.get_tag_name();
+            for_value = form_element.get_for_value();
+            id_value = form_element.get_id_value();
+            is_not_last = i;
+        }
+    }
+    
     class H_asset{
         
         String doc_type;
@@ -156,7 +190,7 @@ public class Web_url_template {
         LinkedList<Str> deprecated_tags;
         LinkedList<Str> no_alt_text;
         LinkedList<Str> poor_link_naming;
-        LinkedList<Str> inputs_no_labels;
+        LinkedList<FElement> inputs_no_labels;
         
         H_asset(){
             

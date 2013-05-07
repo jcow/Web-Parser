@@ -50,6 +50,8 @@ public class Site_getter {
     public Web_url get_next(){
         Web_url current_url = non_traveled_urls.remove();
         
+        System.out.println(current_url.get_url());
+        
         try{
             
             long start_time = System.currentTimeMillis();

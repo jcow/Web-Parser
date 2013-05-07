@@ -4,22 +4,9 @@
  */
 package web_parser_project;
 
+import java.io.IOException;
 import web_parser_project.config.Config;
 import web_parser_project.config.Config_factory;
-import java.awt.Desktop;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import web_parser_project.output.Database;
-import web_parser_project.output.Database_dump;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFileChooser;
-import web_parser_project.data.File_reader;
 import web_parser_project.libraries.Incoming_args;
 import web_parser_project.libraries.Spell_checker;
 import web_parser_project.run_types.Gui;

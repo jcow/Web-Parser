@@ -5,6 +5,10 @@
 package web_parser_project.page_parsing;
 
 import java.util.LinkedList;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
+import web_parser_project.libraries.Html_helper;
+import web_parser_project.web_assets.web_assets_html.Form_element;
 
 /**
  * Used to find inputs with no associated label
@@ -12,7 +16,7 @@ import java.util.LinkedList;
  */
 public class Labels_to_form_elements {
     
-    private LinkedList<String> form_elements;
+    private LinkedList<Element> form_elements;
     private LinkedList<String> labels;
     
     public Labels_to_form_elements(){
@@ -21,8 +25,8 @@ public class Labels_to_form_elements {
    }
     
     
-    public void add_to_form_element(String i){
-        form_elements.add(i);
+    public void add_to_form_element(Element n){
+        form_elements.add(n);
     }
     
     public void add_to_labels(String i){
@@ -33,22 +37,27 @@ public class Labels_to_form_elements {
      * Loop though the found inputs and found labels and make sure each input has a label
      * @return LinkedList<String>
      */
-    public LinkedList<String> get_difference(){
+    public LinkedList<Form_element> get_difference(){
         
-        LinkedList<String> not_found_input_labels = new LinkedList();
+        LinkedList<Form_element> not_found_input_labels = new LinkedList();
         
         boolean found;
-        for(String form_element : form_elements){
+        for(Element form_element : form_elements){
+            
+            String element_tag = Html_helper.get_tag_name(form_element);
+            String element_name = form_element.attr("name");
+            String element_id = form_element.attr("id");
+            
             found = false;
             for(String label : labels){
-                if(form_element.equals(label)){
+                if(element_id.equals(label)){
                     found = true;
                     break;
                 }
             }
             
             if(found == false){
-                not_found_input_labels.add(form_element);
+                not_found_input_labels.add(new Form_element(element_tag, element_name, element_id));
             }
         }
         

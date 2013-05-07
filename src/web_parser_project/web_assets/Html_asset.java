@@ -6,6 +6,7 @@ package web_parser_project.web_assets;
 
 import java.util.LinkedList;
 import org.jsoup.nodes.Document;
+import web_parser_project.web_assets.web_assets_html.Form_element;
 
 /**
  *
@@ -27,7 +28,7 @@ public class Html_asset extends Web_asset{
     // accessibility
     protected LinkedList<String> no_alt_text;
     protected LinkedList<String> poor_link_naming;
-    protected LinkedList<String> inputs_no_labels;
+    protected LinkedList<Form_element> inputs_no_labels;
     
     public Html_asset(Document inc_contents){
         contents = inc_contents;
@@ -118,7 +119,7 @@ public class Html_asset extends Web_asset{
         }
     }
     
-    public void set_inputs_no_labels(LinkedList<String> inc_inputs_no_labels){
+    public void set_inputs_no_labels(LinkedList<Form_element> inc_inputs_no_labels){
         inputs_no_labels = inc_inputs_no_labels;
     }
     
@@ -150,7 +151,7 @@ public class Html_asset extends Web_asset{
         return poor_link_naming;
     }
     
-    public LinkedList<String> get_inputs_no_labels(){
+    public LinkedList<Form_element> get_inputs_no_labels(){
         return inputs_no_labels;
     }
     

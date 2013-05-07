@@ -37,7 +37,12 @@ html_parser.urls.data = {
                             "emails":[{{#emails}}"{{value}}"{{#is_not_last}},{{/is_not_last}}{{/emails}}],
                             "deprecated_tags":[{{#deprecated_tags}}"{{value}}"{{#is_not_last}},{{/is_not_last}}{{/deprecated_tags}}],
                             "poor_link_naming":[{{#poor_link_naming}}"{{value}}"{{#is_not_last}},{{/is_not_last}}{{/poor_link_naming}}],
-                            "inputs_no_labels":[{{#inputs_no_labels}}"{{value}}"{{#is_not_last}},{{/is_not_last}}{{/inputs_no_labels}}],
+                            "inputs_no_labels":[{{#inputs_no_labels}}{
+                                            "tag_name":"{{tag_name}}",
+                                            "id_value":"{{id_value}}",
+                                            "for_value":"{{for_value}}"
+                                        }{{#is_not_last}},{{/is_not_last}}{{/inputs_no_labels}}
+                            ],
                             "no_alt_text":[{{#no_alt_text}}"{{value}}"{{#is_not_last}},{{/is_not_last}}{{/no_alt_text}}]
                         }
                     {{/h_asset}}

@@ -4,17 +4,15 @@
  */
 package web_parser_project;
 
-import web_parser_project.config.Config;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
+import web_parser_project.config.Config;
+import web_parser_project.libraries.Html_helper;
 import web_parser_project.output.Output;
 import web_parser_project.page_parsing.Page_parser;
-import web_parser_project.libraries.Html_helper;
 import web_parser_project.site_getter.Site_getter;
 import web_parser_project.web_assets.Html_asset;
 import web_parser_project.web_assets.Parse_asset;
-import web_parser_project.web_assets.Totals_asset;
 import web_parser_project.web_assets.Web_url;
 
 /**
@@ -47,7 +45,6 @@ public class Job_delineator {
         System.out.println("Getting URLs");
         while(site_reader.has_next() && counter < limit){
             current_site = site_reader.get_next();
-            System.out.println(current_site.get_url());
             counter++;
         }
         System.out.println("Done Getting URLs");

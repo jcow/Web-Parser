@@ -4,7 +4,6 @@
  */
 package web_parser_project.config;
 
-import java.io.IOException;
 import java.util.LinkedList;
 
 /**

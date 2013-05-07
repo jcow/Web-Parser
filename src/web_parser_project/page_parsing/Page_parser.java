@@ -134,7 +134,7 @@ public class Page_parser {
 
                     // if the node is an form element that should have an associated label
                     if(Html_helper.should_node_have_associated_label(node)){
-                        label_to_form_element.add_to_form_element(node.attr("id")); 
+                        label_to_form_element.add_to_form_element(node); 
                     }
                     // if the node is a label
                     else if(Html_helper.is_node_label(node)){
