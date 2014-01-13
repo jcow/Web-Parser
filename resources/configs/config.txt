@@ -1,0 +1,23 @@
+#--------------------------------------
+#   Location of the dictionaries
+#--------------------------------------
+dictionary_location:: resources/dictionaries/dictionary.txt
+custom_dictionary_location:: resources/dictionaries/custom_dictionary.txt
+
+#---------------------------------------
+# Parse limit
+# Determine how far to parse
+#---------------------------------------
+parse_count_limit::1000
+
+#---------------------------------------
+# Timeout
+# How long to try to get a url before you time out, in milliseconds
+#---------------------------------------
+timeout_limit:: 10000
+
+#---------------------------------------
+# Respect Robots.txt
+#   Available values: true or false
+#---------------------------------------
+respect_robots.txt::false

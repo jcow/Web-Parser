@@ -1,0 +1,45 @@
+{
+        {{#parse_result}}
+        "total_urls":{{total_urls}},
+        "total_time":{{total_time}},
+        "total_misspellings":{{total_misspellings}},
+        "total_same_domain_pages":{{total_same_domain_pages}},
+        "total_same_domain_urls":{{total_same_domain_urls}},
+        "total_images":{{total_images}},
+	"urls":[ 
+            {{#urls}}
+		{
+                    "url":"{{url}}",
+                    "http_code":{{http_code}},
+		    "direct_parent":"{{direct_parent}}",
+                    "content_type":"{{content_type}}",
+                    "retrieval_time":{{retrieval_time}},
+                    "io_error":{{io_error}},
+                    "malformed_url":{{malformed_url}},
+                    "content_length":{{content_length}},
+                    "last_modified":{{last_modified}},
+                    "referencing_urls":[
+                        {{#referencing_urls}}
+                                "{{value}}"{{#is_not_last}},{{/is_not_last}}
+                        {{/referencing_urls}}
+                    ],
+                    "html_asset":{{^h_asset}}null{{/h_asset}}{{#h_asset}}{
+                            "document_type":"{{doc_type}}",
+                            "title":"{{title}}",
+                            "description":"{{description}}",
+                            "misspellings":[{{#misspellings}}"{{value}}"{{#is_not_last}},{{/is_not_last}}{{/misspellings}}],
+                            "at_mentions":[{{#mentions}}"{{value}}"{{#is_not_last}},{{/is_not_last}}{{/mentions}}],
+                            "hash_tags":[{{#hash_tags}}"{{value}}"{{#is_not_last}},{{/is_not_last}}{{/hash_tags}}],
+                            "emails":[{{#emails}}"{{value}}"{{#is_not_last}},{{/is_not_last}}{{/emails}}],
+                            "deprecated_tags":[{{#deprecated_tags}}"{{value}}"{{#is_not_last}},{{/is_not_last}}{{/deprecated_tags}}],
+                            "poor_link_naming":[{{#poor_link_naming}}"{{value}}"{{#is_not_last}},{{/is_not_last}}{{/poor_link_naming}}],
+                            "inputs_no_labels":[{{#inputs_no_labels}}"{{value}}"{{#is_not_last}},{{/is_not_last}}{{/inputs_no_labels}}]
+                        }
+                    {{/h_asset}}
+                }
+                {{#is_not_last}},{{/is_not_last}}
+            {{/urls}}
+        ]
+        {{/parse_result}}
+}
+</script>
