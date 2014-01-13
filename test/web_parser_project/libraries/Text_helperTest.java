@@ -4,6 +4,7 @@
  */
 package web_parser_project.libraries;
 
+import WebParserProject.Libraries.Text_helper;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.junit.After;
 import org.junit.AfterClass;

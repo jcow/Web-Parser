@@ -4,6 +4,7 @@
  */
 package web_parser_project.libraries;
 
+import WebParserProject.Libraries.Spell_checker;
 import config.Config;
 import java.io.IOException;
 import org.junit.After;

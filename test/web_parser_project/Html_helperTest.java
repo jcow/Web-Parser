@@ -4,7 +4,7 @@
  */
 package web_parser_project;
 
-import web_parser_project.libraries.Html_helper;
+import WebParserProject.Libraries.Html_helper;
 import java.net.URLConnection;
 import org.junit.After;
 import org.junit.AfterClass;
