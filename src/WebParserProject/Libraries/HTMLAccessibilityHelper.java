@@ -10,12 +10,12 @@ import java.util.HashMap;
  *
  * @author Jason
  */
-public class Html_accessibility_helper {
+public class HTMLAccessibilityHelper {
     
-    private static Html_accessibility_helper instance;
+    private static HTMLAccessibilityHelper instance;
     private static HashMap<String,String> poor_link_names;
     
-    public Html_accessibility_helper(){
+    public HTMLAccessibilityHelper(){
         poor_link_names = new HashMap();
         poor_link_names.put("click here", "click here");
         poor_link_names.put("here", "here");
@@ -26,16 +26,16 @@ public class Html_accessibility_helper {
         poor_link_names.put("this", "this");
     }
     
-    public static Html_accessibility_helper get_instance(){
+    public static HTMLAccessibilityHelper get_instance(){
         if(instance == null){
-            instance = new Html_accessibility_helper();
+            instance = new HTMLAccessibilityHelper();
         }
         
         return instance;
     }
     
     public static boolean is_poor_link_name(String link_text){
-        if(Html_accessibility_helper.poor_link_names.containsKey(link_text.trim().toLowerCase())){
+        if(HTMLAccessibilityHelper.poor_link_names.containsKey(link_text.trim().toLowerCase())){
             return true;
         }
         else{

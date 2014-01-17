@@ -7,12 +7,12 @@ package WebParserProject;
 import java.util.HashMap;
 import java.util.Iterator;
 import WebParserProject.Config.Config;
-import WebParserProject.Libraries.Html_helper;
+import WebParserProject.Libraries.HTMLHelper;
 import WebParserProject.Output.Output;
-import WebParserProject.PageParsing.Page_parser;
-import WebParserProject.SiteGetter.Site_getter;
+import WebParserProject.PageParsing.PageParser;
+import WebParserProject.SiteGetter.SiteGetter;
 import WebParserProject.WebAssets.Html_asset;
-import WebParserProject.WebAssets.Parse_asset;
+import WebParserProject.WebAssets.ParseAsset;
 import WebParserProject.WebAssets.Web_url;
 
 /**
@@ -21,7 +21,7 @@ import WebParserProject.WebAssets.Web_url;
  */
 public class JobDelineator {
     
-    private Site_getter site_reader;
+    private SiteGetter site_reader;
     private String starting_url;
     private String domain;
     
@@ -30,13 +30,13 @@ public class JobDelineator {
         starting_url = s_url;
         domain = dom;
         
-        site_reader = new Site_getter(s_url, dom);
+        site_reader = new SiteGetter(s_url, dom);
     }
     
     public void run(){
         
         Web_url current_site;
-        Parse_asset parse_asset = new Parse_asset(starting_url, domain);
+        ParseAsset parse_asset = new ParseAsset(starting_url, domain);
         
         int limit = Config.get_parse_count_limit();
         
@@ -56,7 +56,7 @@ public class JobDelineator {
         HashMap<String, Web_url> traveled_sites = site_reader.get_traveled_urls();
         
         parse_asset.add_to_total_urls(traveled_sites.size());
-        Page_parser page_parser = new Page_parser(parse_asset);
+        PageParser page_parser = new PageParser(parse_asset);
         
         Iterator it  = traveled_sites.keySet().iterator();
         Web_url current_it;
@@ -69,7 +69,7 @@ public class JobDelineator {
             if(current_it.is_404() == false){
                 
                 // must be in the same domain to get checked in-depth
-                if(Html_helper.is_same_domain(domain, current_it.get_url())){ 
+                if(HTMLHelper.is_same_domain(domain, current_it.get_url())){ 
 
                     parse_asset.add_to_total_same_domain_urls(1);
                 
@@ -83,7 +83,7 @@ public class JobDelineator {
                     }
                 }
 
-                if(Html_helper.is_content_type_image(current_it.get_content_type())){
+                if(HTMLHelper.is_content_type_image(current_it.get_content_type())){
                     parse_asset.add_to_total_images(1);
                 }
             }

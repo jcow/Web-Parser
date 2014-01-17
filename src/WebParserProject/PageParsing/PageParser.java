@@ -11,41 +11,41 @@ import org.jsoup.nodes.DocumentType;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
-import WebParserProject.Libraries.Html_accessibility_helper;
-import WebParserProject.Libraries.Html_helper;
-import WebParserProject.Libraries.Html_meta_helper;
-import WebParserProject.Libraries.Spell_checker;
+import WebParserProject.Libraries.HTMLAccessibilityHelper;
+import WebParserProject.Libraries.HTMLHelper;
+import WebParserProject.Libraries.HTMLMetaHelper;
+import WebParserProject.Libraries.SpellChecker;
 import WebParserProject.Libraries.Text_helper;
 import WebParserProject.WebAssets.Html_asset;
-import WebParserProject.WebAssets.Parse_asset;
-import WebParserProject.WebAssets.Totals_asset;
-import WebParserProject.WebAssets.Web_asset;
+import WebParserProject.WebAssets.ParseAsset;
+import WebParserProject.WebAssets.TotalsAsset;
+import WebParserProject.WebAssets.WebAsset;
 import WebParserProject.WebAssets.Web_url;
 
 /**
  *
  * @author Jason
  */
-public class Page_parser {
+public class PageParser {
     
     private Html_asset current_html_asset;
-    private Parse_asset parse_asset;
-    private Spell_checker spell_checker;
-    private Html_helper html_helper;
-    private Html_accessibility_helper accessibility_helper;
+    private ParseAsset parse_asset;
+    private SpellChecker spell_checker;
+    private HTMLHelper html_helper;
+    private HTMLAccessibilityHelper accessibility_helper;
     private Labels_to_form_elements label_to_form_element;
     private String[] tags_to_ignore;
     
-    public Page_parser(Parse_asset p_asset){
-        spell_checker = Spell_checker.getInstance();
-        html_helper = Html_helper.get_instance();
-        accessibility_helper = Html_accessibility_helper.get_instance();
+    public PageParser(ParseAsset p_asset){
+        spell_checker = SpellChecker.getInstance();
+        html_helper = HTMLHelper.get_instance();
+        accessibility_helper = HTMLAccessibilityHelper.get_instance();
         parse_asset = p_asset;
     }
     
     public void parse(Web_url w_url){
         
-        if(Web_asset.is_html_asset(w_url.get_web_asset())){
+        if(WebAsset.is_html_asset(w_url.get_web_asset())){
             current_html_asset = (Html_asset)w_url.get_web_asset();
             label_to_form_element = new Labels_to_form_elements();
             
@@ -70,7 +70,7 @@ public class Page_parser {
         // loop through highest nodes to find the doctype
         if(first_nodes.isEmpty() == false){
             for (Node node : first_nodes) {
-                if (Html_helper.is_node_doctype(node)) {
+                if (HTMLHelper.is_node_doctype(node)) {
                     DocumentType document_type = (DocumentType)node;
                     current_html_asset.set_doctype(document_type.toString());
                 }
@@ -90,8 +90,8 @@ public class Page_parser {
     
     public void parse_head_nodes(Elements nodes){
         for(Element node : nodes){
-            if(Html_meta_helper.is_element_meta_description(node)){
-               current_html_asset.set_description(Html_meta_helper.get_meta_content(node));
+            if(HTMLMetaHelper.is_element_meta_description(node)){
+               current_html_asset.set_description(HTMLMetaHelper.get_meta_content(node));
             }
         }
     }
@@ -123,21 +123,21 @@ public class Page_parser {
                     check_if_node_contains_inline_styling(node);
 
                     // if the node is an image
-                    if(Html_helper.is_node_image(node)){
+                    if(HTMLHelper.is_node_image(node)){
                         check_image_node(node);
                     }
 
                     // if the node is a link
-                    if(Html_helper.is_node_anchor(node)){
+                    if(HTMLHelper.is_node_anchor(node)){
                         check_anchor(node.text());
                     }
 
                     // if the node is an form element that should have an associated label
-                    if(Html_helper.should_node_have_associated_label(node)){
+                    if(HTMLHelper.should_node_have_associated_label(node)){
                         label_to_form_element.add_to_form_element(node); 
                     }
                     // if the node is a label
-                    else if(Html_helper.is_node_label(node)){
+                    else if(HTMLHelper.is_node_label(node)){
                         label_to_form_element.add_to_labels(node.attr("for"));
                     }
 
@@ -156,12 +156,12 @@ public class Page_parser {
         if(html_helper.contains_inline_styling(node)){
             current_html_asset.add_to_inline_styling(html_helper.get_tag_name(node), html_helper.get_style_value(node));
             String p = html_helper.get_style_value(node);
-            String q = Html_helper.get_tag_name(node);
+            String q = HTMLHelper.get_tag_name(node);
         }
     }
     
     private void check_if_node_is_deprecated(Element node){
-        String node_name = Html_helper.get_tag_name(node);
+        String node_name = HTMLHelper.get_tag_name(node);
         if(html_helper.is_tag_deprecated(node_name)){
             current_html_asset.add_to_deprecated_tags(node_name);
         }
@@ -199,7 +199,7 @@ public class Page_parser {
     
     private void spell_check_text(String text){
         String clean_text = spell_checker.clean(text);
-        if(spell_checker.is_misspelt(clean_text)){
+        if(spell_checker.IsMisspelt(clean_text)){
             parse_asset.add_to_total_misspellings(1);
             current_html_asset.add_to_misspellings(clean_text);
         }
@@ -220,7 +220,7 @@ public class Page_parser {
     }
     
     private void check_anchor(String text){
-        if(Html_accessibility_helper.is_poor_link_name(text)){
+        if(HTMLAccessibilityHelper.is_poor_link_name(text)){
             current_html_asset.add_to_poor_link_naming(text);
         }
     }
@@ -230,7 +230,7 @@ public class Page_parser {
     }
     
     private boolean is_ignore_node(Element node){
-         String node_name = Html_helper.get_tag_name(node).toLowerCase();
+         String node_name = HTMLHelper.get_tag_name(node).toLowerCase();
          
          if(node_name.equals("script") || node_name.equals("style") || node_name.equals("code")){
              return true;

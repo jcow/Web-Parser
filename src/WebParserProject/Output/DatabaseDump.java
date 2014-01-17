@@ -17,14 +17,14 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import WebParserProject.WebAssets.Html_asset;
-import WebParserProject.WebAssets.Web_asset;
+import WebParserProject.WebAssets.WebAsset;
 import WebParserProject.WebAssets.Web_url;
 
 /**
  *
  * @author Jason
  */
-public class Database_dump{
+public class DatabaseDump{
     
     // the amount of queries allowed to be added to a execution batch before it's fired off
     int batch_limit = 2;
@@ -62,12 +62,12 @@ public class Database_dump{
             }
             catch(SQLException e){
                 System.out.println(e);
-                Logger.getLogger(Database_dump.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(DatabaseDump.class.getName()).log(Level.SEVERE, null, e);
             }
             finally{
                 try{connection.close();}catch(SQLException e){
                     System.out.println(e);
-                    Logger.getLogger(Database_dump.class.getName()).log(Level.SEVERE, null, e);
+                    Logger.getLogger(DatabaseDump.class.getName()).log(Level.SEVERE, null, e);
                 };
             }
         }
@@ -155,7 +155,7 @@ public class Database_dump{
             if(web_urls[counter] != null && web_urls[counter].get_web_asset() != null){
                 int web_url_id = res.getInt(1);
                 
-                if(Web_asset.is_html_asset(web_urls[counter].get_web_asset())){
+                if(WebAsset.is_html_asset(web_urls[counter].get_web_asset())){
                     Html_asset html_asset = (Html_asset)web_urls[counter].get_web_asset();
                     
                     save_misspellings(connection, web_url_id, html_asset.get_misspellings());

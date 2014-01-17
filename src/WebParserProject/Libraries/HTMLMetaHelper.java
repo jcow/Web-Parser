@@ -10,9 +10,9 @@ import org.jsoup.nodes.Element;
  *
  * @author Jason
  */
-public class Html_meta_helper {
+public class HTMLMetaHelper {
     
-    public Html_meta_helper(){
+    public HTMLMetaHelper(){
         
     }
     
@@ -26,7 +26,7 @@ public class Html_meta_helper {
     }
     
     public static boolean is_element_meta_description(Element node){
-        if(Html_meta_helper.is_element_meta(node)){
+        if(HTMLMetaHelper.is_element_meta(node)){
             String name = node.attr("name");
             
             if(name.equals("description")){

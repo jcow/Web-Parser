@@ -8,9 +8,9 @@ package WebParserProject.WebAssets;
  *
  * @author Jason
  */
-public class Web_asset {
+public class WebAsset {
     
-    public static boolean is_html_asset(Web_asset w_asset){
+    public static boolean is_html_asset(WebAsset w_asset){
         
         if(w_asset != null && w_asset instanceof Html_asset){
             return true;

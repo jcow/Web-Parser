@@ -12,7 +12,7 @@ import WebParserProject.WebAssets.WebAssetsHTML.Form_element;
  *
  * @author Jason
  */
-public class Html_asset extends Web_asset{
+public class Html_asset extends WebAsset{
     
     protected String doc_type;
     protected String title;
@@ -23,7 +23,7 @@ public class Html_asset extends Web_asset{
     protected LinkedList<String> hash_tags;
     protected LinkedList<String> emails;
     protected LinkedList<String> deprecated_tags;
-    protected LinkedList<Inline_style> inline_styling;
+    protected LinkedList<InlineStyle> inline_styling;
     
     // accessibility
     protected LinkedList<String> no_alt_text;
@@ -80,7 +80,7 @@ public class Html_asset extends Web_asset{
     }
     
     public void add_to_inline_styling(String tag_name, String style_value){
-        inline_styling.add(new Inline_style(tag_name, style_value));
+        inline_styling.add(new InlineStyle(tag_name, style_value));
     }
     
     public void add_to_at_mensions(String at_mention){

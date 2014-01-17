@@ -10,11 +10,11 @@ import java.io.InputStream;
  *
  * @author Jason
  */
-public class Other_asset extends Web_asset{
+public class OtherAsset extends WebAsset{
     
     protected InputStream content;
     
-    public Other_asset(InputStream inc_content){
+    public OtherAsset(InputStream inc_content){
         content = inc_content;
     }
     

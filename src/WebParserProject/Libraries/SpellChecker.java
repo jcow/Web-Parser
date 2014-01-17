@@ -5,7 +5,7 @@
 package WebParserProject.Libraries;
 
 import WebParserProject.Config.Config;
-import WebParserProject.Data.File_reader;
+import WebParserProject.Data.ProjectFileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -14,18 +14,18 @@ import java.util.LinkedList;
  *
  * @author Jason
  */
-public class Spell_checker {
+public class SpellChecker {
     
     private HashMap<String,String> dictionary;
     
-    private static Spell_checker instance = null;
-    private Spell_checker() {
+    private static SpellChecker instance = null;
+    private SpellChecker() {
            // Exists only to defeat instantiation.
     }
         
-    public static Spell_checker getInstance() {
+    public static SpellChecker getInstance() {
            if(instance == null) {
-              instance = new Spell_checker();
+              instance = new SpellChecker();
            }
            return instance;
     }
@@ -44,7 +44,7 @@ public class Spell_checker {
      * @return 
      *      Returns true if the word was misspelt
      */
-    public boolean is_misspelt(String word){
+    public boolean IsMisspelt(String word){
 
         // empty, leave it
         if(word == null || word.length() == 0){return false;}
@@ -72,7 +72,7 @@ public class Spell_checker {
     public void read() throws IOException{
         dictionary = new HashMap();
         
-        LinkedList<String> read_in_dictionary = File_reader.read_file(Config.get_dictionary_location());
+        LinkedList<String> read_in_dictionary = ProjectFileReader.read_file(Config.get_dictionary_location());
         
         
         
@@ -80,18 +80,18 @@ public class Spell_checker {
             throw new IOException("Dictionary cannot be null");
         }
         else{
-            convert_linked_list_to_hash_map(read_in_dictionary);
+            ConvertLinkedListToHashMap(read_in_dictionary);
             
             // check and set custom dictionary
             if(Config.get_custom_dictionary_location() != null){
-                LinkedList<String> custom_dict = File_reader.read_file(Config.get_custom_dictionary_location());
-                convert_linked_list_to_hash_map(custom_dict);
+                LinkedList<String> custom_dict = ProjectFileReader.read_file(Config.get_custom_dictionary_location());
+                ConvertLinkedListToHashMap(custom_dict);
             }
         }
     }
     
     
-    private void convert_linked_list_to_hash_map(LinkedList<String> read_in_dictionary){
+    private void ConvertLinkedListToHashMap(LinkedList<String> read_in_dictionary){
         for(String word : read_in_dictionary){
             word = word.trim().toLowerCase();
             dictionary.put(word, word);

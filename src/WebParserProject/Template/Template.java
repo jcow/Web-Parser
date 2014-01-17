@@ -4,7 +4,7 @@
  */
 package WebParserProject.Template;
 
-import WebParserProject.Data.File_reader;
+import WebParserProject.Data.ProjectFileReader;
 import java.util.LinkedList;
 
 import com.github.mustachejava.DefaultMustacheFactory;
@@ -20,8 +20,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import WebParserProject.WebAssets.Parse_asset;
-import WebParserProject.WebAssets.Totals_asset;
+import WebParserProject.WebAssets.ParseAsset;
+import WebParserProject.WebAssets.TotalsAsset;
 import WebParserProject.WebAssets.Web_url;
 
 
@@ -40,7 +40,7 @@ public class Template {
         
     }
     
-    public void create(String template_location, String output_location, Parse_asset parse_asset){
+    public void create(String template_location, String output_location, ParseAsset parse_asset){
         
         MustacheFactory mf = new DefaultMustacheFactory();
         try {
@@ -54,7 +54,7 @@ public class Template {
             }
             
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            mustache.execute(fw, new Web_url_template(parse_asset)).flush();
+            mustache.execute(fw, new WebURLTemplate(parse_asset)).flush();
         } 
         catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());

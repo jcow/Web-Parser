@@ -8,19 +8,19 @@ package WebParserProject.Libraries;
  *
  * @author Jason
  */
-public class Incoming_args {
+public class IncomingArgs {
     
     private int expected_arg_count = 1;
     private String starting_url = "";
     
-    public Incoming_args(){}
+    public IncomingArgs(){}
     
     public void set_incoming_args(String args[]){
         if(expected_arg_count != args.length){
             throw new IllegalArgumentException("Arg counts must match");
         }
         
-        if(Html_helper.is_http_address(args[0])){
+        if(HTMLHelper.is_http_address(args[0])){
             throw new IllegalArgumentException("Incoming address must be http protocol");
         }
         

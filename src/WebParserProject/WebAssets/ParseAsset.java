@@ -10,7 +10,7 @@ import java.util.HashMap;
  *
  * @author Jason
  */
-public class Parse_asset {
+public class ParseAsset {
     
     private String starting_url;
     private String domain;
@@ -24,7 +24,7 @@ public class Parse_asset {
     
     private HashMap<String, Web_url> urls;
     
-    public Parse_asset(String s_url, String dom){
+    public ParseAsset(String s_url, String dom){
         
         starting_url = s_url;
         domain = dom;

@@ -13,9 +13,9 @@ import java.io.IOException;
  *
  * @author Jason
  */
-public class File_writer {
+public class ProjectFileWriter {
     
-    public File_writer(){
+    public ProjectFileWriter(){
         
     }
     

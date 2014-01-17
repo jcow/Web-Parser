@@ -5,7 +5,7 @@
 package WebParserProject.WebAssets;
 
 import java.util.LinkedList;
-import WebParserProject.Libraries.Html_helper;
+import WebParserProject.Libraries.HTMLHelper;
 
 /**
  *
@@ -20,7 +20,7 @@ public class Web_url {
     protected LinkedList<String> urls_which_reference_asset;
     protected int http_code;
     protected String content_type;
-    protected Web_asset asset;
+    protected WebAsset asset;
     
     // number of milliseconds to retrieve an item
     protected long retrieval_time;
@@ -75,7 +75,7 @@ public class Web_url {
         content_length = clength;
     }
     
-    public void set_web_asset(Web_asset w_asset){
+    public void set_web_asset(WebAsset w_asset){
         asset = w_asset;
     }
     
@@ -83,7 +83,7 @@ public class Web_url {
         last_modified = lmodified;
     }
     
-    public Web_asset get_web_asset(){
+    public WebAsset get_web_asset(){
         return asset;
     }
     
@@ -92,11 +92,11 @@ public class Web_url {
     }
     
     public boolean is_404(){
-        return Html_helper.is_404(http_code);
+        return HTMLHelper.is_404(http_code);
     }
     
     public boolean is_200_ok(){
-        return Html_helper.is_200(http_code);
+        return HTMLHelper.is_200(http_code);
     }
     
     public void set_io_error(boolean inc_error){

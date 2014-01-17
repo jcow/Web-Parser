@@ -14,8 +14,8 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import WebParserProject.Template.Template;
-import WebParserProject.WebAssets.Parse_asset;
-import WebParserProject.WebAssets.Totals_asset;
+import WebParserProject.WebAssets.ParseAsset;
+import WebParserProject.WebAssets.TotalsAsset;
 import WebParserProject.WebAssets.Web_url;
 
 /**
@@ -32,7 +32,7 @@ public class Output {
         new_line = System.getProperty("line.separator");
     }
     
-    public static void do_output(Parse_asset parse_asset){
+    public static void do_output(ParseAsset parse_asset){
         
         if(Config.is_app_type_gui()){
             // make and write to the file

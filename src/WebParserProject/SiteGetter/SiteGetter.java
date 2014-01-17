@@ -19,16 +19,16 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import WebParserProject.Libraries.Html_helper;
+import WebParserProject.Libraries.HTMLHelper;
 import WebParserProject.WebAssets.Html_asset;
-import WebParserProject.WebAssets.Other_asset;
+import WebParserProject.WebAssets.OtherAsset;
 import WebParserProject.WebAssets.Web_url;
 
 /**
  *
  * @author Jason
  */
-public class Site_getter {
+public class SiteGetter {
     
     private String starting_url;
     private String domain;
@@ -37,7 +37,7 @@ public class Site_getter {
     private LinkedList<Web_url> non_traveled_urls;
     
     
-    public Site_getter(String s_url, String s_domain){
+    public SiteGetter(String s_url, String s_domain){
         starting_url = s_url;
         domain = s_domain;
         
@@ -79,9 +79,9 @@ public class Site_getter {
             current_url.set_content_type(content_type);
             
             // 200 ok, get content, go forth
-            if(Html_helper.is_200(http_status)){
+            if(HTMLHelper.is_200(http_status)){
                         
-                if(Html_helper.is_content_type_html(content_type)){
+                if(HTMLHelper.is_content_type_html(content_type)){
                     Document html_page = Jsoup.parse(in, null, current_url.get_url());
                 
                     store_things(html_page, current_url.get_url());
@@ -93,7 +93,7 @@ public class Site_getter {
                 }
             }
             // redirect, store the redirect url, add the redirect's location to the system
-            else if(Html_helper.is_3xx_redirect(http_status)){
+            else if(HTMLHelper.is_3xx_redirect(http_status)){
                 // store the url that's issuing the redirect
                 add_to_explored_non_html_asset(current_url, in, http_status, content_type);
                 
@@ -167,7 +167,7 @@ public class Site_getter {
     private void store_things(Document the_document, String current_url){
         
         // the current page must be in the same domain if it is to be parsed also check if it hasn't been checked already
-        if(Html_helper.is_same_domain(domain, current_url)){
+        if(HTMLHelper.is_same_domain(domain, current_url)){
             
             String url;
             Elements links = the_document.select("a[href]");
@@ -208,7 +208,7 @@ public class Site_getter {
     private void store_item(String current_url, String link_url){
 
         // strips out the # anchors
-        link_url = Html_helper.strip_page_anchor(link_url);
+        link_url = HTMLHelper.strip_page_anchor(link_url);
 
         // strips off the end / if there is one
         //link_url = Html_helper.strip_end_slash(link_url);
@@ -254,7 +254,7 @@ public class Site_getter {
     
     private Web_url add_to_explored_non_html_asset(Web_url w_url, InputStream contents, int status_code, String content_type){
         
-        w_url.set_web_asset(new Other_asset(contents));
+        w_url.set_web_asset(new OtherAsset(contents));
         w_url.set_content_type(content_type);
         w_url.set_http_code(status_code);
         

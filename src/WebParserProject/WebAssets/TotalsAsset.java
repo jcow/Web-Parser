@@ -4,7 +4,7 @@ package WebParserProject.WebAssets;
  *
  * @author Jason
  */
-public class Totals_asset {
+public class TotalsAsset {
     
     private long total_time;
     private int total_misspellings;
@@ -14,7 +14,7 @@ public class Totals_asset {
     private int total_same_domain_urls;
     
     
-    public Totals_asset(){
+    public TotalsAsset(){
         total_time = 0;
         total_images = 0;
         total_urls = 0;

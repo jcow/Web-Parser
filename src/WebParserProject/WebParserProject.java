@@ -7,9 +7,9 @@ package WebParserProject;
 import java.io.IOException;
 import WebParserProject.Config.Config;
 import WebParserProject.Config.ConfigFactory;
-import WebParserProject.Libraries.Incoming_args;
-import WebParserProject.Libraries.Spell_checker;
-import WebParserProject.RunTypes.Gui;
+import WebParserProject.Libraries.IncomingArgs;
+import WebParserProject.Libraries.SpellChecker;
+import WebParserProject.RunTypes.GUI;
 
 /**
  *
@@ -22,7 +22,7 @@ public class WebParserProject {
      */
     public static void main(String[] args) {
         
-        Incoming_args inc_args = new Incoming_args();
+        IncomingArgs inc_args = new IncomingArgs();
         
         /*
         boolean args_ok = check_inc_args(inc_args, args);
@@ -32,20 +32,6 @@ public class WebParserProject {
             site_parser.run(inc_args.get_starting_url());
         }
         */
-        
-        
-        // args won't be ok because I'm in dev mode, so here is something to kick this off
-//        String starting_url = "http://life.umt.edu/curry/";
-//        String domain = "http://life.umt.edu/curry/";
-        
-//        String starting_url = "http://life.umt.edu/sait/";
-//        String domain = "http://life.umt.edu/sait/"; 
-       
-//          String starting_url = "http://umt.edu/sait/";
-//          String domain = "http://umt.edu/sait/";
-        
-//        String starting_url = "http://lesica.com";
-//        String domain = "http://lesica.com";
         
         String starting_url = "http://localhost/html_files_for_testing/index.html";
         String domain = "http://localhost/html_files_for_testing/";
@@ -62,7 +48,7 @@ public class WebParserProject {
         
         
         // setup the dictionary
-        Spell_checker sp_chk = Spell_checker.getInstance();
+        SpellChecker sp_chk = SpellChecker.getInstance();
         try{
             sp_chk.read();
         }
@@ -74,7 +60,7 @@ public class WebParserProject {
         
         
         if(application_type.equals("gui")){
-            Gui the_gui = new Gui();
+            GUI the_gui = new GUI();
             the_gui.run();
         }
         else{
@@ -115,7 +101,7 @@ public class WebParserProject {
         
     }
     
-    public static boolean check_inc_args(Incoming_args inc_args, String args[]){
+    public static boolean check_inc_args(IncomingArgs inc_args, String args[]){
         
         try{
             inc_args.set_incoming_args(args);

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import WebParserProject.WebAssets.Html_asset;
-import WebParserProject.WebAssets.Parse_asset;
+import WebParserProject.WebAssets.ParseAsset;
 import WebParserProject.WebAssets.Web_url;
 import WebParserProject.WebAssets.WebAssetsHTML.Form_element;
 
@@ -16,11 +16,11 @@ import WebParserProject.WebAssets.WebAssetsHTML.Form_element;
  *
  * @author Jason
  */
-public class Web_url_template {
+public class WebURLTemplate {
     
     Parse_results parse_result = new Parse_results();
     
-    public Web_url_template(Parse_asset parse_asset){
+    public WebURLTemplate(ParseAsset parse_asset){
         
         parse_result.starting_url = parse_asset.get_starting_url();
         parse_result.domain = parse_asset.get_domain();

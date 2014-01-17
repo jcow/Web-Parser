@@ -14,9 +14,9 @@ import java.util.LinkedList;
  *
  * @author Jason
  */
-public class File_reader {
+public class ProjectFileReader {
     
-    public File_reader(){}
+    public ProjectFileReader(){}
     
     public static LinkedList<String> read_file(String file_to_read){
         

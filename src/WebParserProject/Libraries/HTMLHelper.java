@@ -13,9 +13,9 @@ import org.jsoup.nodes.Node;
  *
  * @author Jason
  */
-public class Html_helper {
+public class HTMLHelper {
     
-    private static Html_helper instance;
+    private static HTMLHelper instance;
     
     // TODO, this list needs to be larger and include videos, etc
     private static String image_extensions = "png,jpg,gif";
@@ -23,7 +23,7 @@ public class Html_helper {
     private static HashMap<String,String> deprecated_tags;
     
     
-    private Html_helper(){
+    private HTMLHelper(){
         deprecated_tags = new HashMap();
         deprecated_tags.put("applet", "applet");
         deprecated_tags.put("basefont", "basefont");
@@ -39,9 +39,9 @@ public class Html_helper {
     }
     
     
-    public static Html_helper get_instance(){
+    public static HTMLHelper get_instance(){
         if(instance == null){
-            instance = new Html_helper();
+            instance = new HTMLHelper();
         }
         
         return instance;
@@ -147,7 +147,7 @@ public class Html_helper {
      * @param url 
      */
     public static boolean is_non_html_url(String url){
-        String extension = Html_helper.get_extension(url);
+        String extension = HTMLHelper.get_extension(url);
         
         if(extension != null){
             if(image_extensions.contains(extension)){
@@ -219,7 +219,7 @@ public class Html_helper {
     }
     
     public static boolean is_node_image(Element node){
-        if(Html_helper.get_tag_name(node).equals("img")) {
+        if(HTMLHelper.get_tag_name(node).equals("img")) {
             return true;
         }
         else{
@@ -228,7 +228,7 @@ public class Html_helper {
     }
     
     public static boolean is_node_anchor(Element node){
-        if(Html_helper.get_tag_name(node).equals("a")){
+        if(HTMLHelper.get_tag_name(node).equals("a")){
             return true;
         }
         else{
@@ -237,23 +237,23 @@ public class Html_helper {
     }
     
     public static boolean is_node_label(Element node){
-        return (Html_helper.get_tag_name(node).equals("label"))?true:false;
+        return (HTMLHelper.get_tag_name(node).equals("label"))?true:false;
     }
     
     public static boolean is_node_input(Element node){
-        return (Html_helper.get_tag_name(node).equals("input"))?true:false;
+        return (HTMLHelper.get_tag_name(node).equals("input"))?true:false;
     }
     
     public static boolean is_node_textarea(Element node){
-        return (Html_helper.get_tag_name(node).equals("textarea"))?true:false;
+        return (HTMLHelper.get_tag_name(node).equals("textarea"))?true:false;
     }
     
     public static boolean is_node_select(Element node){
-        return (Html_helper.get_tag_name(node).equals("select"))?true:false;
+        return (HTMLHelper.get_tag_name(node).equals("select"))?true:false;
     }
     
     public static boolean is_node_ignored_input_for_labels(Element node){
-        if(Html_helper.is_node_input(node) && (node.attr("type").equals("submit") || node.attr("type").equals("hidden") || node.attr("type").equals("button") || node.attr("type").equals("image")) ){
+        if(HTMLHelper.is_node_input(node) && (node.attr("type").equals("submit") || node.attr("type").equals("hidden") || node.attr("type").equals("button") || node.attr("type").equals("image")) ){
             return true;
         }
         else{
@@ -268,7 +268,7 @@ public class Html_helper {
      * @return 
      */
     public static boolean should_node_have_associated_label(Element node){
-        if(Html_helper.is_node_ignored_input_for_labels(node) == false && (Html_helper.is_node_input(node) || Html_helper.is_node_select(node)|| Html_helper.is_node_textarea(node))){
+        if(HTMLHelper.is_node_ignored_input_for_labels(node) == false && (HTMLHelper.is_node_input(node) || HTMLHelper.is_node_select(node)|| HTMLHelper.is_node_textarea(node))){
             return true;
         }
         else{

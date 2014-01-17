@@ -8,12 +8,12 @@ package WebParserProject.WebAssets;
  *
  * @author Jason
  */
-public class Inline_style {
+public class InlineStyle {
     
     private String tag;
     private String style;
     
-    public Inline_style(String inc_tag, String inc_style){
+    public InlineStyle(String inc_tag, String inc_style){
         tag = inc_tag; 
         inc_style = style;
     }

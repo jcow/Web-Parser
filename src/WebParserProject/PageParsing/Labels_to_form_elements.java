@@ -7,7 +7,7 @@ package WebParserProject.PageParsing;
 import java.util.LinkedList;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
-import WebParserProject.Libraries.Html_helper;
+import WebParserProject.Libraries.HTMLHelper;
 import WebParserProject.WebAssets.WebAssetsHTML.Form_element;
 
 /**
@@ -44,7 +44,7 @@ public class Labels_to_form_elements {
         boolean found;
         for(Element form_element : form_elements){
             
-            String element_tag = Html_helper.get_tag_name(form_element);
+            String element_tag = HTMLHelper.get_tag_name(form_element);
             String element_name = form_element.attr("name");
             String element_id = form_element.attr("id");
             

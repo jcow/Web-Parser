@@ -5,7 +5,7 @@
 package WebParserProject.Config;
 
 import java.util.LinkedList;
-import WebParserProject.Data.File_reader;
+import WebParserProject.Data.ProjectFileReader;
 
 /**
  *
@@ -49,7 +49,7 @@ public abstract class Config {
     
     public LinkedList<String> read(String what){
         
-        LinkedList<String> config_contents = File_reader.read_file(what);
+        LinkedList<String> config_contents = ProjectFileReader.read_file(what);
         
         return config_contents;
     }
