@@ -5,8 +5,8 @@
 package WebParserProject.Output;
 
 import WebParserProject.Config.Config;
-import WebParserProject.Config.GUI_config;
-import WebParserProject.Config.Non_GUI_config;
+import WebParserProject.Config.GUIConfig;
+import WebParserProject.Config.NonGUIConfig;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class Output {
         if(Config.is_app_type_gui()){
             // make and write to the file
             Template template = new Template();
-            template.create(GUI_config.get_front_end_template_location(), GUI_config.get_front_end_dump_location(), parse_asset);
+            template.create(GUIConfig.get_front_end_template_location(), GUIConfig.get_front_end_dump_location(), parse_asset);
             
             // open up the html file
             open_gui();

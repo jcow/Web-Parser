@@ -5,7 +5,7 @@
 package WebParserProject.Output;
 
 import WebParserProject.Config.Config;
-import WebParserProject.Config.Non_GUI_config;
+import WebParserProject.Config.NonGUIConfig;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -41,7 +41,7 @@ public class Database {
             
             try {
                 PreparedStatement prepared_statement= connect.prepareStatement(
-                        "SELECT * FROM "+Non_GUI_config.get_database_name()+".parsing_entity"
+                        "SELECT * FROM "+NonGUIConfig.get_database_name()+".parsing_entity"
                 );
                 
                 ResultSet cat = prepared_statement.executeQuery();
@@ -71,10 +71,10 @@ public class Database {
           
           // Setup the connection with the DB
           Connection connect = DriverManager.getConnection("jdbc:mysql://"
-                  + Non_GUI_config.get_database_host()+"/"
-                  + Non_GUI_config.get_database_name()+"?"
-                  + "user="+Non_GUI_config.get_database_username()
-                  + "&password="+Non_GUI_config.get_database_password()
+                  + NonGUIConfig.get_database_host()+"/"
+                  + NonGUIConfig.get_database_name()+"?"
+                  + "user="+NonGUIConfig.get_database_username()
+                  + "&password="+NonGUIConfig.get_database_password()
           );
       
           return connect;

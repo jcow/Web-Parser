@@ -6,7 +6,7 @@ package WebParserProject;
 
 import java.io.IOException;
 import WebParserProject.Config.Config;
-import WebParserProject.Config.Config_factory;
+import WebParserProject.Config.ConfigFactory;
 import WebParserProject.Libraries.Incoming_args;
 import WebParserProject.Libraries.Spell_checker;
 import WebParserProject.RunTypes.Gui;
@@ -15,7 +15,7 @@ import WebParserProject.RunTypes.Gui;
  *
  * @author Jason
  */
-public class Web_parser_project {
+public class WebParserProject {
 
     /**
      * @param args the command line arguments
@@ -56,7 +56,7 @@ public class Web_parser_project {
         String application_type = "gui";
         
         // setup the config
-        Config the_config = Config_factory.get_config(application_type);
+        Config the_config = ConfigFactory.get_config(application_type);
         Config.set_domain(domain);
         the_config.initialize();
         
@@ -78,7 +78,7 @@ public class Web_parser_project {
             the_gui.run();
         }
         else{
-            Job_delineator site_parser = new Job_delineator(starting_url, domain);
+            JobDelineator site_parser = new JobDelineator(starting_url, domain);
             site_parser.run();
         }
             

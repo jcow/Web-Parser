@@ -11,9 +11,9 @@ import java.util.LinkedList;
  *
  * @author Jason
  */
-public class GUI_config extends Config{
+public class GUIConfig extends Config{
     
-    private static GUI_config instance;
+    private static GUIConfig instance;
     
     private static String front_end_template_location;
     private static String front_end_template_location_index = "front_end_template_location";
@@ -23,11 +23,11 @@ public class GUI_config extends Config{
     
     private static String gui_config_location = "resources/configs/gui_config.txt";
     
-    private GUI_config(){}
+    private GUIConfig(){}
     
-    public static GUI_config get_instance(){
+    public static GUIConfig get_instance(){
         if(instance == null){
-            instance = new GUI_config();
+            instance = new GUIConfig();
         }
         
         return instance;

@@ -10,9 +10,9 @@ import java.util.LinkedList;
  *
  * @author Jason
  */
-public class Non_GUI_config extends Config{
+public class NonGUIConfig extends Config{
     
-    private static Non_GUI_config instance;
+    private static NonGUIConfig instance;
     
     private static String database_host;
     private static String database_port;
@@ -40,13 +40,13 @@ public class Non_GUI_config extends Config{
     
     private static String non_gui_config_location;
     
-    public Non_GUI_config(){
+    public NonGUIConfig(){
         non_gui_config_location = "resources/configs/non_gui_config.txt";
     }
     
-    public static Non_GUI_config get_instance(){
+    public static NonGUIConfig get_instance(){
         if(instance == null){
-            instance = new Non_GUI_config();
+            instance = new NonGUIConfig();
         }
         
         return instance;

@@ -8,18 +8,18 @@ package WebParserProject.Config;
  *
  * @author Jason
  */
-public class Config_factory {
+public class ConfigFactory {
     
-    public Config_factory(){}
+    public ConfigFactory(){}
     
     public static Config get_config(String application_type){
         if(Config.is_app_type_gui(application_type)){
-            GUI_config.set_application_type(application_type);
-            return GUI_config.get_instance();
+            GUIConfig.set_application_type(application_type);
+            return GUIConfig.get_instance();
         }
         else{
-            Non_GUI_config.set_application_type(application_type);
-            return Non_GUI_config.get_instance();
+            NonGUIConfig.set_application_type(application_type);
+            return NonGUIConfig.get_instance();
         }
     }
 }

@@ -8,7 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
-import WebParserProject.Job_delineator;
+import WebParserProject.JobDelineator;
 
 /**
  *
@@ -40,7 +40,7 @@ public class Gui {
             is_good = check_input();
         }
         
-        Job_delineator site_parser = new Job_delineator(starting_url, domain);
+        JobDelineator site_parser = new JobDelineator(starting_url, domain);
         site_parser.run();
         
     }

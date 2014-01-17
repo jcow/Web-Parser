@@ -5,7 +5,7 @@
 package WebParserProject.Output;
 
 import WebParserProject.Config.Config;
-import WebParserProject.Config.Non_GUI_config;
+import WebParserProject.Config.NonGUIConfig;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -256,7 +256,7 @@ public class Database_dump{
             return null;
         }
         
-        String sql = "INSERT INTO "+Non_GUI_config.get_database_name()+"."+table_name+" ";
+        String sql = "INSERT INTO "+NonGUIConfig.get_database_name()+"."+table_name+" ";
         
         sql += create_columns_string_for_prepared_statement(column_names);
         sql += " VALUES ";

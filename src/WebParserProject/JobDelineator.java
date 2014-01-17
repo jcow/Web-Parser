@@ -19,13 +19,13 @@ import WebParserProject.WebAssets.Web_url;
  *
  * @author Jason
  */
-public class Job_delineator {
+public class JobDelineator {
     
     private Site_getter site_reader;
     private String starting_url;
     private String domain;
     
-    public Job_delineator(String s_url, String dom){
+    public JobDelineator(String s_url, String dom){
         
         starting_url = s_url;
         domain = dom;
