@@ -4,7 +4,7 @@
  */
 package web_parser_project.libraries;
 
-import WebParserProject.Libraries.Spell_checker;
+import WebParserProject.Libraries.SpellChecker;
 import config.Config;
 import java.io.IOException;
 import org.junit.After;
@@ -20,7 +20,7 @@ import org.junit.Test;
  */
 public class Spell_checkerTest {
     
-    private Spell_checker instance;
+    private SpellChecker instance;
     
     public Spell_checkerTest() {
         
@@ -34,7 +34,7 @@ public class Spell_checkerTest {
         }
         
         
-        instance = Spell_checker.getInstance();
+        instance = SpellChecker.getInstance();
         
         try{
             instance.read();
@@ -66,8 +66,8 @@ public class Spell_checkerTest {
     @Test
     public void testGetInstance() {
         System.out.println("getInstance");
-        Spell_checker expResult = null;
-        Spell_checker result = Spell_checker.getInstance();
+        SpellChecker expResult = null;
+        SpellChecker result = SpellChecker.getInstance();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -81,7 +81,7 @@ public class Spell_checkerTest {
     public void testIs_misspelt() {
         System.out.println("is_misspelt");
         
-        assertEquals(false, instance.is_misspelt("aardvark"));
+        assertEquals(false, instance.IsMisspelt("aardvark"));
         
         
     }
@@ -92,7 +92,7 @@ public class Spell_checkerTest {
     @Test
     public void testRead() throws Exception {
         System.out.println("read");
-        Spell_checker instance = null;
+        SpellChecker instance = null;
         instance.read();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

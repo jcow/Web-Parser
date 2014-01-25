@@ -4,7 +4,7 @@
  */
 package web_parser_project;
 
-import WebParserProject.Libraries.Html_helper;
+import WebParserProject.Libraries.HTMLHelper;
 import java.net.URLConnection;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -44,8 +44,8 @@ public class Html_helperTest {
     @Test
     public void testGet_instance() {
         System.out.println("get_instance");
-        Html_helper expResult = null;
-        Html_helper result = Html_helper.get_instance();
+        HTMLHelper expResult = null;
+        HTMLHelper result = HTMLHelper.get_instance();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -59,7 +59,7 @@ public class Html_helperTest {
         System.out.println("is_http_address");
         String address = "";
         boolean expResult = false;
-        boolean result = Html_helper.is_http_address(address);
+        boolean result = HTMLHelper.is_http_address(address);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -74,7 +74,7 @@ public class Html_helperTest {
         String base_url = "";
         String test_url = "";
         boolean expResult = false;
-        boolean result = Html_helper.is_same_domain(base_url, test_url);
+        boolean result = HTMLHelper.is_same_domain(base_url, test_url);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -87,11 +87,11 @@ public class Html_helperTest {
     public void testStrip_page_anchor() {
         System.out.println("strip_page_anchor");
 
-        assertEquals("http://life.umt.edu", Html_helper.strip_page_anchor("http://life.umt.edu"));
+        assertEquals("http://life.umt.edu", HTMLHelper.strip_page_anchor("http://life.umt.edu"));
         
-        assertEquals("http://life.umt.edu", Html_helper.strip_page_anchor("http://life.umt.edu#happy_happy_joy_joy"));
+        assertEquals("http://life.umt.edu", HTMLHelper.strip_page_anchor("http://life.umt.edu#happy_happy_joy_joy"));
         
-        assertEquals(null, Html_helper.strip_page_anchor(null));
+        assertEquals(null, HTMLHelper.strip_page_anchor(null));
         
     }
     
@@ -102,13 +102,13 @@ public class Html_helperTest {
     public void testStrip_end_slash() {
         System.out.println("strip_end_slash");
 
-        assertEquals(null, Html_helper.strip_end_slash(null));
+        assertEquals(null, HTMLHelper.strip_end_slash(null));
         
-        assertEquals("", Html_helper.strip_end_slash(""));
+        assertEquals("", HTMLHelper.strip_end_slash(""));
         
-        assertEquals("http://life.umt.edu", Html_helper.strip_end_slash("http://life.umt.edu"));
+        assertEquals("http://life.umt.edu", HTMLHelper.strip_end_slash("http://life.umt.edu"));
         
-        assertEquals("http://life.umt.edu", Html_helper.strip_end_slash("http://life.umt.edu/"));
+        assertEquals("http://life.umt.edu", HTMLHelper.strip_end_slash("http://life.umt.edu/"));
         
         
         
@@ -124,7 +124,7 @@ public class Html_helperTest {
         System.out.println("is_404");
         int status = 0;
         boolean expResult = false;
-        boolean result = Html_helper.is_404(status);
+        boolean result = HTMLHelper.is_404(status);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -138,7 +138,7 @@ public class Html_helperTest {
         System.out.println("is_200");
         int status = 0;
         boolean expResult = false;
-        boolean result = Html_helper.is_200(status);
+        boolean result = HTMLHelper.is_200(status);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -151,16 +151,16 @@ public class Html_helperTest {
     public void testGet_extension(){
         
         String com = "http://mysite.com";
-        assertEquals("com", Html_helper.get_extension(com));
+        assertEquals("com", HTMLHelper.get_extension(com));
         
         String com2 = "http://mysite.com/noextension";
-        assertEquals("com", Html_helper.get_extension(com2));
+        assertEquals("com", HTMLHelper.get_extension(com2));
         
         String image = "http://mysite.com/some_picture.png";
-        assertEquals("png", Html_helper.get_extension(image));
+        assertEquals("png", HTMLHelper.get_extension(image));
         
         String nada = "asdfasdfadsfdas";
-        assertEquals(null, Html_helper.get_extension(nada));
+        assertEquals(null, HTMLHelper.get_extension(nada));
         
     }
     
@@ -173,13 +173,13 @@ public class Html_helperTest {
     public void testIs_non_html_url(){
         
         String normal = "http://mysite.com";
-        assertEquals(false, Html_helper.is_non_html_url(normal));
+        assertEquals(false, HTMLHelper.is_non_html_url(normal));
         
         String image = "http://mysite.com/some_picture.png";
-        assertEquals(true, Html_helper.is_non_html_url(image));
+        assertEquals(true, HTMLHelper.is_non_html_url(image));
         
         String video = "http://mysite.com/some_video.mp3";
-        assertEquals(true, Html_helper.is_non_html_url(video));
+        assertEquals(true, HTMLHelper.is_non_html_url(video));
         
     }
 }
