@@ -16,6 +16,10 @@ import java.util.LinkedList;
  */
 public class SpellChecker {
     
+	/*
+	 *	Other dictionary sources
+	 *  http://www.gutenberg.org/files/29765/29765-8.txt
+	 */
     private HashMap<String,String> dictionary;
     
     private static SpellChecker instance = null;
