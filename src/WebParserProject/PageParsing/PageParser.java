@@ -96,61 +96,63 @@ public class PageParser {
         }
     }
     
+	/**
+	 * Parses the body contents of the html page
+	 * @param body 
+	 */
     public void parse_body(Element body){
+		parse_node(body);
         parse_body_nodes(body.children());
     }
-    
-    
-    /**
-     * Recurses a set of nodes and gets their children
-     * @param nodes
-     * @param tab 
-     */
-    public void parse_body_nodes(Elements nodes){
-        
+	
+	public void parse_body_nodes(Elements nodes){
         if(nodes.isEmpty() == false){
             ListIterator<Element> iterator = nodes.listIterator();
             Element node;
             while(iterator.hasNext()){
                 node = iterator.next();
                 
+                // parse out the children of this node
                 if(is_ignore_node(node) == false){
-                
-                    // check if the node is deprecated
-                    check_if_node_is_deprecated(node);
-
-                    // check if the node contains inline styling
-                    check_if_node_contains_inline_styling(node);
-
-                    // if the node is an image
-                    if(HTMLHelper.is_node_image(node)){
-                        check_image_node(node);
-                    }
-
-                    // if the node is a link
-                    if(HTMLHelper.is_node_anchor(node)){
-                        check_anchor(node.text());
-                    }
-
-                    // if the node is an form element that should have an associated label
-                    if(HTMLHelper.should_node_have_associated_label(node)){
-                        label_to_form_element.add_to_form_element(node); 
-                    }
-                    // if the node is a label
-                    else if(HTMLHelper.is_node_label(node)){
-                        label_to_form_element.add_to_labels(node.attr("for"));
-                    }
-
-                    // check the text of the node
-                    check_text(Text_helper.split_text_to_individual_words(node.ownText()));
-
-                    // parse out the children of this node
+					parse_node(node);
                     parse_body_nodes(node.children());
                 }
             }
         }
         
     }
+    
+	public void parse_node(Element node){
+		if(is_ignore_node(node) == false){
+			// check if the node is deprecated
+			check_if_node_is_deprecated(node);
+
+			// check if the node contains inline styling
+			check_if_node_contains_inline_styling(node);
+
+			// if the node is an image
+			if(HTMLHelper.is_node_image(node)){
+				check_image_node(node);
+			}
+
+			// if the node is a link
+			if(HTMLHelper.is_node_anchor(node)){
+				check_anchor(node.text());
+			}
+
+			// if the node is an form element that should have an associated label
+			if(HTMLHelper.should_node_have_associated_label(node)){
+				label_to_form_element.add_to_form_element(node); 
+			}
+			// if the node is a label
+			else if(HTMLHelper.is_node_label(node)){
+				label_to_form_element.add_to_labels(node.attr("for"));
+			}
+
+			// check the text of the node
+			check_text(Text_helper.split_text_to_individual_words(node.ownText()));
+		}
+	}
     
     private void check_if_node_contains_inline_styling(Element node){
         if(html_helper.contains_inline_styling(node)){
@@ -192,7 +194,6 @@ public class PageParser {
                 }
                 
             }
-            
         }
         
     }
