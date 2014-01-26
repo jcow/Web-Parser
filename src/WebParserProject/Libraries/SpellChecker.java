@@ -78,8 +78,6 @@ public class SpellChecker {
         
         LinkedList<String> read_in_dictionary = ProjectFileReader.read_file(Config.get_dictionary_location());
         
-        
-        
         if(read_in_dictionary == null){
             throw new IOException("Dictionary cannot be null");
         }
