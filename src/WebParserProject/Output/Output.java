@@ -59,7 +59,7 @@ public class Output {
     
     private static void open_gui(){
         try {
-            File the_file = new File("front_end/main.html");
+            File the_file = new File("front_end/index.html");
             Desktop.getDesktop().browse(the_file.toURI());
         } catch (IOException ex) {
             Logger.getLogger(Output.class.getName()).log(Level.SEVERE, null, ex);
