@@ -1,4 +1,4 @@
-html_parser.urls.data = {
+var site_data = {
         {{#parse_result}}
         "starting_url":"{{starting_url}}",
         "domain":"{{domain}}",
