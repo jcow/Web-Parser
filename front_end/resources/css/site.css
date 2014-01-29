@@ -1,0 +1,97 @@
+/*CSS for bootstrap*/
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+body{
+	background-image:url('../images/grey.png');
+}
+
+.main_bar{
+	position:fixed;
+	height:50px;
+	width:100%;
+	left:0;
+	top:0;
+	background-color:#0F5779;
+	color:#fff;
+}
+
+h1.site_name{
+	margin:0;
+	padding:10px 40px;
+	font-size:26px;
+}
+
+.navigation{
+	padding-top:30px;
+	width:220px;
+	background-color:#333;
+	color:#fff;
+	position:fixed;
+	height:50px;
+	left:0;
+	top:50px;
+	height:100%;
+	font-size:15px;
+}
+
+.navigation ul{
+	margin-left:0;
+	padding-left:0;
+}
+
+.navigation ul li:last-child{
+	border:none;
+}
+
+.navigation ul li{
+	list-style-type: none;
+	border-bottom: 1px solid #666;
+}
+
+.navigation ul li.active a{
+	color:#fff;
+	font-weight: bold;
+}
+
+.navigation a{
+	color:#a8a8a8;
+	display:block;
+	padding:10px 20px;
+}
+
+.navigation a:hover{
+	text-decoration: none;
+}
+
+.main_container{
+	margin-left:220px;
+}
+
+.main_container h1{
+	margin-top:0;
+	padding:5px 20px;
+	margin-top:60px;	
+	margin-bottom:10px;
+}
+
+.content_container{
+	background-color: #fff;
+	margin-left:20px;
+	margin-right:20px;
+	padding:20px;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	box-shadow: rgba(0, 0, 0, 0.14) 2px 2px 30px 0px;
+	overflow:auto;
+}
+
+.content_container h2:first-child{
+	margin-top:0;
+}
+
+h2{
+	border-bottom:1px solid #ccc;
+	padding-bottom: 3px;
+}
+
+

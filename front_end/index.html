@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en" ng-app="parserApp">
+<head>
+  <meta charset="utf-8">
+  <title>Web Parser</title>
+  <link rel="stylesheet" href="resources/libraries/bootstrap/css/bootstrap.css"/>
+  <link rel="stylesheet" href="resources/css/site.css"/>
+
+  <script src="resources/libraries/angular/angular.min.js"></script>
+  <script src="resources/libraries/angular/angular-route.js"></script>
+  <script src="resources/libraries/angular/ui-bootstrap-tpls-0.10.0.min.js"></script>
+  <script src="resources/js/data.js"></script>
+
+  <script src="resources/js/app.js"></script>
+  <script src="resources/js/controllers.js"></script>
+  <script src="resources/js/services.js"></script>
+</head>
+<body ng-controller="mainController">
+	<section>
+		<div class="main_bar">
+			<h1 class="site_name">
+			<img src="resources/images/logo.png"/>
+			sSpyder</h1>
+		</div>
+			
+		<div class="navigation" role="navigation" ng-controller="navController">
+	      <ul>
+		      <li ng-class="{ active: is_active('/dashboard')}"><a href="#">Dashboard</a></li>
+		      <li ng-class="{ active: is_active('/urls')}"><a href="#/urls">URLs</a></li>
+		      <li ng-class="{ active: is_active('/misspellings')}"><a href="#/misspellings">Misspellings</a></li>
+		      <li ng-class="{ active: is_active('/accessibility')}"><a href="#/accessibility">Accessibility</a></li>
+		      <li ng-class="{ active: is_active('/other')}"><a href="#/other">Other</a></li>
+	      </ul>
+	    </div>
+	</section>
+	<section ng-view class="main_container"></section>
+ 
+</body>
+</html>
+
+
+
+
+
+<script type="text/ng-template" id="dashboard_template">
+	<h1>Dashboard</h1>
+
+	<div class="content_container">
+		<h2>Traversal Results</h2>
+		<dl class="dl-horizontal">
+			<dt>Starting URL</dt>
+			<dd>{{data.starting_url}}</dd>
+			<dt>Domain</dt>
+			<dd>{{data.domain}}</dd>
+			<dt>Total Images</dt>
+			<dd>{{data.total_images}}</dd>
+			<dt>Same-Domain Pages</dt>
+			<dd>{{data.total_same_domain_pages}}</dd>
+			<dt>Same-Domain URLs</dt>
+			<dd>{{data.total_same_domain_urls}}</dd>
+			<dt>Total Time</dt>
+			<dd>{{milli_to_time(data.total_time)}}</dd>
+			<dt>Total URLs</dt>
+			<dd>{{data.total_urls}}</dd>
+		</dl>
+		
+		<h2>Potential Issues</h2>
+		<dl class="dl-horizontal">
+			<dt>Misspellings</dt>
+			<dd>{{data.total_misspellings}}</dd>
+			<dt>Accessibility Issues</dt>
+			<dd>{{accessibility_issues}}</dd>
+			<dt>4xx Pages</dt>
+			<dd>{{http_four_hundreds.length}}</dd>
+			<dt>5xx Pages</dt>
+			<dd>{{http_five_hundreds.length}}</dd>
+			<dt>Deprecated Tags</dt>
+			<dd>{{deprecated_tags}}</dd>
+		</dl>
+	</div>
+</script>
+
+
+<script type="text/ng-template" id="urls_template">
+	<h1>Search URLs</h1>
+	<div class="content_container">
+	<form role="form">
+		  <div class="form-group">
+		    <label >URL</label>
+		    <input class="form-control" 
+		    	ng-change="search()"
+			    ng-model="url_query" 
+			    placeholder="URL">
+		  </div>
+		  <div class="form-group">
+		    <label>HTTP Codes <br/><em class="text-muted" style="font-weight:normal;">Seperate with commas for multiples.<br/> Use NUMxx for codes in an entire set e.g. 4xx</em></label>
+		    <input class="form-control"
+		    	ng-change="search()"
+		    	ng-model="http_codes_query"
+		    	placeholder="HTTP Codes">
+		  </div>
+		</form>
+
+		<p ng-show="filtered.length > 0">
+			<strong>Results:</strong> {{filtered.length}}
+		</p>
+		<accordion>
+			<accordion-group heading="{{url_data.url}}" ng-repeat="url_data in filtered">
+				<h2>URL Information</h2>
+				<dl>
+					<dt>Direct Parent</dt>
+			    	<dd>{{url_data.direct_parent}}</dd>
+			    	<dt>HTTP Code</dt>
+			    	<dd>{{url_data.http_code}}</dd>
+			    	<dt>Last Modified</dt>
+			    	<dd>{{last_modified(url_data.last_modified)}}</dd>
+			    	<dt>Size</dt>
+			    	<dd>{{bytesToSize(url_data.content_length)}}</dd>
+			    </dl>
+
+			    <div ng-show="{{has_html_asset(url_data)}}">
+			    	<h2>Page Information</h2>
+			    	<dl>
+			    		<dt>Title</dt>
+			    		<dd>{{url_data.html_asset.title}} &nbsp;</dd>
+			    		<dt>Description</dt>
+			    		<dd>{{url_data.html_asset.description}} &nbsp;</dd>
+			    		<dt>Emails</dt>
+			    		<dd>
+			    			<span ng-show="url_data.html_asset.emails.length === 0">No Emails</span>
+			    			<ul ng-show="url_data.html_asset.emails.length > 0">
+			    				<li ng-repeat="email in url_data.html_asset.emails">{{email}}</li>
+			    			</ul>
+			    		</dd>
+			    		<dt>Inputs No Labels</dt>
+			    		<dd>{{url_data.html_asset.inputs_no_labels.length}}</dd>
+			    		<dt>Misspellings</dt>
+			    		<dd>{{url_data.html_asset.misspellings.length}}</dd>
+			    		<dt>Poor Link Naming</dt>
+			    		<dd>{{url_data.html_asset.poor_link_naming.length}}</dd>
+			    	</dl>
+			    	
+			    </div>
+		    </accordion-group>
+	  	</accordion>
+	</div>
+</script>
+
+
+<script type="text/ng-template" id="misspellings_template">
+	<h1>Misspellings</h1>
+
+	<div class="content_container">
+		<form role="form">
+			<label for="show_by">Show By</label>
+			<select 
+				ng-init="options_query = options[0]" 
+				ng-model="options_query" 
+				ng-options="option.name for option in options" 
+				ng-change = "change_show_type()"
+				id="show_by"
+				class="form-control">
+			</select>
+		</form>
+		<div ng-show="show_type == 'by_url'">
+			<div ng-repeat="url_data in misspellings">
+				<p>
+					<h2>{{url_data.url}}</h2>
+					<ul>
+						<li ng-repeat="misspelling in url_data.html_asset.misspellings track by $index">
+							{{misspelling}}
+						</li>
+					</ul>
+				</p>
+			</div>
+		</div>
+		<div ng-show="show_type == 'by_list'">
+			<p>
+				<ul>
+					<li ng-repeat="misspelling in misspellings_list">{{misspelling}}</li>
+				</ul>
+			</p>
+		</div>
+	</div>
+</script>
+
+
+
+<script type="text/ng-template" id="accessibility_template">
+
+	<h1>Accessibilty</h1>
+
+	<div class="content_container">
+		<h2>Inputs No Labels</h2>
+		<span ng-show="inputs_no_labels.length === 0">None</span>
+		<div ng-show="inputs_no_labels.length > 0" ng-repeat="url_data in inputs_no_labels">
+			<h3>{{url_data.url}}</h3>
+			<ul class="list-unstyled">
+				<li ng-repeat="input_no_label in url_data.html_asset.inputs_no_labels">
+					<dl class="dl-horizontal">
+						<dt>HTML Tag</dt>
+						<dd>{{input_no_label.tag_name}}</dd>
+						<dt>Id Attribute</dt>
+						<dd>{{input_no_label.id_value}}</dd>
+						<dt>Name Attribute</dt>
+						<dd>{{input_no_label.for_value}}</dd>
+					</dl>
+				</li>
+			</ul>
+		</div>
+
+		<h2>No Alternative Text</h2>
+		<span ng-show="no_alt_text.length === 0">None</span>
+		<div ng-show="no_alt_text.length > 0" ng-repeat="url_data in no_alt_text">
+			<h3>{{url_data.url}}</h3>
+			<ul>
+				<li ng-repeat="no_alt_text_data in url_data.html_asset.no_alt_text">
+					{{no_alt_text_data}}
+				</li>
+			</ul>
+		</div>
+
+		<h2>Poor Link Names</h2>
+		<span ng-show="poor_link_naming.length === 0">None</span>
+		<div ng-show="poor_link_naming.length > 0" ng-repeat="url_data in poor_link_naming">
+			<h3>{{url_data.url}}</h3>
+			<ul>
+				<li ng-repeat="poor_link_name in url_data.html_asset.poor_link_naming">
+					{{poor_link_name}}
+				</li>
+			</ul>
+		</div>
+
+	</div>
+
+</script>
+
+
+<script type="text/ng-template" id="other_template">
+	<h1>Other</h1>
+	<div class="content_container">
+		<h2>Deprecated Tags</h2>
+		<p ng-show="deprecated_tags.length == 0">No deprecated tags</p>
+		<p ng-show="deprecated_tags.length > 0">
+			<ul>
+				<li ng-repeat="deprecated_tag in deprecated_tags">
+					{{deprecated_tag}}
+				</li>
+			</ul>
+		</p>
+	</div>
+</script>
