@@ -196,7 +196,7 @@
 		<div ng-show="inputs_no_labels.length > 0" ng-repeat="url_data in inputs_no_labels">
 			<h3>{{url_data.url}}</h3>
 			<ul class="list-unstyled">
-				<li ng-repeat="input_no_label in url_data.html_asset.inputs_no_labels">
+				<li ng-repeat="input_no_label in url_data.html_asset.inputs_no_labels track by $index">
 					<dl class="dl-horizontal">
 						<dt>HTML Tag</dt>
 						<dd>{{input_no_label.tag_name}}</dd>
@@ -214,7 +214,7 @@
 		<div ng-show="no_alt_text.length > 0" ng-repeat="url_data in no_alt_text">
 			<h3>{{url_data.url}}</h3>
 			<ul>
-				<li ng-repeat="no_alt_text_data in url_data.html_asset.no_alt_text">
+				<li ng-repeat="no_alt_text_data in url_data.html_asset.no_alt_text track by $index">
 					{{no_alt_text_data}}
 				</li>
 			</ul>
@@ -225,7 +225,7 @@
 		<div ng-show="poor_link_naming.length > 0" ng-repeat="url_data in poor_link_naming">
 			<h3>{{url_data.url}}</h3>
 			<ul>
-				<li ng-repeat="poor_link_name in url_data.html_asset.poor_link_naming">
+				<li ng-repeat="poor_link_name in url_data.html_asset.poor_link_naming track by $index">
 					{{poor_link_name}}
 				</li>
 			</ul>
