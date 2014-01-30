@@ -33,6 +33,7 @@ public class GUIConfig extends Config{
         return instance;
     }
     
+	@Override
     public void initialize(){
         super.parse_config_contents(super.read(config_location));
         parse_gui_config_contents(super.read(gui_config_location));
