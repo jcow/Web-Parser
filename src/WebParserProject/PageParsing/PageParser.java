@@ -172,7 +172,7 @@ public class PageParser {
     private void check_text(String[] words){
         
         for(int i = 0; i < words.length; i++){
-            
+            System.out.println(words[i]);
             // check if it contains a number leave it alone
             if(Text_helper.contains_number(words[i]) == false){
                 
@@ -199,11 +199,20 @@ public class PageParser {
     }
     
     private void spell_check_text(String text){
-        String clean_text = spell_checker.clean(text);
-        if(spell_checker.IsMisspelt(clean_text)){
-            parse_asset.add_to_total_misspellings(1);
-            current_html_asset.add_to_misspellings(clean_text);
-        }
+		String[] textArr = {text};
+		String entity = HTMLHelper.get_instance().contains_html_entity(text);
+		if(entity != null){
+			textArr = text.split(entity);
+		}
+		
+		for(int i = 0; i < textArr.length; i++){
+			String t = textArr[i];
+			String misspelledWord = spell_checker.IsMisspelt(t);
+			if(misspelledWord != null){
+				parse_asset.add_to_total_misspellings(1);
+				current_html_asset.add_to_misspellings(misspelledWord);
+			}
+		}
     }
     
     private void check_image_node(Element node){

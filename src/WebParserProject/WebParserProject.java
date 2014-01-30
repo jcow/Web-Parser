@@ -7,6 +7,7 @@ package WebParserProject;
 import java.io.IOException;
 import WebParserProject.Config.Config;
 import WebParserProject.Config.ConfigFactory;
+import WebParserProject.Libraries.HTMLHelper;
 import WebParserProject.Libraries.IncomingArgs;
 import WebParserProject.Libraries.SpellChecker;
 import WebParserProject.RunTypes.GUI;

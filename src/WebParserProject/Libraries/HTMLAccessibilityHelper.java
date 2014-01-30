@@ -15,6 +15,8 @@ public class HTMLAccessibilityHelper {
     private static HTMLAccessibilityHelper instance;
     private static HashMap<String,String> poor_link_names;
     
+	// TODO - Add urls to the poor link naming scheme
+	
     public HTMLAccessibilityHelper(){
         poor_link_names = new HashMap();
         poor_link_names.put("click here", "click here");

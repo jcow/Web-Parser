@@ -18,9 +18,12 @@ public class HTMLHelper {
     private static HTMLHelper instance;
     
     // TODO, this list needs to be larger and include videos, etc
+	private static final String regex_for_urls = "/((([A-Za-z]{3,9}:(?:\\/\\/)?)(?:[-;:&=\\+\\$,\\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\\+\\$,\\w]+@)[A-Za-z0-9.-]+)((?:\\/[\\+~%\\/.\\w-_]*)?\\??(?:[-\\+=&;%@.\\w_]*)#?(?:[\\w]*))?)/";
     private static String image_extensions = "png,jpg,gif";
     private static String video_extensions = "mp3";
-    private static HashMap<String,String> deprecated_tags;
+    private HashMap<String,String> deprecated_tags;
+	private HashMap<String,String> html_entities;
+	
     
     
     private HTMLHelper(){
@@ -36,8 +39,35 @@ public class HTMLHelper {
         deprecated_tags.put("xmp", "xmp");
         deprecated_tags.put("plaintext", "plaintext");
         deprecated_tags.put("listing", "listing");
+		
+		html_entities = new HashMap();
+		html_entities.put("&nbsp;", "&nbsp;");
+		html_entities.put("&lt;", "&lt;");
+		html_entities.put("&gt;", "&gt;");
+		html_entities.put("&amp;", "&amp;");
+		html_entities.put("&cent;", "&cent;");
+		html_entities.put("&pound;", "&pound;");
+		html_entities.put("&yen;", "&yen;");
+		html_entities.put("&euro;", "&euro;");
+		html_entities.put("&copy;", "&copy;");
+		html_entities.put("&reg;", "&reg;");
+		
+		html_entities.put("&#160;", "&#160;");
+		html_entities.put("&#60;", "&#60;");
+		html_entities.put("&#62;", "&#62;");
+		html_entities.put("&#38;", "&#38;");
+		html_entities.put("&#162;", "&#162;");
+		html_entities.put("&#163;", "&#163;");
+		html_entities.put("&#165;", "&#165;");
+		html_entities.put("&#8364;", "&#8364;");
+		html_entities.put("&#169;", "&#169;");
+		html_entities.put("&#174;", "&#174;");
+		html_entities.put("&#39;", "&#39;");
+		
+		
+		
+		
     }
-    
     
     public static HTMLHelper get_instance(){
         if(instance == null){
@@ -46,6 +76,28 @@ public class HTMLHelper {
         
         return instance;
     }
+	
+	public boolean is_html_entity(String word){
+		return html_entities.containsKey(word);
+	}
+	
+	public String remove_html_entities(String word){
+		for (String key : html_entities.keySet()){
+			if(word.contains(key)){
+				word = word.replace(key, "");
+			}
+		}
+		return word;
+	}
+	
+	public String contains_html_entity(String word){
+		for (String key : html_entities.keySet()){
+			if(word.contains(key)){
+				return key;
+			}
+		}
+		return null;
+	}
     
     public static boolean is_http_address(String address){
         if(address.indexOf("http") == -1 && address.indexOf("https") == -1){
@@ -55,6 +107,10 @@ public class HTMLHelper {
             return true;
         }
     }
+	
+	public static boolean is_url(String s){
+		return s.matches(HTMLHelper.regex_for_urls);
+	}
     
     public static boolean is_same_domain(String base_url, String test_url){
         if(test_url.contains(base_url)){

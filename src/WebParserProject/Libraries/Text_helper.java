@@ -16,6 +16,10 @@ public class Text_helper {
     private static final String regex_for_text_splitting = "[ ]+|-|/";
     
     public Text_helper(){}
+	
+	public static String trueTrim(String word){
+		return word.replace(String.valueOf((char) 160), " ").trim();
+	}
     
     /**
      * Splits a string into individual words based on a specific set of characters    private static EmailValidator email_validator = EmailValidator.getInstance();
@@ -30,6 +34,22 @@ public class Text_helper {
             return null;
         }
     }
+	
+	public static String remove_char_from_end_of_string(String word, char[] chars){
+		if(word == null || word.length() == 0){
+			return word;
+		}
+		
+		int last = word.length()-1;
+		for(int i = 0; i < chars.length; i++){
+			if(word.charAt(last) == chars[i]){
+				word = word.substring(0,last);
+				break;
+			}
+		}
+		
+		return word;
+	}
     
     public static String remove_punctuation_from_ends(String the_string){
         
@@ -103,12 +123,14 @@ public class Text_helper {
     }
     
     public static boolean is_acronym(String word){
-        if(StringUtils.isAllUpperCase(word)){
-            return true;
-        }
-        else{
-            return false;
-        }
+		if(word.contains(".") != false){
+			return word.matches("(?:[A-z]\\.)+");
+		}
+		else if(Text_helper.isAlpha(word) && StringUtils.isAllUpperCase(word)){
+			return true;
+		}
+		
+		return false;
     }
     
     public static boolean is_number(String word){
@@ -136,4 +158,16 @@ public class Text_helper {
         
         return false;
     }
+	
+	public static boolean isAlpha(String name) {
+		char[] chars = name.toCharArray();
+
+		for (char c : chars) {
+			if(!Character.isLetter(c)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 }

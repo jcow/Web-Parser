@@ -34,13 +34,6 @@ public class SpellChecker {
            return instance;
     }
     
-    public String clean(String word){
-        word = word.trim();                                     // trim
-        word = Text_helper.remove_punctuation_from_ends(word);  // remove the punctuation from ends
-        
-        return word;
-    }
-    
     /**
      * Takes in a word that hasn't been formatted and determines if it's misspelt
      * You should probably run the string through the clean function first
@@ -48,27 +41,36 @@ public class SpellChecker {
      * @return 
      *      Returns true if the word was misspelt
      */
-    public boolean IsMisspelt(String word){
-
-        // empty, leave it
-        if(word == null || word.length() == 0){return false;}
-      
-        // make it lower case
-        word = word.toLowerCase();
-        
-        // all puncuation, now empty
-        // or it's a number
-        // or if it's all upper-case
-        if(word.length() == 0 || Text_helper.is_number(word) || Text_helper.is_acronym(word)){
-            return false;
-        }
-        
+    public String IsMisspelt(String word){
+		
+        if(	word == null){return null;}
+		
+		word = Text_helper.trueTrim(word);
+		if(word.length() <= 1){return null;}
+		
+		if(Text_helper.is_number(word) == true){return null;}
+		
+		char[] chars = {',','"','\'','!','?'};
+		word = Text_helper.remove_char_from_end_of_string(word, chars);
+		if(Text_helper.is_acronym(word) == true){return null;}
+      	
+		word = HTMLHelper.get_instance().remove_html_entities(word);
+		word = Text_helper.remove_punctuation_from_ends(word);
+		
+		if(word.length() <= 1){return null;}
+		
+		if( Text_helper.is_email(word) == true ||
+			HTMLHelper.is_url(word)
+		){return null;}
+		
+		word = word.toLowerCase();
+		
         //  otherwise, look in the dictionary
         if(dictionary.containsKey(word)){
-            return false;
+            return null;
         }  
         else{
-            return true;
+            return word;
         }
     }
     
