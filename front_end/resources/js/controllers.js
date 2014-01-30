@@ -28,9 +28,6 @@ parserAppControllers.controller('dashboardController', function($scope, dataQuer
 		'http_codes':['2xx','3xx','4xx','5xx']
 	})
 
-
-	console.log(misspellings.get_list($scope.data))
-
 	$scope.http_two_hundreds = query.http_codes['2xx']
 	$scope.http_three_hundreds = query.http_codes['3xx']
 	$scope.http_four_hundreds = query.http_codes['4xx']
