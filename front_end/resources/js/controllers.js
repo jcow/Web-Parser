@@ -16,7 +16,7 @@ parserAppControllers.controller('navController', function($scope, $location){
 	}
 })
 
-parserAppControllers.controller('dashboardController', function($scope, dataQuery, helpers, deprecated_tags) {
+parserAppControllers.controller('dashboardController', function($scope, dataQuery, helpers, deprecated_tags, misspellings) {
 	$scope.milli_to_time = function(milli){
 		return helpers.milli_to_time(milli)
 	}
@@ -28,12 +28,16 @@ parserAppControllers.controller('dashboardController', function($scope, dataQuer
 		'http_codes':['2xx','3xx','4xx','5xx']
 	})
 
+
+	console.log(misspellings.get_list($scope.data))
+
 	$scope.http_two_hundreds = query.http_codes['2xx']
 	$scope.http_three_hundreds = query.http_codes['3xx']
 	$scope.http_four_hundreds = query.http_codes['4xx']
 	$scope.http_five_hundreds = query.http_codes['5xx']
 	$scope.accessibility_issues = query.inputs_no_labels.length+query.no_alt_text.length+query.poor_link_naming.length
 	$scope.deprecated_tags = deprecated_tags.get_list($scope.data, true).length
+	$scope.unique_misspellings = misspellings.get_list($scope.data,true).length
 });
 
 parserAppControllers.controller('urlsController', function($scope,helpers,dataQuery) {

@@ -152,7 +152,7 @@ parserApp.factory('deprecated_tags', function(dataQuery) {
 })
 
 parserApp.factory('misspellings', function(dataQuery) {
-	var get_list = function(data){
+	var get_list = function(data, array_option){
 		var query = dataQuery.get(data,{
 			'misspellings':true
 		})	
@@ -164,7 +164,17 @@ parserApp.factory('misspellings', function(dataQuery) {
 				ret[html_asset.misspellings[j]] = html_asset.misspellings[j]
 			}
 		}
-		return ret
+		
+		if(array_option !== true){
+			return ret
+		}
+
+		var new_ret = []
+		for(var i in ret){
+			new_ret.push(ret[i])
+		}
+
+		return new_ret
 	}
 
 	var get = function(data){
