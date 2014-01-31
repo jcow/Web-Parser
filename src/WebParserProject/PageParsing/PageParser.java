@@ -172,7 +172,6 @@ public class PageParser {
     private void check_text(String[] words){
         
         for(int i = 0; i < words.length; i++){
-            System.out.println(words[i]);
             // check if it contains a number leave it alone
             if(Text_helper.contains_number(words[i]) == false){
                 
